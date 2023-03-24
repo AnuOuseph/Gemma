@@ -1,0 +1,64 @@
+ <style>
+  .heart-icon{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    background-color: white;
+    border-radius: 50%;
+  }
+ </style>
+<div class="site-wrap">
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+            {{#each wishItem}}
+              <div class="col-lg-3 col-md-4 item-entry mb-4">
+                <a href="/product-details/{{this.product._id}}" class="sm-height bg-gray d-block">
+                  <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
+                </a>
+                  <div class="d-flex">
+                    <div>
+                      <a href="" class="icons-btn heart-icon d-inline-block" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a>
+                      <h2 class="item-title mt-4"><a href="/product-details/{{this.product._id}}">{{this.product.name}}</a></h2>
+                      <strong class="item-price mt-4">Rs.{{this.product.price}}</strong>
+                         {{!-- <div class="star-rating">
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                        </div>    --}}
+                    </div>
+                    <div class="ml-auto">
+                      <button onclick="addToCart('{{this.product._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
+                    </div>
+                  </div>
+              </div>
+              {{/each}}
+        </div>
+      </div>
+    </div>
+
+    
+
+    
+  </div>
+  <script>
+    function removeWishlist(wishlistId,proId){
+      $.ajax({
+        url:'/remove-wishlist',
+        data:{
+          wishlist:wishlistId,
+          product:proId
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.removeProduct){
+            alert("product removed from wishlist")
+             location.reload()
+          }
+         
+        }
+      })
+    }
+  </script>

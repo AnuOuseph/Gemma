@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="/css/aos.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Gemma</title>
+</head>
+<body>
+    <div class="site-section ">
+    <div class="container">
+        <div class="row ">
+        <div class="col-md-12 text-center">
+            <h2 class="h3 mb-3 text-black">Hello! let's get started</h2>
+        </div>
+        <div class="col-md-7 mx-auto align-items-center justify-content-center">
+            <form action="/otp-enter" id="submit-form" method="post">
+                <div class="p-3 p-lg-5 border ">
+                    <div class="brand-logo">
+                        <!-- <img src="../../assets/images/logo.svg"> -->
+                        <h3 style="color:#000">GEMMA</h3>
+                    </div>
+                    <h6 class="font-weight-light mt-2 mb-2">Login to your account.</h6>   
+                
+                <div class="form-group row">
+                    <div class="col-md-12">
+                    <label for="c_email" class="text-black">Enter OTP <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="otp" name="otp" placeholder="" onkeyup="validatePhone()"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" onclick="return validateForm()" value="Sign In">
+                    <span id="submit-error" class="validation-label"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+                </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    {{!-- <script type="text/javascript" src="/javascripts/signup-validation.js"></script> --}}
+</body>
+</html>

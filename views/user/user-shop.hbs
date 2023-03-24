@@ -1,0 +1,363 @@
+ <style>
+  .heart-icon{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    background-color: white;
+    border-radius: 50%;
+  }
+ </style>
+ <div class="site-wrap">
+    
+    <div class="site-blocks-cover inner-page" data-aos="fade">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+            <h2 class="sub-title">#New Summer Collection 2019</h2>
+            <h1>Arrivals Sales</h1>
+            <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img src="images/b1.png" alt="Image" class="img-fluid"> {{!model_4.png}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-border-bottom py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section">
+      <div class="container">
+
+        <div class="row mb-5">
+          <div class="col-md-9 order-1">
+
+            <div class="row align">
+              <div class="col-md-12 mb-5">
+                <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
+                <div class="d-flex">
+                  <div class="dropdown mr-1 ml-md-auto">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Latest
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                      <a class="dropdown-item" href="#">Men</a>
+                      <a class="dropdown-item" href="#">Women</a>
+                      <a class="dropdown-item" href="#">Children</a>
+                    </div>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      <a class="dropdown-item" href="#">Relevance</a>
+                      <a class="dropdown-item" href="#">Name, A to Z</a>
+                      <a class="dropdown-item" href="#">Name, Z to A</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Price, low to high</a>
+                      <a class="dropdown-item" href="#">Price, high to low</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-5">
+              {{#each products}}
+              {{#if productStatus}}
+              <div class="col-lg-6 col-md-6 item-entry mb-4">
+                <a href="/product-details/{{this._id}}" class="sm-height bg-gray d-block">
+                  <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
+                </a>
+                  <div class="d-flex">
+                    <div>
+                      {{#if wishlist}}
+                          <a href="" class="icons-btn heart-icon d-inline-block" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-heart"></span></a> 
+                      {{else}} 
+                          <a href="/add-to-wishlist/{{this._id}}" class="icons-btn heart-icon d-inline-block"><span class="icon-heart-o"></span></a>
+                      {{/if}}
+                      <h2 class="item-title mt-4"><a href="/product-details/{{this._id}}">{{this.name}}</a></h2>
+                      <strong class="item-price mt-4">{{this.price}}</strong>
+                    </div>
+                    <div class="ml-auto">
+                      <button onclick="addToCart('{{this._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
+                    </div>
+                  </div>
+              </div>
+              {{/if}}
+              {{/each}}
+             
+            </div> 
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <div class="site-block-27">
+                  {{!-- <div class="wrapper">
+                      <ul id="paginate">
+                          <li class="btn"><i class="fas fa-angle-left"></i></li>
+                          <li class="numb"><span>1</span></li>
+                          <li class="numb active"><span>2</span></li>
+                          <li class="numb"><span>3</span></li>
+                          <li class="numb"><span>4</span></li>
+                          <li class="numb"><span>5</span></li>
+                          <li class="btn"><i class="fas fa-angle-right"></i></li>
+                      </ul>
+                  </div> --}}
+                  <ul id="paginate">
+                    <li><a href="#">&lt;</a></li>
+                  {{!-- {{#each pages}}
+                      <li>
+                          <a href="?page={{this}}">
+                              {{this}}
+                          </a>
+                      </li>
+                  {{/each}}
+                    {{#each pages}} --}}
+                    <li class="active"><span>1</span></li> 
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li> 
+                    {{!-- {{/each}}  --}}
+                    <li><a href="#">&gt;</a></li>
+                  </ul>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 order-2 mb-5 mb-md-0">
+            <div class="border p-4 rounded mb-4">
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+              <ul class="list-unstyled mb-0">
+                {{#each category}}
+                <li class="mb-1"><a href="/filter-category/{{this._id}}" class="d-flex"><span>{{this.category}}</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+                {{/each}}
+              </ul>
+            </div>
+
+            <div class="border p-4 rounded mb-4">
+              <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+                <div id="slider-range" class="border-primary"></div>
+                <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+              </div>
+              <form action="/filter-price" method="post">
+                <div class="mb-4">
+                <label for="s_sm" class="d-flex">
+                  <input type="radio" id="s_sm" value="15000" name="fprice"  class="mr-2 mt-1"> <span class="text-black"> Rs.15,000.00</span>
+                </label>
+                <label for="s_md" class="d-flex">
+                  <input type="radio" id="s_md" value="20000" name="fprice" class="mr-2 mt-1"> <span class="text-black">Rs.15,000.00 - Rs.20,000.00</span>
+                </label>
+                <label for="s_lg" class="d-flex">
+                  <input type="radio" id="s_lg" value="25000" name="fprice" class="mr-2 mt-1"> <span class="text-black">Rs.20,000.00 - Rs.25,000.00</span>
+                </label>
+                <div class="d-flex">
+                <button type="submit" class="btn btn-sm height-auto px-3 py-1 btn-primary ml-auto" >Fiter</button>
+                </div>
+                </div>
+              </form>
+
+              <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Metals</h3>
+                <a href="#" class="d-flex color-item align-items-center" >
+                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #FFD700;"></span> <span class="text-black">Gold</span>
+                </a>
+                <a href="#" class="d-flex color-item align-items-center" >
+                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #808080;"></span> <span class="text-black">Silver</span>
+                </a>
+                <a href="#" class="d-flex color-item align-items-center" >
+                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #e5e4e2"></span> <span class="text-black">Platinum</span>
+                </a>
+              </div>
+              <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" id="s_sm"  class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
+                </label>
+                <label for="s_md" class="d-flex">
+                  <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
+                </label>
+                <label for="s_lg" class="d-flex">
+                  <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="c_create_account" class="text-primary" data-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> View size chart?</label>
+                <div class="collapse" id="create_an_account">
+                  <div class="py-2 table-responsive">
+                    {{!-- sizechart --}}
+                        <table class="table table-bordered">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Small</th>
+                              <th scope="col">Medium</th>
+                              <th scope="col">Large</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">Earings</th>
+                              <td>14-15 mm</td>
+                              <td>16-17 mm</td>
+                              <td>18-19 mm</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Bracelets</th>
+                              <td>1-2 cm</td>
+                              <td>2-3 cm</td>
+                              <td>3-4 cm</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Necklaces</th>
+                              <td>14-15 inch</td>
+                              <td>16-17 inch</td>
+                              <td>18-19 inch</td>
+                            </tr>
+                          </tbody>
+                        </table>              
+                    {{!-- sizechart --}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="title-section mb-5">
+          <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
+        </div>
+        <div class="row align-items-stretch">
+          <div class="col-lg-4">
+            <div class="product-item sm-height  ">
+              <a href="#" class="product-category">Rings </a>
+              <img src="images/model3.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="product-item sm-height  ">
+              <a href="#" class="product-category">Earrings </a>
+              <img src="images/model4.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="product-item sm-height ">
+              <a href="#" class="product-category">Necklace </a>
+              <img src="images/model5.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h3 class="footer-heading mb-4">Promo</h3>
+            <a href="#" class="block-6">
+              <img src="images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Summer</h3>
+              <p>Promo from  July 15 &mdash; 25, 2023</p>
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Quick Links</h3>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Sell online</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Shopping cart</a></li>
+                  <li><a href="#">Store builder</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="#">Dropshipping</a></li>
+                  <li><a href="#">Website development</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Point of sale</a></li>
+                  <li><a href="#">Hardware</a></li>
+                  <li><a href="#">Software</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                <li class="email">emailaddress@domain.com</li>
+              </ul>
+            </div>
+
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    function removeWishlist(wishlistId,proId){
+      //let quantity = parseInt(document.getElementById(proId).innerHTML)
+      //count=parseInt(count)
+      $.ajax({
+        url:'/remove-wishlist',
+        data:{
+          wishlist:wishlistId,
+          product:proId
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.removeProduct){
+            alert("product removed from wishlist")
+             location.reload()
+          }
+         
+        }
+      })
+    }
+  </script>
+  {{!-- <script src="/javascripts/pagination.js"></script> --}}

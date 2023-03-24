@@ -1,0 +1,280 @@
+
+  
+  <div class="site-wrap">
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cart</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+            <form class="col-md-12" method="post">
+            <div class="site-blocks-table">
+              <h2 class="h3 mb-3 text-black">My Orders</h2>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Order ID</th>
+                    <th class="product-name">Address</th>
+                    <th class="product-price">Total Amount</th>
+                    <th class="product-quantity">Payment Method</th>
+                    <th class="product-remove">Status</th>
+                    <th class="product-remove">Date</th>
+                    <th class="product-remove">Order details</th>
+                    <th class="product-remove">Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each orders}}
+                  <tr>
+                    
+                    <td class="product-name">
+                      <h2 class="h6 text-black">{{this._id}}</h2>
+                    </td>
+                    <td class="product-name">
+                      <h2 class="h6 text-black">{{this.deliveryDetails.address}}</h2>
+                    </td>
+                    <td>
+                        <h2 class="h6 text-black">Rs.{{this.totalAmount}}</h2>
+                    </td>
+                    
+                    <td>
+                        <h2 class="h6 text-black">{{this.paymentMethod}}</h2>
+                    </td>
+                    <td>
+                        <h2 class="h6 text-black">{{this.status}}</h2>
+                    </td>
+                    <td>
+                        <h6 class=" text-black">{{this.date}}</h6>
+                    </td>
+                    <td><a href="/view-order-product/{{this._id}}"><button class="btn btn-primary height-auto btn-sm" type="button" >Order Details</button></a></td>
+                    <td>
+                        <a href="#"> <button class="btn btn-primary height-auto btn-sm" type="button"> Cancel</button></a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </form>
+              {{!-- <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">My Orders</h2>
+                {{#each orders}}
+                <div class="p-3 mb-4 p-lg-3 border d-flex">
+                    <div class="col-md-3 pt-5">
+                        <label for="c_code" class="text-black mb-3 ">{{this._id}}</label>
+                    </div>
+                    <div class="col-md-3 pt-5">
+                        <label for="c_code" class="text-black mb-3 ">{{this.deliveryDetails.address}}</label>
+                        <p>metals</p>
+                    </div>
+                    <div class="col-md-3 pt-5">
+                        <label for="c_code" class="text-black mb-3 ">{{this.totalAmount}}</label>
+                    </div>
+                    <div class="col-md-3 pt-5">
+                        <button>{{this.paymentMethod}}</button>                    
+                    </div>
+                    <div class="col-md-3 pt-5">
+                        <a href="/view-order-product/{{this._id}}"><button class="btn btn-primary btn-sm px-4">View product</button></a> 
+                    </div>
+                    
+                </div>
+                {{/each}}
+              </div> --}}
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <a href="/user-shop"><button class="btn btn-primary btn-sm btn-block">Continue Shopping</button></a> 
+              </div>
+              {{!-- <div class="col-md-3 pt-5">
+                 <a href="/view-order-product/{{orders._id}}"><button class="btn btn-primary btn-sm px-4">View product</button></a> 
+             </div> --}}
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="text-black h4" for="coupon">Coupon</label>
+                <p>Enter your coupon code if you have one.</p>
+              </div>
+              <div class="col-md-8 mb-3 mb-md-0">
+                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pl-5">
+            <div class="row justify-content-end">
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-12 text-right border-bottom mb-5">
+                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                  </div>
+                </div>
+                {{!-- <div class="row mb-3">
+                  <div class="col-md-6">
+                    <span class="text-black">Subtotal</span>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
+                  </div>
+                </div> --}}
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <span class="text-black">Total</span>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <a href="/checkout"> <button class="btn btn-primary btn-lg btn-block">Proceed To Checkout</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h3 class="footer-heading mb-4">Promo</h3>
+            <a href="#" class="block-6">
+              <img src="images/about_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <h3 class="font-weight-light  mb-0">Finding Your Perfect Shirts This Summer</h3>
+              <p>Promo from  July 15 &mdash; 25, 2019</p>
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Quick Links</h3>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Sell online</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Shopping cart</a></li>
+                  <li><a href="#">Store builder</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="#">Dropshipping</a></li>
+                  <li><a href="#">Website development</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Point of sale</a></li>
+                  <li><a href="#">Hardware</a></li>
+                  <li><a href="#">Software</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                <li class="email">emailaddress@domain.com</li>
+              </ul>
+            </div>
+
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  {{!-- <script>
+
+    function changeQuantity(cartId,proId,userId,count){
+      let quantity = parseInt(document.getElementById(proId).innerHTML)
+      count=parseInt(count)
+      $.ajax({
+        url:'/change-product-quantity',
+        data:{
+          user:userId,
+          cart:cartId,
+          product:proId,
+          count:count,
+          quantity:quantity
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.removeProduct){
+            alert("product removed from cart")
+             location.reload()
+          }
+          else{
+            document.getElementById(proId).innerHTML=quantity+count
+            document.getElementById('total').innerHTML=response.total
+          }
+         
+        }
+      })
+    }
+
+     function removeProduct(cartId,proId){
+      //let quantity = parseInt(document.getElementById(proId).innerHTML)
+      //count=parseInt(count)
+      $.ajax({
+        url:'/remove-product',
+        data:{
+          cart:cartId,
+          product:proId
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.removeProduct){
+            alert("product removed from cart")
+             location.reload()
+          }
+          else{
+            document.getElementById(proId).innerHTML=quantity+count
+          }
+         
+        }
+      })
+    }
+    // });
+  </script> --}}
+
+  

@@ -1,0 +1,261 @@
+<style>
+  .image-upload>input {
+  display: none;
+}
+</style>
+ <div class="site-wrap">
+<div class="custom-border-bottom py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 mb-4 mb-lg-0 " data-aos="fade-up" data-aos-delay="">
+                <div class="p-3 p-lg-5 border">
+                    <div class="block-38 text-center">
+                        <div class="block-38-img">
+                        <div class="block-38-header">
+                          <form action="/admin/add-profileImg" method="post" enctype="multipart/form-data">
+                            <img src="/images/person_1.jpg" alt="Image placeholder" class="mb-4">
+                              <div class="image-upload">
+                                {{!-- <label for="file-input">
+                                  <img style="width:28px" class="mt-3" src="https://static.thenounproject.com/png/3752772-200.png"/>
+                                </label> --}}
+                                {{!-- <input id="file-input" type="file" cursor="pointer" /> --}}
+                                {{!-- <input type="submit" value="Upload Image" name="submit"> --}}
+                                {{!-- <button class="file-upload-browse btn btn-primary" style="width:70px;height:25px" type="button">Upload</button> --}}
+                              </div>
+                              {{!-- <input type="file" class="form-control" name="image" class="file-upload-default" id="product-images" > --}}
+                            </form>
+                            <h3 class="block-38-heading h4">{{user.name}}</h3>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="p-3 border mt-4 mb-3">
+                            <span class="d-block text-primary h6 text-uppercase">My Accont</span>
+                        </div>
+                        <div class="p-3 border mt-4 mb-3">
+                            <a href="/user-order"><span class="d-block text-primary h6 text-uppercase">My orders</span></a>
+                        </div>
+                        <div class="p-3 border mt-4 mb-3">
+                            <a href="/wishlist"><span class="d-block text-primary h6 text-uppercase">My wishlist</span></a> 
+                        </div>
+                        <div class="p-3 border mt-4 mb-3">
+                            <a href="/user-address"><span class="d-block text-primary h6 text-uppercase">mY address</span></a> 
+                        </div>
+                        <div class="p-3 border mt-4 mb-3">
+                            <span class="d-block text-primary h6 text-uppercase">Change password</span>
+                        </div>
+                    
+                    </div>
+                </div>  
+          </div>
+          
+          <div class="col-md-8 col-lg-8  mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+                
+                <div class="col-md-12">
+      
+                  <form action="/user-profile/{{user._id}}" method="post">
+                    
+                    <div class="p-3 p-lg-5 border">
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <h2 class="h3 mb-3 text-black">Address Book</h2>
+                                <div class="p-2 p-lg-4 border">
+                                {{!-- <label for="c_code" class="text-black mb-3"><span class="mdi mdi-map-marker-plus"> </span> Add new adrress</label> --}}
+                                <div class="form-group">
+                                <label for="c_ship_different_address" class="text-black mt-2" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"><span class="mdi mdi-map-marker-plus px-2"> Add new adrress</span></label>
+                                <div class="collapse" id="ship_different_address">
+                                <div class="py-2">
+                                    <div class="form-group">
+                                    <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                    <select id="c_diff_country" class="form-control">
+                                        <option value="1">Select a country</option>    
+                                        <option value="2">bangladesh</option>    
+                                        <option value="3">Algeria</option>    
+                                        <option value="4">Afghanistan</option>    
+                                        <option value="5">Ghana</option>    
+                                        <option value="6">Albania</option>    
+                                        <option value="7">Bahrain</option>    
+                                        <option value="8">Colombia</option>    
+                                        <option value="9">Dominican Republic</option>    
+                                    </select>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_lname" name="c_diff_lname">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_diff_companyname" class="text-black">Company Name </label>
+                                        <input type="text" class="form-control" id="c_diff_companyname" name="c_diff_companyname">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_address" name="c_diff_address" placeholder="Street address">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_state_country" name="c_diff_state_country">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row mb-5">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Phone Number">
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <div class="p-3 p-lg-5 border" style="background-color: #fbf6f3;">
+                                <label for="c_code" class="text-black mb-3 pt-4" style="position: absolute; top:0; left: 200px;"><span class="mdi mdi-home"> </span>Default</label>
+                                <p class="text-black mb-3 pt-4" style="position: absolute; top:0; left: 60px;"><b> Anu Ouseph </b></p>
+                                <p class="text-black pt-3" style="font-size: 14px;">Koikkalam parumala po thiruvalla
+                                Pathanamthitta, kerala
+                                india, 689626</p>
+                                <p class="text-black"> phone: <b>9526831802</b></p>
+                                <a href="/edit-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-border-color"></span>EDIT</button></a>
+                                <a href="/remove-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-delete"></span>REMOVE</button></a>
+                                
+                                {{!-- <div class="input-group w-75">
+                                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                                    <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
+                                    </div>
+                                </div> --}}
+
+                                </div>
+                            </div>
+                        </div>
+                      
+      
+                      
+                      
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h3 class="footer-heading mb-4">Promo</h3>
+            <a href="#" class="block-6">
+              <img src="images/about_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <h3 class="font-weight-light  mb-0">Finding Your Perfect Shirts This Summer</h3>
+              <p>Promo from  July 15 &mdash; 25, 2019</p>
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Quick Links</h3>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Sell online</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Shopping cart</a></li>
+                  <li><a href="#">Store builder</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="#">Dropshipping</a></li>
+                  <li><a href="#">Website development</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Point of sale</a></li>
+                  <li><a href="#">Hardware</a></li>
+                  <li><a href="#">Software</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                <li class="email">emailaddress@domain.com</li>
+              </ul>
+            </div>
+
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+</div>
+<script type="text/javascript" src="/javascripts/signup-validation.js"></script>

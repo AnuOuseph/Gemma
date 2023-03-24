@@ -1,0 +1,387 @@
+  <style>
+    #img-zoomer-box:hover, #img-zoomer-box:active {
+    cursor: zoom-in;
+    display: block;
+  }
+
+  #img-zoomer-box:hover #img-2, #img-zoomer-box:active #img-2 {
+    opacity: 1;
+  }
+  #img-2 {
+    width: 240px;
+    height: 240px;
+    box-shadow: 0 5px 10px -2px rgba(0,0,0,0.3);
+    pointer-events: none;
+    position: absolute;
+    opacity: 0;
+    border: 4px solid whitesmoke;
+    z-index: 99;
+    border-radius: 100%;
+    display: block;
+    transition: opacity .2s;
+  }
+  #snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #ee4266;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+ 
+  </style>
+  
+  <div class="site-wrap">
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-shop">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{product.name}}</strong></div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="item-entry" >
+              <div id="img-zoomer-box">
+              
+                <img src="{{product.image.[0]}}" id="pro-img" alt="Image" style="overflow: scroll;" class="bg-gray d-block mb-3 img-fluid">
+                <div id="img-2" style="background: url('{{product.image.[0]}}') no-repeat #FFF;"></div>
+              </div>
+              <div class="d-flex">
+              <div class="col-md-3">
+                  
+                      <img src="{{product.image.[0]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
+                 
+              </div>
+              <div class="col-md-3 ">
+                    
+                        <img src="{{product.image.[1]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
+                    
+              </div>
+              <div class="col-md-3 ">
+                
+                        <img src="{{product.image.[2]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
+                    
+              </div>
+              <div class="col-md-3 ">
+               
+                        <img src="{{product.image.[3]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
+        
+              </div>
+              </div>
+              
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <h2 class="text-black">{{product.name}}</h2>
+            <p>{{product.description}}</p>
+            <p><strong class="text-primary h4">{{proPrice}}</strong></p>
+            <p>Metal : <strong class="text-black h5 ">{{product.metal}}</strong></p>
+            <p>Category : <strong class="text-black h5 ">{{product.category_details.[0].category}}</strong></p>
+            <div class="mb-1 d-flex">
+              <label for="option-sm" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
+              </label>
+              <label for="option-md" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+              </label>
+              <label for="option-lg" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+              </label>
+              
+            </div>
+            {{!-- <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 120px;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+              </div>
+              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+              </div>
+            </div>
+
+            </div> --}}
+            {{!-- <p><a href="/add-to-cart/{{product._id}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p> --}}
+            <button onclick="addToCart('{{product._id}}')" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</button>
+            <div id="snackbar">Added To Cart</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="site-section block-3 site-blocks-2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Featured Products</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 block-3">
+            <div class="nonloop-block-3 owl-carousel">
+              <div class="item">
+                <div class="item-entry">
+                  <a href="#" class=" md-height bg-gray d-block">
+                    <img src="/images/model5.jpg" alt="Image" class="img-fluid pb-3">
+                  </a>
+                  <h2 class="item-title"><a href="#">Fine jewelry collections</a></h2>
+                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-entry">
+                  <a href="#" class=" md-height bg-gray d-block">
+                    <img src="/images/model3.jpg" alt="Image" class="img-fluid">
+                  </a>
+                  <h2 class="item-title"><a href="#">Blue Stone Rings</a></h2>
+                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
+
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-entry">
+                  <a href="#" class=" md-height bg-gray d-block">
+                    <img src="/images/model5.jpg" alt="Image" class="img-fluid">
+                  </a>
+                  <h2 class="item-title"><a href="#">Helms Stone </a></h2>
+                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
+
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-entry">
+                  <a href="#" class="product-item md-height bg-gray d-block">
+                    <img src="/images/prod_1.png" alt="Image" class="img-fluid">
+                  </a>
+                  <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
+                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-entry">
+                  <a href="#" class="product-item md-height bg-gray d-block">
+                    <img src="/images/model_7.png" alt="Image" class="img-fluid">
+                  </a>
+                  <h2 class="item-title"><a href="#">Yellow Jacket</a></h2>
+                  <strong class="item-price">$58.00</strong>
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h3 class="footer-heading mb-4">Promo</h3>
+            <a href="#" class="block-6">
+              <img src="/images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Summer</h3>
+              <p>Promo from  July 15 &mdash; 25, 2023</p>
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Quick Links</h3>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Sell online</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Shopping cart</a></li>
+                  <li><a href="#">Store builder</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="#">Dropshipping</a></li>
+                  <li><a href="#">Website development</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Point of sale</a></li>
+                  <li><a href="#">Hardware</a></li>
+                  <li><a href="#">Software</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                <li class="email">emailaddress@domain.com</li>
+              </ul>
+            </div>
+
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+
+  <script>
+    var productImg = document.getElementById("pro-img");
+    var Img2 = document.getElementById("img-2");
+    var smallImg = document.getElementsByClassName("sm-img");
+
+    smallImg[0].onclick = function(){
+      productImg.src = smallImg[0].src;
+      Img2.style.background = `url(${productImg.src})`;
+    }
+    smallImg[1].onclick = function(){
+      productImg.src = smallImg[1].src;
+      Img2.style.background = `url(${productImg.src})`;
+      //document.getElementById("img-2").style.background = url(productImg.src);
+    }
+    smallImg[2].onclick = function(){
+      productImg.src = smallImg[2].src;
+      Img2.style.background = `url(${productImg.src})`;
+    }
+    smallImg[3].onclick = function(){
+      productImg.src = smallImg[3].src;
+      Img2.style.background = `url(${productImg.src})`;
+    }
+
+
+    let zoomer = function (){
+    document.querySelector('#img-zoomer-box')
+    .addEventListener('mousemove', function(e) {
+
+    let original = document.querySelector('#pro-img'),
+        magnified = document.querySelector('#img-2'),
+        style = magnified.style,
+        x = e.pageX - this.offsetLeft,
+        y = e.pageY - this.offsetTop,
+        imgWidth = original.offsetWidth,
+        imgHeight = original.offsetHeight,
+        xperc = ((x/imgWidth) * 100),
+        yperc = ((y/imgHeight) * 100);
+
+    //lets user scroll past right edge of image
+    if(x > (.01 * imgWidth)) {
+      xperc += (.15 * xperc);
+    };
+
+    //lets user scroll past bottom edge of image
+    if(y >= (.01 * imgHeight)) {
+      yperc += (.15 * yperc);
+    };
+
+    style.backgroundPositionX = (xperc - 9) + '%';
+    style.backgroundPositionY = (yperc - 9) + '%';
+
+    style.left = (x - 180) + 'px';
+    style.top = (y - 180) + 'px';
+
+  }, false);
+}();
+
+  </script>
+

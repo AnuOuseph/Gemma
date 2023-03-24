@@ -1,0 +1,34 @@
+{
+  "name": "gemma",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.34.0",
+    "cookie-parser": "~1.4.4",
+    "datatables.net": "^1.13.2",
+    "datatables.net-autofill": "^2.5.2",
+    "datatables.net-autofill-dt": "^2.5.2",
+    "datatables.net-buttons": "^2.3.4",
+    "datatables.net-buttons-dt": "^2.3.4",
+    "datatables.net-dt": "^1.13.2",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-handlebars": "^6.0.7",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "mongodb-legacy": "^5.0.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "nocache": "^3.0.4",
+    "nodemon": "^2.0.20",
+    "razorpay": "^2.8.6"
+  }
+}

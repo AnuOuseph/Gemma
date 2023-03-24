@@ -1,0 +1,195 @@
+<div class="site-wrap">
+
+<div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-cart">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+        </div>
+      </div>
+    </div>
+<div class="site-section">
+      <div class="container">
+        {{!-- <div class="row mb-5">
+          <div class="col-md-12">
+            <div class="border p-4 rounded" role="alert">
+              Returning customer? <a href="#">Click here</a> to login
+            </div>
+          </div>
+        </div> --}}
+        <form action="" id="checkout-form" method="post">
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Billing Details</h2>
+            <div class="p-3 p-lg-5 border">
+              
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_fname" class="text-black"> Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Name" onkeyup="validateName()">
+                  <span id="name-error" class="validation-label text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                  <input type="tel" class="form-control" id="pin" name="pin" placeholder="Pincode" onkeyup="validatePin()">
+                    <span id="pin-error" class="validation-label text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row mb-5">
+                <div class="col-md-6">
+                  <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" onkeyup="validateEmail()">
+                  <span id="email-error" class="validation-label text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                  <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" onkeyup="validatePhone()">
+                  <span id="phone-error" class="validation-label text-danger"></span>
+                </div>
+              </div>
+            
+            </div>
+            {{!-- <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                <div class="p-3 p-lg-5 border">
+                  
+                  <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                  <div class="input-group w-75">
+                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div> --}}
+
+
+          </div>
+          
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th>Product</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                      <tr>
+                        <td>{{this.product.name}} <strong class="mx-2 text-primary">x</strong> {{this.quantity}}</td>
+                        <td>Rs.{{this.product.price}}</td>
+                      </tr>
+                      {{/each}}
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                        <td class="text-black">Rs.{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                        <td class="text-black font-weight-bold"><strong>Rs.{{total}}</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <div class="radio-inline">
+                  <div class="border p-3 mb-3">
+                    <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
+                  </div>
+
+                  <div class="border p-3 mb-3">
+                    <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="ONLINE"> Online Payment</h3>
+                  </div>
+                  <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                  {{!-- <div class="border p-3 mb-5">
+                    <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
+                  </div> --}}
+
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" >Place Order</button>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+         </form>
+        <!-- </form> -->
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src="/javascripts/signup-validation.js"></script>
+<script>
+   $("#checkout-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/checkout',
+            method:'post',
+            data:$('#checkout-form').serialize(),
+            success:(response)=>{
+                if(response.codSuccess){
+                    location.href='/order-success'
+                }else{
+                  razorpayPayment(response)
+                }
+            }
+        })
+    })
+
+    function razorpayPayment(order){
+      var options = {
+          "key": "rzp_test_w5LFXl4hy4CQt2", // Enter the Key ID generated from the Dashboard
+          "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          "currency": "INR",
+          "name": "Gemma Jewels", //your business name
+          "description": "Test Transaction",
+          "image": "https://example.com/your_logo",
+          "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          "handler": function (response){
+              alert(response.razorpay_payment_id);
+              alert(response.razorpay_order_id);
+              alert(response.razorpay_signature);
+              verifyPayment(response,order)
+              },
+          "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+          "prefill": {
+              "name": "Gaurav Kumar", //your customer's name
+              "email": "gaurav.kumar@example.com",
+              "contact": "9000090000"
+          },
+          "notes": {
+              "address": "Razorpay Corporate Office"
+          },
+          "theme": {
+              "color": "#3399cc"
+          }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
+    function verifyPayment(payment,order){
+      $.ajax({
+        url:'/verify-payment',
+        data:{
+          payment,
+          order
+        },
+        method:'post'
+      })
+    }
+</script>

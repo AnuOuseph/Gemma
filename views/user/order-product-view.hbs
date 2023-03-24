@@ -1,0 +1,63 @@
+ 
+ </style>
+<div class="site-wrap" style="background-color: #fbf6f3; height: 100vh;">
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+            {{!-- {{#each products}}
+              <div class="col-lg-3 col-md-4 item-entry mb-4">
+                <a href="/product-details/{{this.product._id}}" class="sm-height bg-gray d-block">
+                  <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
+                </a>
+                  <div class="d-flex">
+                    <div>
+                      <a href="" class="icons-btn heart-icon d-inline-block" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a> 
+                      <h2 class="item-title mt-4"><a href="/product-details/{{this.product._id}}">{{this.product.name}}</a></h2>
+                      <strong class="item-price mt-4">Rs.{{this.product.price}}</strong>
+                         <div class="star-rating">
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                        </div>    
+                    </div>
+                    <div class="ml-auto">
+                      <button onclick="addToCart('{{this.product._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
+                    </div>
+                  </div>
+              </div>
+              {{/each}} --}}
+
+              <div class="col-md-12" >
+                <h2 class="h3 mb-3 text-black">My Orders</h2>
+                {{#each products}}
+                <div class="p-3 mb-4 p-lg-3 border d-flex justify-content-center" style="background-color: white;">
+                    <div class="col-md-3 ">
+                        <img src="{{this.product.image.[0]}}" alt="" class="img-fluid" style="width: 100px; border-radius:20px">
+                    </div>
+                    <div class="col-md-3 ">
+                        <h3><label for="c_code" class="block-38-heading h4 text-black mt-3">{{this.product.name}}</label></h3>
+                        <p>Category: <span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;"> {{this.product.metal}}</span></p>
+                        <p>Metal Type: <span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;"> {{this.product.metal}}</span></p>
+                    </div>
+                    <div class="col-md-3">
+                          <h3 class="block-38-heading h4 text-black mt-3">Total Price: </h3>
+                          <p><span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;">Rs.{{this.product.price}}</span></p>
+                    </div>
+                    <div class="col-md-3">
+                          <p><span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;">Rs.{{orders.status}}</span></p>
+                    </div>
+                    
+                </div>
+                {{/each}}
+              </div> 
+        </div>
+      </div>
+    </div>
+
+    
+
+    
+  </div>
+  
