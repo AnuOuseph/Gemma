@@ -1,52 +1,29 @@
 
-  <body>
   <div class="site-wrap">
 
     <div class="site-blocks-cover" data-aos="fade">
       <div class="container">
         <div class="row">
           <div class="col-md-6 ml-auto order-md-2 align-self-start">
-            <div class="site-block-cover-content">
+            <div class="site-block-cover-content ">
             <h2 class="sub-title">#New Summer Collection 2023</h2>
             <h1>Arrivals Sales</h1>
             <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
             </div>
           </div>
           <div class="col-md-6 order-1 align-self-end">
-            <img src="images/b4.png" alt="Image" class="img-fluid"> {{!--model_3.png--}}
+            {{#each banners}}
+            {{#if this.bannerStatus}}
+            <img src="{{this.image}}" alt="Image" class="img-fluid"> {{!--model_3.png, b4.png--}}
+            {{/if}}
+            {{/each}}
+            {{!-- <img src="images/p1.jpg" alt="Image" class="img-fluid">  --}}
           </div>
         </div>
       </div>
     </div> 
 
-    <div class="site-section">
-      <div class="container">
-        <div class="title-section mb-5">
-          <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
-        </div>
-        <div class="row align-items-stretch">
-          <div class="col-lg-4">
-            <div class="product-item sm-height "> 
-              {{!-- bg-gray for gray box background  full-height for full height of image--}}
-              <a href="#" class="product-category">Necklaces</a>
-              <img src="images/model3.jpg" alt="Image" class="img-fluid">
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="product-item sm-height mb-4">
-              <a href="#" class="product-category">Rings</a>
-              <img src="images/model4.jpg" alt="Image" class="img-fluid">
-            </div>
-           </div> 
-          <div class="col-lg-4">
-            <div class="product-item sm-height">
-              <a href="#" class="product-category">Bracelets</a>
-              <img src="images/model5.jpg" alt="Image" class="img-fluid">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
 
     
@@ -58,27 +35,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd1.png" alt="Image" class="img-fluid">
+          {{#each popularProducts}}
+          <div class="col-lg-4 col-md-6 item-entry mb-4 text-center">
+            <a href="#" class=" md-height bg-gray d-block">
+              <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title"><a href="#">Spheres Bracelet</a></h2>
-            <strong class="item-price">$20.00</strong>
-          </div>
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd2.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Blue diamond </a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd3.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Wishbone necklace</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
+            <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
+            <strong class="item-price"><del>₹{{this.price}}.00</del> ₹{{this.subPrice}}.00</strong>
 
             <div class="star-rating">
               <span class="icon-star2 text-warning"></span>
@@ -89,41 +52,11 @@
             </div>
 
           </div>
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd4.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Simple pendant</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd5.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Sea green </a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-          <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images/prd6.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Yellow stone</a></h2>
-            <strong class="item-price">$58.00</strong>
-          </div>
+          {{/each}}
+          
 
         </div>
-      </div>
-    </div>
-
-    <div class="site-section">
+        <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="title-section text-center mb-5 col-12">
@@ -133,13 +66,14 @@
         <div class="row">
           <div class="col-md-12 block-3">
             <div class="nonloop-block-3 owl-carousel">
-              <div class="item">
+              {{#each popularProducts}}
+              <div class="item text-center">
                 <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="images/most1.jpg" alt="Image" class="img-fluid">
+                  <a href="#" class=" md-height bg-gray d-block">
+                    <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                   </a>
-                  <h2 class="item-title"><a href="#">Spheres Bracelet</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
+                  <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
+                  <strong class="item-price"><del>₹{{this.subPrice}}.00</del> ₹{{this.price}}.00</strong>
                   <div class="star-rating">
                     <span class="icon-star2 text-warning"></span>
                     <span class="icon-star2 text-warning"></span>
@@ -149,79 +83,23 @@
                   </div>
                 </div>
               </div>
-              <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="images/most2.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Blue stone ring</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="images/most3.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Diamond necklace</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="images/most1.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Sea Green</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="images/most2.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Yellow stone</a></h2>
-                  <strong class="item-price">$58.00</strong>
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div>
+              {{/each}}
+              
 
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+
+
+
+      </div>
+    </div>
+
+    
 
 
     <div class="site-blocks-cover inner-page py-5" data-aos="fade">
@@ -235,7 +113,7 @@
             </div>
           </div>
           <div class="col-md-6 order-md-2 align-self-start">
-            <img src="images/b3.png" alt="Image" class=""> {{!-model7.jpg}}
+            <img src="/images/model7.jpg" alt="Image" class=""> {{!-model7.jpg}}
           </div>
         </div>
       </div>

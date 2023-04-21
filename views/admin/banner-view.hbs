@@ -5,140 +5,119 @@
 <div class="container-fluid page-body-wrapper">
   <!-- partial:../../partials/_sidebar.html -->
   <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item nav-profile">
-        <a href="#" class="nav-link">
-          <div class="nav-profile-image">
-            <img src="/assets/images/faces/face1.jpg" alt="profile">
-            <span class="login-status online"></span>
-            <!--change to offline or busy as needed-->
-          </div>
-          <div class="nav-profile-text d-flex flex-column">
-            <span class="font-weight-bold mb-2">
-              {{#if adminName}}
-              {{adminName}}
-              {{else}}
-              Account
-              {{/if}}
-            </span>
-          </div>
-          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin">
-          <span class="menu-title">Dashboard</span>
-          <i class="mdi mdi-home menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/product-view">
-          <span class="menu-title">Products</span>
-          <i class="mdi mdi-contacts menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/user-details">
-          <span class="menu-title">User</span>
-          <i class="mdi mdi-contacts menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/category-view">
-          <span class="menu-title">Category</span>
-          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/charts/chartjs.html">
-          <span class="menu-title">Order status</span>
-          <i class="mdi mdi-chart-bar menu-icon"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="/assets/images/faces/face1.jpg" alt="profile">
+          <span class="login-status online"></span>
+          <!--change to offline or busy as needed-->
+        </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2">
+            {{#if adminName}}
+            {{adminName}}
+            {{else}}
+            Account
+            {{/if}}
+          </span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/product-view">
+        <span class="menu-title">Products</span>
+        <i class="mdi mdi-contacts menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/user-details">
+        <span class="menu-title">Users</span>
+        <i class="mdi mdi-account menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/category-view">
+        <span class="menu-title">Categories</span>
+        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/order-view">
+        <span class="menu-title">Orders</span>
+        <i class="mdi mdi-weight menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/coupon-view">
+        <span class="menu-title">Coupons</span>
+        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/banner-view">
+        <span class="menu-title">Banners</span>
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
   <!-- partial -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title"> Category</h3>
+        <h3 class="page-title"> Banners</h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Products</li>
+            <li class="breadcrumb-item"><a href="#">Banners</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Banners</li>
           </ol>
         </nav>
       </div>
 
 
     {{!-- <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ADD PRODUCTS"> --}}
-    <a href="/admin/add-category" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">ADD CATEGORY</a>
+    <a href="/admin/add-banner" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn mb-3">ADD BANNER</a>
 
       <div class="row">
-            
-            
             <section>
                 <div class="container">
 
-                   <div>
-                    <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="productsTable">
+                   <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="bannerTable">
                         <thead>
                             <tr>
                             <th scope="col">No:</th>  
-                            <th scope="col">Category</th>
+                            <th scope="col">Banner Title</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Options</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each category}}
+                            {{#each banners}}
                             <tr>
                             <td>{{inc @index}}</td>
-                            <td>{{this.category}}</td>
-                            {{!-- <td><img style="width: 50px;" src="{{this.image.[0]}}"></td>
-                            <td><a href="/admin/edit-products/{{this._id}}" class="btn btn-primary">Edit</a></td> --}}
-                            {{#if this.categoryStatus}}
-                            <td> <button data-toggle="modal" data-target="#exampleModal2" class="btn btn-danger">Unlist</button></td>
-                              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel2">Are you sure?</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p>You want to unlist {{this.category}} </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                      <a href="/admin/unlist-category/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <td>{{this.title}}</td>
+                            <td><img style="width: 100px; height:100px" src="{{this.image}}"></td>
+                            {{#if this.bannerStatus}}
+                            <td>Activated</td>
                             {{else}}
-                            <td> <button data-toggle="modal" data-target="#exampleModal3" class="btn btn-success">list</button></td>
-                              <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel3">Are you sure?</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p>You want to list {{this.category}} </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                      <a href="/admin/list-category/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <td>Deactivated</td>
                             {{/if}}
+                            {{#if this.bannerStatus}}
+                            <td><a href="" class="btn btn-primary" disable="disable">Activated</a></td>
+                            {{else}}
+                            <td><a href="/admin/activate-banner/{{this._id}}" class="btn btn-primary">Activate</a></td>
+                            {{/if}}
+                            
                             </tr>
                             {{/each}}
                             
@@ -164,7 +143,7 @@
 <script>
 
   $(document).ready(function () {
-    $('#categoryTable').DataTable();
+    $('#bannerTable').DataTable();
   });
 
 </script>

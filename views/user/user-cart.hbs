@@ -1,21 +1,45 @@
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-  
   <div class="site-wrap">
-    
-
-    
-    
-    <div class="bg-light py-3">
+    {{!-- <div class="py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cart</strong></div>
         </div>
       </div>
-    </div>
-
+      toastrTrigger('The File has been Deleted')
+            Toastify({
+            text: "Removed from Wishlist",
+            className: "info",
+            duration: 3000,
+            gravity: "top", 
+            position: "right",
+            style: {
+              background: "linear-gradient(to right, #6B061C,#FC1964)",
+            }
+          }).showToast();
+           // alert("product removed from wishlist")
+            setTimeout( function() {
+                location.reload();
+              }, 0001);
+            //location.reload()
+    </div> --}}
     <div class="site-section">
       <div class="container">
         <div class="row mb-5">
+          {{#if cartEmpty}}
+          <div class="col-md-12 d-flex justify-content-center">
+            <div class="p=lg-3 p-3 border justify-content-center text-center">
+              <img src="images/emptycart.jpg" style="width: 300px;" alt="Image" class="img-fluid">
+              <h3 class="text-uppercase text-dark">Your Cart is Empty!</h3>
+              <h5 class="sub-title text-dark">Looks like you haven't added anything to your cart yet.</h5>
+              <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+
+            </div>
+          </div> 
+
+          {{else}}
+
           <form class="col-md-12" method="post">
             <div class="site-blocks-table">
               <table class="table table-bordered">
@@ -24,6 +48,7 @@
                     <th class="product-thumbnail">Image</th>
                     <th class="product-name">Product</th>
                     <th class="product-price">Price</th>
+                    <th class="product-size">Size</th>
                     <th class="product-quantity">Quantity</th>
                     <th class="product-total">Total</th>
                     <th class="product-remove">Remove</th>
@@ -31,83 +56,122 @@
                 </thead>
                 <tbody>
                   {{#each products}}
+                  {{#if (isEqual this.product.productQuantity 0)}}
                   <tr>
+                    <td class="product-thumbnail">
+                      <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid" style="opacity: 0.5;"> <span class="text-danger">Out Of Stock</span>
+                    </td>
+                    <td class="product-name">
+                      <h2 class="h5" style="color:grey">{{this.product.name}}</h2>
+                    </td>
+                    <td style="color:grey">₹{{this.product.price}}.00</td>
+                    <td style="color:grey">{{this.size}}</td>
                     
+                    <td>
+                      <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',-1)" disabled>&minus;</button>
+                        </div>
+                        <span class="form-control text-center" style="color:grey" id="{{this.product._id}}">{{this.quantity}}</span>
+                        {{!-- <input type="text" class="form-control text-center" id="{{this.product._id}}" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"> --}}
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary js-btn-plus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',1)" disabled>&plus;</button>
+                        </div>
+                      </div>
+
+                    </td>
+                    <td id="sub{{this.product._id}}" style="color:grey">₹{{math this.product.price "*" this.quantity}}.00</td>
+                    {{!-- <td>Rs.{{math this.product.price "*" this.quantity}}</td> --}}
+                    <td><button class="btn btn-primary height-auto btn-sm info" type="button" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
+                  </tr>
+                  {{else}}
+
+
+                  <tr>
                     <td class="product-thumbnail">
                       <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
                       <h2 class="h5 text-black">{{this.product.name}}</h2>
                     </td>
-                    <td>Rs.{{this.product.price}}</td>
+                    <td >₹{{this.product.price}}.00</td>
+                    <td >{{this.size}}</td>
                     
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',-1)">&minus;</button>
+                          <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',-1)">&minus;</button>
                         </div>
                         <span class="form-control text-center" id="{{this.product._id}}">{{this.quantity}}</span>
                         {{!-- <input type="text" class="form-control text-center" id="{{this.product._id}}" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"> --}}
                         <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',1)">&plus;</button>
+                          <button class="btn btn-outline-primary js-btn-plus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',1)">&plus;</button>
                         </div>
                       </div>
 
                     </td>
-                    <td>Rs.{{math this.product.price "*" this.quantity}}</td>
-                    <td><button class="btn btn-primary height-auto btn-sm" type="button" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
+                    <td id="sub{{this.product._id}}">₹{{math this.product.price "*" this.quantity}}.00</td>
+                    {{!-- <td>Rs.{{math this.product.price "*" this.quantity}}</td> --}}
+                    <td><button class="btn btn-primary height-auto btn-sm info" type="button" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
                   </tr>
+                  {{/if}}
                   {{/each}}
                 </tbody>
               </table>
             </div>
           </form>
+          
         </div>
 
         <div class="row">
           <div class="col-md-6">
+
             <div class="row mb-5">
+              <div class="col-md-12 text-center">
+                
+                <div class="p-3 p-lg-4 m-2" style="background-color: #fbf6f3;">
+                  <h2 class="h3 mb-2 mt-2 text-primary">My Wallet <span class="mdi mdi-wallet text-black"></span></h2>
+                  <label for="c_code" class=" text-black mb-2">Total Available Wallet Amount </label>
+                  {{#if wallet}}
+                  <h2 class="text-black">₹{{wallet}}.00</h2>
+                  {{else}}
+                  <h2 class="text-black">₹0.00</h2>
+                  {{/if}}
+
+                </div>
+              </div>
+            </div>
+            <div class="row mb-5 mx-3">
               <div class="col-md-6 mb-3 mb-md-0">
-                <a href="/user-shop"><button class="btn btn-primary btn-sm btn-block">Continue Shopping</button></a> 
+                <a href="/user-shop"><button class="btn btn-black btn-sm btn-block">Continue Shopping</button></a> 
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <label class="text-black h4" for="coupon">Coupon</label>
-                <p>Enter your coupon code if you have one.</p>
-              </div>
-              <div class="col-md-8 mb-3 mb-md-0">
-                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
-              </div>
-            </div>
+            
+            
+            
           </div>
-          <div class="col-md-6 pl-5">
+          <div class="col-md-6">
             <div class="row justify-content-end">
-              <div class="col-md-7">
+              <div class="col-md-7 col-12 mx-auto">
                 <div class="row">
                   <div class="col-md-12 text-right border-bottom mb-5">
                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                   </div>
                 </div>
-                {{!-- <div class="row mb-3">
-                  <div class="col-md-6">
-                    <span class="text-black">Subtotal</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
-                  </div>
-                </div> --}}
                 <div class="row mb-5">
-                  <div class="col-md-6">
-                    <span class="text-black">Total</span>
+                  <div class="col-md-6 col-6">
+                    <span class="h5 text-black">Total</span>
                   </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
+                  <div class="col-md-6 col-6 text-right">
+                    <strong class=" h5 text-black"><span id="total">₹{{totalValue}}.00</span></strong>
                   </div>
+                  {{#if Err}}
+                  <div class="col-md-12">
+                  <h5 class="text-danger text-center mt-3">{{Err}}</h5>
+                  </div>
+                  {{/if}}
                 </div>
+                
 
                 <div class="row">
                   <div class="col-md-12">
@@ -118,6 +182,7 @@
             </div>
           </div>
         </div>
+        {{/if}}
       </div>
     </div>
 
@@ -199,9 +264,12 @@
 
   <script>
 
-    function changeQuantity(cartId,proId,userId,count){
+    function changeQuantity(cartId,proId,userId,price,count){
       let quantity = parseInt(document.getElementById(proId).innerHTML)
       count=parseInt(count)
+      //const price = document.getElementById(proId).innerText
+      console.log(price)
+
       $.ajax({
         url:'/change-product-quantity',
         data:{
@@ -217,9 +285,20 @@
             alert("product removed from cart")
              location.reload()
           }
-          else{
+          else if(response.status){
             document.getElementById(proId).innerHTML=quantity+count
-            document.getElementById('total').innerHTML=response.total
+            document.getElementById('total').innerHTML= "₹" + response.total + ".00"
+            quantity=quantity+count
+            let subTotal = quantity*price
+            console.log(subTotal)
+            document.getElementById('sub'+proId).innerHTML = "₹" + subTotal + ".00"
+          }
+          else{
+            //alert("product limit reached")
+            swal('Out of Stock', 'Product limit reached', 'warning', {
+            button: "Ok",
+       
+          });
           }
          
         }
@@ -238,8 +317,12 @@
         method:'post',
         success:(response)=>{
           if(response.removeProduct){
-            alert("product removed from cart")
-             location.reload()
+            swal('Remove From Cart!', 'Are you sure?', 'warning', {
+            button: "Ok",
+          }).then(()=>{
+            location.reload()
+          })
+            
           }
           else{
             document.getElementById(proId).innerHTML=quantity+count
@@ -250,5 +333,7 @@
     }
     // });
   </script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   

@@ -7,20 +7,53 @@
     border-radius: 50%;
   }
  </style>
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="site-wrap">
+    {{!-- <div class=" py-3" style="background-color: #f9f9f9;"> --}}
+      {{!-- <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-shop">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{product.name}}</strong></div>
+        </div>
+      </div>
+    </div>  --}}
+    
+          {{#if wishCount}}
+    <div class="site-section" style="background-color: #f9f9f9; height:100vh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-center">
+            <div class="p=lg-3 p-3 justify-content-center text-center bg-white" style="border-radius: 50px;">
+              <img src="images/empty_wishlist.svg" style="width: 300px;" alt="Image" class="img-fluid">
+              <h3 class=" text-dark">Your Wishlist is Empty!</h3>
+              <h6 class="sub-title mb-3">Looks like you haven't added anything to your Wishlist yet.</h6>
+              <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+
+            </div>
+          </div> 
+
+          {{else}}
+
+            
     <div class="site-section">
       <div class="container">
         <div class="row">
-            {{#each wishItem}}
+            <div class="col-md-12 py-3 mb-3">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb-0 text-black">My Wishlist  <strong class="text-black">{{product.name}}</strong></div>
+                </div>
+              </div>
+            </div>
+        {{#each wishItem}}
               <div class="col-lg-3 col-md-4 item-entry mb-4">
-                <a href="/product-details/{{this.product._id}}" class="sm-height bg-gray d-block">
+                <a href="/product-details/{{this.product.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
-                  <div class="d-flex">
-                    <div>
-                      <a href="" class="icons-btn heart-icon d-inline-block" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a>
-                      <h2 class="item-title mt-4"><a href="/product-details/{{this.product._id}}">{{this.product.name}}</a></h2>
-                      <strong class="item-price mt-4">Rs.{{this.product.price}}</strong>
+                  {{!-- <div class="d-flex"> --}}
+                    <div class="text-center">
+                      <a class="icons-btn heart-icon d-inline-block info" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a>
+                      <h2 class="item-title mt-2 text-center text-uppercase "><a href="/product-details/{{this.product.slug}}">{{this.product.name}}</a></h2>
+                      <strong class="item-price mt-2 ">₹{{this.product.price}}.00</strong>
                          {{!-- <div class="star-rating">
                             <span class="icon-star2 text-warning"></span>
                             <span class="icon-star2 text-warning"></span>
@@ -29,15 +62,19 @@
                             <span class="icon-star2 text-warning"></span>
                         </div>    --}}
                     </div>
-                    <div class="ml-auto">
-                      <button onclick="addToCart('{{this.product._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
+                    <div class="mx-auto" style=" text-align: center;">
+                      <button onclick="addToCart('{{this.product._id}}')"  class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-dark mt-2 ">Add To Cart</button>
                     </div>
-                  </div>
+                  {{!-- </div> --}}
               </div>
               {{/each}}
+              {{/if}}
+
+
         </div>
       </div>
     </div>
+
 
     
 
@@ -54,8 +91,12 @@
         method:'post',
         success:(response)=>{
           if(response.removeProduct){
-            alert("product removed from wishlist")
-             location.reload()
+            swal('Remove From Wishlist!', 'Are you sure?', 'warning', {
+            button: "Ok",
+          }).then(()=>{
+            location.reload()
+          })
+            
           }
          
         }

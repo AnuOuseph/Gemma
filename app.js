@@ -49,14 +49,20 @@ app.engine('hbs',hbs.engine({
           "-": lvalue - rvalue,
           "*": lvalue * rvalue,
           "/": lvalue / rvalue,
-          "%": lvalue % rvalue
+          "%": lvalue % rvalue,
       }[operator];
   },
-  for: function(from, to, incr, block) {
+  for: function(from, to, incr, block){
     var accum = '';
     for(var i = from; i < to; i += incr)
         accum += block.fn(i);
     return accum;
+  },
+  isEqual: (value1, value2)=>{
+    return value1 == value2;
+  },
+  lessEqual: (value1, value2)=>{
+    return value1 <= value2;
   }
 },
   extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}));

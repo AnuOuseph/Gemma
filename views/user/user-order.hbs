@@ -1,17 +1,28 @@
 
   
   <div class="site-wrap">
-    <div class="bg-light py-3">
+    {{!-- <div class=" py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cart</strong></div>
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span><a href="/user-profile">Profile</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cart</strong></div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <div class="site-section">
       <div class="container">
         <div class="row mb-5">
+          {{#if orderEmpty}}
+            <div class="col-md-12 d-flex justify-content-center">
+            <div class="p=lg-3 p-3 border justify-content-center text-center">
+              <img src="images/empty_order.jpg" style="width: 250px;" alt="Image" class="img-fluid">
+              <h3 class="text-uppercase text-dark">No Orders yet.</h3>
+              <h5 class="sub-title text-dark">Looks like you haven't made your choices yet.</h5>
+              <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+
+            </div>
+          </div> 
+          {{else}}
             <form class="col-md-12" method="post">
             <div class="site-blocks-table">
               <h2 class="h3 mb-3 text-black">My Orders</h2>
@@ -19,12 +30,12 @@
                 <thead>
                   <tr>
                     <th class="product-thumbnail">Order ID</th>
-                    <th class="product-name">Address</th>
+                    {{!-- <th class="product-name">Address</th> --}}
                     <th class="product-price">Total Amount</th>
-                    <th class="product-quantity">Payment Method</th>
+                    <th class="product-quantity">Shipping Address</th>
                     <th class="product-remove">Status</th>
                     <th class="product-remove">Date</th>
-                    <th class="product-remove">Order details</th>
+                    <th class="product-remove">Order</th>
                     <th class="product-remove">Options</th>
                   </tr>
                 </thead>
@@ -35,15 +46,15 @@
                     <td class="product-name">
                       <h2 class="h6 text-black">{{this._id}}</h2>
                     </td>
-                    <td class="product-name">
+                    {{!-- <td class="product-name">
                       <h2 class="h6 text-black">{{this.deliveryDetails.address}}</h2>
-                    </td>
-                    <td>
+                    </td>--}}
+                    <td> 
                         <h2 class="h6 text-black">Rs.{{this.totalAmount}}</h2>
                     </td>
                     
                     <td>
-                        <h2 class="h6 text-black">{{this.paymentMethod}}</h2>
+                        <h2 class="h6 text-black">{{this.deliveryDetails.address}}</h2>
                     </td>
                     <td>
                         <h2 class="h6 text-black">{{this.status}}</h2>
@@ -51,99 +62,37 @@
                     <td>
                         <h6 class=" text-black">{{this.date}}</h6>
                     </td>
-                    <td><a href="/view-order-product/{{this._id}}"><button class="btn btn-primary height-auto btn-sm" type="button" >Order Details</button></a></td>
-                    <td>
-                        <a href="#"> <button class="btn btn-primary height-auto btn-sm" type="button"> Cancel</button></a>
-                    </td>
+                    <td><a href="/view-order-product/{{this._id}}"><button class="btn btn-primary height-auto btn-sm" type="button" >Order Items</button></a></td>
+
+                    {{#if this.isDelivered}}
+                    <td> <button class="btn btn-primary height-auto btn-sm" type="button" data-toggle="modal" data-target="#return{{this._id}}">Return</button></td>
+                    {{!-- {{else if returnEnd}}
+                     <td> <button class="btn btn-primary height-auto btn-sm" type="button" disabled="disabled" data-toggle="modal" >Return</button></td> --}}
+                    {{else if this.isCancelled}}
+                    <td> <button class="btn btn-primary height-auto btn-sm" type="button" disabled="disabled" data-toggle="modal" >Cancelled</button></td>
+                    {{else if this.isRequested}}
+                    <td> <button class="btn btn-primary height-auto btn-sm" type="button" disabled="disabled" data-toggle="modal" >Requested</button></td>
+                    {{else if this.isReturned}}
+                    <td> <button class="btn btn-primary height-auto btn-sm" type="button" disabled="disabled" data-toggle="modal" >Returned</button></td>
+                    {{else}}
+                    {{!-- <td><a href="/admin/cancel-order/{{this._id}}" class="btn btn-gradient-danger">cancel Order</a></td> --}}
+                    <td><button type="button" class="btn btn-primary height-auto btn-sm" data-toggle="modal" data-target="#cancel{{this._id}}">Cancel Order</button> </td>
+                    {{/if}}
+
+
+                    {{!-- <td>
+                        <a href="#"> <button class="btn btn-primary height-auto btn-sm" type="button" data-toggle="modal" data-target="#cancel{{this._id}}"> Cancel</button></a>
+                    </td> --}}
                   </tr>
                   {{/each}}
                 </tbody>
               </table>
             </div>
           </form>
-              {{!-- <div class="col-md-12">
-                <h2 class="h3 mb-3 text-black">My Orders</h2>
-                {{#each orders}}
-                <div class="p-3 mb-4 p-lg-3 border d-flex">
-                    <div class="col-md-3 pt-5">
-                        <label for="c_code" class="text-black mb-3 ">{{this._id}}</label>
-                    </div>
-                    <div class="col-md-3 pt-5">
-                        <label for="c_code" class="text-black mb-3 ">{{this.deliveryDetails.address}}</label>
-                        <p>metals</p>
-                    </div>
-                    <div class="col-md-3 pt-5">
-                        <label for="c_code" class="text-black mb-3 ">{{this.totalAmount}}</label>
-                    </div>
-                    <div class="col-md-3 pt-5">
-                        <button>{{this.paymentMethod}}</button>                    
-                    </div>
-                    <div class="col-md-3 pt-5">
-                        <a href="/view-order-product/{{this._id}}"><button class="btn btn-primary btn-sm px-4">View product</button></a> 
-                    </div>
-                    
-                </div>
-                {{/each}}
-              </div> --}}
+          {{/if}}
         </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row mb-5">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <a href="/user-shop"><button class="btn btn-primary btn-sm btn-block">Continue Shopping</button></a> 
-              </div>
-              {{!-- <div class="col-md-3 pt-5">
-                 <a href="/view-order-product/{{orders._id}}"><button class="btn btn-primary btn-sm px-4">View product</button></a> 
-             </div> --}}
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <label class="text-black h4" for="coupon">Coupon</label>
-                <p>Enter your coupon code if you have one.</p>
-              </div>
-              <div class="col-md-8 mb-3 mb-md-0">
-                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 pl-5">
-            <div class="row justify-content-end">
-              <div class="col-md-7">
-                <div class="row">
-                  <div class="col-md-12 text-right border-bottom mb-5">
-                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                  </div>
-                </div>
-                {{!-- <div class="row mb-3">
-                  <div class="col-md-6">
-                    <span class="text-black">Subtotal</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
-                  </div>
-                </div> --}}
-                <div class="row mb-5">
-                  <div class="col-md-6">
-                    <span class="text-black">Total</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black">Rs.<span id="total">{{totalValue}}</span></strong>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <a href="/checkout"> <button class="btn btn-primary btn-lg btn-block">Proceed To Checkout</button></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
 
@@ -223,58 +172,52 @@
     </footer>
   </div>
 
-  {{!-- <script>
+  {{#each orders}}
 
-    function changeQuantity(cartId,proId,userId,count){
-      let quantity = parseInt(document.getElementById(proId).innerHTML)
-      count=parseInt(count)
-      $.ajax({
-        url:'/change-product-quantity',
-        data:{
-          user:userId,
-          cart:cartId,
-          product:proId,
-          count:count,
-          quantity:quantity
-        },
-        method:'post',
-        success:(response)=>{
-          if(response.removeProduct){
-            alert("product removed from cart")
-             location.reload()
-          }
-          else{
-            document.getElementById(proId).innerHTML=quantity+count
-            document.getElementById('total').innerHTML=response.total
-          }
-         
-        }
-      })
-    }
+          <div class="modal fade" id="cancel{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>You want to cancel this order?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary " data-dismiss="modal">No</button>
+                  <a href="/cancel-order/{{this._id}}" type="button" class="btn btn-primary ">Yes</a> 
+                </div>
+              </div>
+            </div>
+          </div>
+                                    
+        {{/each}}
 
-     function removeProduct(cartId,proId){
-      //let quantity = parseInt(document.getElementById(proId).innerHTML)
-      //count=parseInt(count)
-      $.ajax({
-        url:'/remove-product',
-        data:{
-          cart:cartId,
-          product:proId
-        },
-        method:'post',
-        success:(response)=>{
-          if(response.removeProduct){
-            alert("product removed from cart")
-             location.reload()
-          }
-          else{
-            document.getElementById(proId).innerHTML=quantity+count
-          }
-         
-        }
-      })
-    }
-    // });
-  </script> --}}
+        {{#each orders}}
+
+          <div class="modal fade" id="return{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>You want to return this order?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <a href="/return-order/{{this._id}}" type="button" class="btn btn-primary">Yes</a> 
+                </div>
+              </div>
+            </div>
+          </div>
+                                    
+        {{/each}}
 
   

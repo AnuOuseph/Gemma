@@ -20,20 +20,28 @@
     <title>Gemma</title>
 </head>
 <body>
-    <div class="site-section ">
-    <div class="container">
+    <div class="site-section " style="background-color:; ">
+    <div class="container" >
         <div class="row ">
         <div class="col-md-12 text-center">
-            <h2 class="h3 mb-3 text-black">Hello! let's get started</h2>
+            {{!-- <h2 class="h3 mb-3 text-black">Hello! let's get started</h2> --}}
         </div>
         <div class="col-md-7 mx-auto align-items-center justify-content-center">
             <form action="/login" id="submit-form" method="post">
-                <div class="p-3 p-lg-5 border ">
-                    <div class="brand-logo">
-                        <!-- <img src="../../assets/images/logo.svg"> -->
-                        <h3 style="color:#000">GEMMA</h3>
+                <div class="p-3 p-lg-5 border"style="background-color: white; box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);" > 
+                    <div class="d-flex">
+                        <div class="brand-logo col-6">
+                            <div class="logo">
+                                <div class="site-logo">
+                                <a href="/" class="js-logo-clone">GEMMA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6" style="text-align: right;">
+                            <a href="/">X</a>
+                        </div>
                     </div>
-                    <h6 class="font-weight-light mt-2 mb-2">Login to your account.</h6>  
+                    <h6 class="font-weight-light mt-3 mb-2">Login to your account.</h6>  
 
                     {{#if loginErr}}
                     <div class="mb-3">
@@ -63,12 +71,17 @@
                     <span id="submit-error" class="validation-label text-danger"></span>
                     </div>
                 </div>
-                {{!-- <div class="form-group row">
-                    <p>Login with OTP? <a href="/otp-login">Login</a></p>
-                </div> --}}
+                <div class="form-group row ">
+                    <div class="col-md-6  col-6" >
+                    <p>Login with OTP? <a href="/otp-login" style="text-decoration: underline;">LOGIN</a></p>
+                    </div>
+                    <div class="col-md-6 col-6" style="text-align: right;">
+                    <a href="/forgot-password" style="text-decoration: underline;">Forgot Password?</a>
+                    </div>
+                </div>
 
                 <div class="form-group row">
-                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+                    <p>Don't have an account? <a href="/signup" style="text-decoration: underline;">SIGN UP</a></p>
                 </div>
                 </div>
             </form>

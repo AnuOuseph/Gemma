@@ -1,62 +1,72 @@
 
-<!-- partial:../../partials/_navbar.html -->
-
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
   <!-- partial:../../partials/_sidebar.html -->
-  <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item nav-profile">
-        <a href="#" class="nav-link">
-          <div class="nav-profile-image">
-            <img src="/assets/images/faces/face1.jpg" alt="profile">
-            <span class="login-status online"></span>
-            <!--change to offline or busy as needed-->
-          </div>
-          <div class="nav-profile-text d-flex flex-column">
-            <span class="font-weight-bold mb-2">
-              {{#if adminName}}
-              {{adminName}}
-              {{else}}
-              Account
-              {{/if}}
-            </span>
-          </div>
-          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin">
-          <span class="menu-title">Dashboard</span>
-          <i class="mdi mdi-home menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/product-view">
-          <span class="menu-title">Products</span>
-          <i class="mdi mdi-contacts menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/user-details">
-          <span class="menu-title">User</span>
-          <i class="mdi mdi-contacts menu-icon"></i>
-        </a>
-      </li>
-      <li class="nav-item">
+ <nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="/assets/images/faces/face1.jpg" alt="profile">
+          <span class="login-status online"></span>
+          <!--change to offline or busy as needed-->
+        </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2">
+            {{#if adminName}}
+            {{adminName}}
+            {{else}}
+            Account
+            {{/if}}
+          </span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/product-view">
+        <span class="menu-title">Products</span>
+        <i class="mdi mdi-contacts menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/user-details">
+        <span class="menu-title">Users</span>
+        <i class="mdi mdi-account menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Category</span>
+        <span class="menu-title">Categories</span>
         <i class="mdi mdi-format-list-bulleted menu-icon"></i>
       </a>
     </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/charts/chartjs.html">
-          <span class="menu-title">Order status</span>
-          <i class="mdi mdi-chart-bar menu-icon"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/order-view">
+        <span class="menu-title">Orders</span>
+        <i class="mdi mdi-weight menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/coupon-view">
+        <span class="menu-title">Coupons</span>
+        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/banner-view">
+        <span class="menu-title">Banners</span>
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
   <!-- partial -->
   <div class="main-panel">
     <div class="content-wrapper">
@@ -72,7 +82,7 @@
 
 
     {{!-- <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ADD PRODUCTS"> --}}
-    <a href="/admin/add-products" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">ADD PRODUCTS</a>
+    <a href="/admin/add-products" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn mb-3">ADD PRODUCTS</a>
 
       <div class="row">
             
@@ -80,7 +90,7 @@
             <section>
                 <div class="container">
 
-                   <div>
+                   <div class="table-responsive">
                     <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="productsTable">
                         <thead>
                             <tr>
@@ -88,6 +98,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Category</th>
                             <th scope="col">price</th>
+                            <th scope="col">stock</th>
                             <th scope="col">Image</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Status</th>
@@ -99,51 +110,14 @@
                             <td>{{inc @index}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.categoryDetails.[0].category}}</td>
-                            <td>{{this.price}}</td>
+                            <td>{{this.subPrice}}</td>
+                            <td>{{this.productQuantity}}</td>
                             <td><img style="width: 50px;" src="{{this.image.[0]}}"></td>
-                            <td><a href="/admin/edit-products/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                            <td><a href="/admin/edit-products/{{this.slug}}" class="btn btn-primary">Edit</a></td>
                             {{#if this.productStatus}}
-                            <td> <button data-toggle="modal" data-target="#exampleModal2" class="btn btn-danger">Unlist</button></td>
-                              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel2">Are you sure?</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p>You want to unlist {{this.name}} </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                      <a href="/admin/unlist-product/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <td> <button data-toggle="modal" data-target="#unlist{{this._id}}" class="btn btn-danger">Unlist</button></td>
                             {{else}}
-                            <td> <button data-toggle="modal" data-target="#exampleModal3" class="btn btn-success">list</button></td>
-                              <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel3">Are you sure?</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p>You want to list {{this.name}} </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                      <a href="/admin/list-product/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <td> <button data-toggle="modal" data-target="#list{{this._id}}" class="btn btn-success">list</button></td>
                             {{/if}}
                             </tr>
                             {{/each}}
@@ -167,6 +141,56 @@
   </div>
       <!-- main-panel ends -->
 </div>
+
+{{#each products}}
+
+  <div class="modal fade" id="unlist{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to unlist {{this.name}} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/unlist-product/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+                            
+{{/each}} 
+
+{{#each products}}
+
+  <div class="modal fade" id="list{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to list {{this.name}} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/list-product/{{this._id}}" type="button" class="btn btn-danger">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+                            
+{{/each}} 
+
+    
 <script>
 
   $(document).ready(function () {

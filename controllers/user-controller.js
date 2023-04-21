@@ -5,46 +5,75 @@ const userHelpers = require('../models/user-helpers');
 const productHelpers=require('../models/product-helpers');
 const cloudinary = require('../utils/cloudinary');
 const upload = require("../utils/multer");
+var sharp = require('sharp');
+const { log } = require('handlebars');
 let userHeader;
 
 
 
 module.exports = {
     get : async(req, res) => {
+      try{
       let cartCount = null;
         let user = req.session.user;
         let userName = req.session.userName;
         console.log(userName);
-        console.log(user)
         if(req.session.loggedIn){
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         }
-        res.render("user/user-view",{user, userName,cartCount, userHeader:true});
+        let banners = await userHelpers.getAllBanner()
+        let popularProducts = await productHelpers.getPopularproducts()
+        res.render("user/user-view",{user,banners,popularProducts, userName,cartCount, userHeader:true});
+      }catch(err){
+        console.log(err);
+        res.render('user/err',{err})
+      }
     },
     userLogin : (req, res) =>{
+      try{
         if(req.session.loggedIn){
             res.redirect('/');
           }else{
             res.render('user/user-login',{loginErr:req.session.loginErr});
             req.session.loginErr=false;
           }
+        }catch(err){
+          console.log(err);
+          res.render('user/err',{err})
+        }
     },
     userSignup : (req, res) =>{
+      try{
         if(req.session.loggedIn==true){
             res.redirect('/');
           }else{
-            res.render('user/user-signup');
+            res.render('user/user-signup',{signupErr:req.session.signupErr});
           }
+        }catch(err){
+          console.log(err);
+          res.render('user/err',{err})
+        }
     },
     userSignupPost : (req,res) =>{
+      try{
         userHelpers.doSignUp(req.body).then((response)=>{
+          if(response.status){
             req.session.loggedIn=true;
             req.session.user=response;
             console.log(req.session.user);
             res.redirect('/');
+          }else{
+            req.session.signupErr="ALREADY REGISTERED!!";
+            res.redirect('/signup')
+          }
           })
+        }catch(err){
+          console.log(err);
+          res.render('user/err',{err})
+        }
     },
     userLoginPost : (req, res) =>{
+      try{
         userHelpers.doLogin(req.body).then((response)=>{
             if(response.status){
               if(!response.isBlocked){
@@ -62,57 +91,188 @@ module.exports = {
               res.redirect('/login');
             }
           })
+        }catch(err){
+          console.log(err);
+          res.render('user/err',{err})
+        }
     },
     userLogout : (req,res) =>{
-        req.session.destroy();
+        req.session.loggedIn=false
+        req.session.user=false;
         res.redirect('/');
     },
     otpLogin : (req,res) =>{
-      if(req.session.loggedIn){
-          res.redirect('/');
-      }else{
-          res.render('user/otp-login');
-      } 
+      try{
+        if(req.session.loggedIn){
+            res.redirect('/');
+        }else{
+            res.render('user/otp-login');
+        } 
+      }catch(err){
+        console.log(err);
+        res.render('user/err',{err})
+      }
   },
+  checkUser:(req,res)=>{
+      try{
+      userHelpers.checkUser(req.body).then((response)=>{
+        res.json(response)
+      })
+      }catch(err){
+        console.log(err);
+        res.render('user/err',{err})
+      }
+  },
+  otpVerify:(req,res)=>{
+    try{
+    userHelpers.findUser(req.body).then((response)=>{
+      req.session.loggedIn=true;
+      req.session.user=response.user;
+      req.session.userName=response.userName
+      // res.redirect('/');
+      res.json({
+        status:true
+      })
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  forgotPassword : (req,res) =>{
+    try{
+    if(req.session.loggedIn){
+        res.redirect('/');
+    }else{
+        res.render('user/forgot-password');
+    }
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    } 
+},
+resetPassword : (req,res) =>{
+  try{
+    res.render('user/reset-password');
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+},
+userVerify:(req,res)=>{
+  try{
+  userHelpers.findUser(req.body).then((response)=>{
+    req.session.user=response.user;
+    req.session.userName=response.userName
+    req.session.user._id = response.user._id
+    // res.redirect('/');
+    res.json({
+      status:true
+    })
+    console.log(response);
+  })
+  }catch(err){
+    console.log(err);
+    res.render('user/err',{err})
+  }
+},
+resetNewPassword:async(req,res)=>{
+  try{
+  password = await userHelpers.updatePassword(req.session.user._id,req.body)
+  req.session.destroy();
+  res.redirect('/');
+  }catch(err){
+    console.log(err);
+    res.render('user/err',{err})
+  }
+},
   userShop : async(req,res) =>{
+    try{
     let cartCount = null;
         let user = req.session.user;
-        cartCount = await userHelpers.getCartCount(req.session.user._id)
-        let wishlist= await productHelpers.getWishStatus(req.session.user._id)
-        productHelpers.getAllProducts().then((products)=>{
-           productHelpers.getAllCategory().then((category)=>{
+        let currentPage = req.query.page || 1;
+        cartCount = await userHelpers.getCartCount(req.session.user._id);
+        let wishlist= await userHelpers.getWishStatus(req.session.user._id);
+        let totalCount = await userHelpers.getProductCount()
+        userHelpers.getAllUserProducts(currentPage).then((products)=>{
+          
+           userHelpers.getAllCategory().then((category)=>{
             for(let i=0;i<products.length;i++){
               products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
             }
-         res.render('user/user-shop',{user,products,wishlist,category,cartCount,userHeader:true});
+         res.render('user/user-shop',{user,products,currentPage,totalCount,wishlist,category,cartCount,userHeader:true});
           })
         })
+      }catch(err){
+        console.log(err);
+      }
   },
   filterCategory:async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     let products =await productHelpers.getFilterCategory(req.params.id)
-    productHelpers.getAllCategory().then((category)=>{
+    req.session.categoryId = req.params.id;
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
     res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   filterPrice:async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     let products = await productHelpers.getFilterPrice(req.body)
-    productHelpers.getAllCategory().then((category)=>{
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
     res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  categoryFilterPrice:async(req,res)=>{
+    try{
+      let cartCount = null;
+      let user = req.session.user;
+      let categoryId = req.session.categoryId;
+      cartCount = await userHelpers.getCartCount(req.session.user._id)
+      let products = await productHelpers.categoryGetFilterPrice(req.body,categoryId)
+      userHelpers.getAllCategory().then((category)=>{
+        for(let i=0;i<products.length;i++){
+          products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+        }
+      res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+      })
+      }catch(err){
+        console.log(err);
+        res.render('user/err',{err})
+      }
   },
   contact : async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     res.render('user/contact',{user,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   productDetails : async(req,res) =>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
@@ -123,43 +283,71 @@ module.exports = {
     });
     let proPrice = rupee.format(product.price)
       res.render('user/product-details',{user,product,proPrice,cartCount,userHeader:true});
+  }catch(err){
+    res.render('user/err',{err})
+  }
   },
   userCart : async (req,res) =>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     let userId =req.session.user._id;
     let totalValue = 0;
+    let cartEmpty = Boolean(false)
     let products = await userHelpers.getCartProducts(req.session.user._id);
+   
     let total = await userHelpers.getTotalAmount(req.session.user._id);
+    
     if(total>0){
       totalValue = total;
     }
-    console.log(products)
+    
     cartCount = await userHelpers.getCartCount(req.session.user._id);
-    res.render('user/user-cart',{user,userId,products,totalValue,cartCount,userHeader:true}); 
+    if(cartCount==0){
+      cartEmpty = Boolean(true)
+    }
+    
+   let wallet = await userHelpers.getWalletAmount(req.session.user._id)
+    res.render('user/user-cart',{user,userId,products,wallet,cartEmpty,totalValue,cartCount,userHeader:true,Err:req.session.checkoutErr});
+    req.session.checkoutErr = false; 
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   addToCart : (req,res) =>{
     try{
       console.log("api call")
-      userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
-        res.json({status:true})
+      console.log(req.body);
+      userHelpers.addToCart(req.params.id,req.session.user._id,req.body).then((response)=>{
+        res.json(response)
       })
     }
     catch(err){
       console.log(err)
     }
   },
-  changeProductQuantity : (req,res)=>{
+  changeProductQuantity : async(req,res)=>{
+    try{
     userHelpers.changeQuantity(req.body).then(async(response)=>{
     response.total = await userHelpers.getTotalAmount(req.body.user)
     res.json(response)
     console.log("quantity")
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   removeProduct:(req,res)=>{
+    try{
     userHelpers.removePro(req.body).then((response)=>{
       res.json(response)
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   userProfile : async(req,res)=>{
     try{
@@ -176,90 +364,463 @@ module.exports = {
     }
   },
   updateProfile : async(req,res)=>{
-    console.log("arrived");
+    try{
     user = await userHelpers.updateProfile(req.session.user._id,req.body)
     res.redirect('/user-profile');
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  addProfileImage:async(req,res)=>{
+        try{
+            let userId= req.session.user._id;   
+                const result = await cloudinary.uploader.upload(req.file.path); 
+                if(result.url !== 0){
+                    userHelpers.addProfileImage(userId,result.url).then((response)=>{
+                    })
+                }      
+        }catch(err){
+            console.log(err)
+        }
+        finally{
+            res.redirect('/user-profile');
+        }
   },
   checkout : async(req,res)=>{
     try{
       let cartCount = null;
       let user = req.session.user;
+      let outOfStock = false;
       cartCount = await userHelpers.getCartCount(req.session.user._id)
       let total = await userHelpers.getTotalAmount(req.session.user._id)
+      let address = await userHelpers.getAllAddress(req.session.user._id)
       let products = await userHelpers.getCartProducts(req.session.user._id);
-      res.render('user/checkout',{user,total,products,cartCount,userHeader:true}); 
+      for(let i=0;i<products.length;i++){
+        if(products[i].product.productQuantity == 0){
+          outOfStock = true;
+        }
+      }
+      let wallet = await userHelpers.getWalletAmount(req.session.user._id)
+      for(let i=0;i<products.length;i++){
+        if(products[i].product.productQuantity == 0){
+          products.splice(i, 1);
+        }
+      }
+      let coupons = await productHelpers.getAllCoupons()
+      if(outOfStock){
+        req.session.checkoutErr = "Product is out of stock";
+      res.redirect('/user-cart')
+      }else{
+      res.render('user/checkout',{user,total,coupons,wallet,address,products,cartCount,userHeader:true});
+      } 
+      
     }
     catch(err){
       console.log(err)
     }
   },
   checkoutPost: async(req,res)=>{
+    try{
     let products = await userHelpers.getCartProductList(req.body.userId)
+    
     let totalPrice = await userHelpers.getTotalAmount(req.body.userId)
+    let grandTotal = req.body.total
+
     userHelpers.placeOrder(req.body,products,totalPrice).then((orderId)=>{
+      req.session.orderId = orderId
       if(req.body['payment-method']==='cod'){
-        res.json({codSuccess:true})
+        for(let i=0;i<products.length;i++){
+         userHelpers.decrementProQuantity(products[i].item,products[i].quantity)
+        }
+        let emptycart = userHelpers.emptyCart(req.session.user._id)
+        let couponUsed = userHelpers.addUsedCoupons(req.session.couponId,req.session.user._id)
+          res.json({codSuccess:true})
+      }
+      else if(req.body['payment-method']==='wallet'){
+        for(let i=0;i<products.length;i++){
+          userHelpers.decrementProQuantity(products[i].item,products[i].quantity)
+         }
+         let emptycart = userHelpers.emptyCart(req.session.user._id)
+         let couponUsed = userHelpers.addUsedCoupons(req.session.couponId,req.session.user._id)
+         let wallet = userHelpers.updateWallet(req.session.user._id,grandTotal)
+           res.json({walletSuccess:true})
       }
       else{
-        userHelpers.generateRazorpay(orderId,totalPrice).then((response)=>{
+        userHelpers.generateRazorpay(orderId,grandTotal).then((response)=>{
           res.json(response)
         })
       }
     })
-    console.log(req.body)
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   orderSuccess :async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
+    let orderId = req.session.orderId;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
-    res.render('user/order-success',{user,cartCount,userHeader:true}); 
+    let orderDetails = await productHelpers.getOrderDetails(orderId)
+    const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    let date = orderDetails.date.getDate() + "-" + months[orderDetails.date.getMonth()] + "-" + orderDetails.date.getFullYear()
+    res.render('user/order-success',{user,cartCount,orderDetails,date,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    } 
   },
   wishlist : async(req,res)=>{
+    try{
     let cartCount = null;
+    let wishCount = Boolean(false)
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
-    productHelpers.getWishlistProducts(req.session.user._id).then((wishItem)=>{
-    res.render('user/wishlist',{user,wishItem,cartCount,userHeader:true});
-    })
+    let wishItem = await userHelpers.getWishlistProducts(req.session.user._id)
+      if(wishItem.length == 0){
+        wishCount = Boolean(true)
+      }
+    res.render('user/wishlist',{user,wishCount,wishItem,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   addToWishlist : async(req,res)=>{
+    try{
     let user = req.session.user;
-    console.log(req.params.id)
-    console.log(req.session.user._id);
-    await productHelpers.addToWishlist(req.params.id,req.session.user._id).then(()=>{
-    res.redirect('/user-shop');
+    await productHelpers.addToWishlist(req.body,req.session.user._id).then((response)=>{
+    res.json(response)
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   removeWishlist : async(req,res)=>{
+    try{
     productHelpers.removeWish(req.body).then((response)=>{
     res.json(response)
     })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   userOrder: async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
+    let current = new Date()
+    let orderEmpty = Boolean(false)
     cartCount = await userHelpers.getCartCount(req.session.user._id)
-    let orders = await userHelpers.getUserOrder(req.session.user._id)
-    console.log(orders.date);
-    res.render('user/user-order',{user,orders,cartCount,userHeader:true});
+    let orders = await userHelpers.getUserOrder(req.session.user._id,current)
+    const deliveryDate = orders.delivery; // Get the delivery date
+    
+    if(orders.length == 0){
+      orderEmpty = Boolean(true)
+    }
+    const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    for(let i=0;i<orders.length;i++){
+      orders[i].date = orders[i].date.getDate() + "-" + months[orders[i].date.getMonth()] + "-" + orders[i].date.getFullYear()
+      }
+    
+    res.render('user/user-order',{user,orders,orderEmpty,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  cancelOrder:(req,res)=>{
+    try{
+    let orderId = req.params.id;
+    let userId = req.session.user._id
+      productHelpers.cancelOrder(orderId,userId).then((response) =>{
+          res.redirect('/user-order');
+      })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  returnOrder:(req,res)=>{
+    try{
+    let orderId = req.params.id;
+      productHelpers.requestReturn(orderId).then((response) =>{
+          res.redirect('/user-order');
+      })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   userAddress: async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
-    res.render('user/user-address',{user,cartCount,userHeader:true});
+    let address = await userHelpers.getAllAddress(req.session.user._id)
+    res.render('user/user-address',{user,address,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
   viewOrderProduct: async(req,res)=>{
+    try{
     let cartCount = null;
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     let products = await userHelpers.getOrderProduct(req.params.id)
     let orders = await userHelpers.getUserOrder(req.session.user._id)
-    console.log(orders);
     res.render('user/order-product-view',{user,products,orders,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
   },
-  verifyPayment: (req,res)=>{
-    console.log(req.body);
-  }
-    
+  verifyPayment: async(req,res)=>{
+    let products = await userHelpers.getCartProductList(req.session.user._id)
+    userHelpers.verifyPayment(req.body).then(()=>{
+      userHelpers.changePaymentStatus(req.body['order[receipt]']).then(()=>{
+        for(let i=0;i<products.length;i++){
+          userHelpers.decrementProQuantity(products[i].item,products[i].quantity)
+         }
+         let emptycart = userHelpers.emptyCart(req.session.user._id)
+         let couponUsed = userHelpers.addUsedCoupons(req.session.couponId,req.session.user._id)
+        res.json({status:true})
+      })
+    }).catch((err)=>{
+      console.log(err);
+      res.json({status:false})
+    })
+  },
+  addAddress:async(req,res)=>{
+    try{
+    let user = req.session.user;
+    let cartCount = null;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let address = await userHelpers.addAddress(req.body,req.session.user._id)
+    res.redirect('/user-address');
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  editAddress:async(req,res)=>{
+    try{
+    userHelpers.getAddress(req.session.user._id,req.params.id,req.body).then(()=>{
+      res.redirect('/user-address')
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  deleteAddress:async(req,res)=>{
+    try{
+    userHelpers.deleteAddress(req.session.user._id,req.params.id).then((response)=>{
+      res.redirect('/user-address')
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  changePassword:async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    res.render('user/change-password',{user,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  changePasswordPost:async(req,res)=>{
+    try{
+    let user = req.session.user;
+    let cartCount = null;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    userHelpers.varifyPassword(req.body,req.session.user._id).then((response)=>{
+      if(response.status){ 
+        res.render('user/new-password',{user,cartCount,userHeader:true});
+      }else{
+        req.session.loginErr="Incorrect Password";
+        res.redirect('/change-password');
+      }
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  newPassword:async(req,res)=>{
+    try{
+    password = await userHelpers.updatePassword(req.session.user._id,req.body)
+    req.session.destroy();
+    res.redirect('/');
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  getRewards:async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let rewards = await userHelpers.getAllRewards()
+    res.render('user/user-rewards',{user,rewards,cartCount,userHeader:true});
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  CouponRedeem:async(req,res)=>{
+    try{
+    userHelpers.redeemCoupon(req.body,req.session.user._id).then((response)=>{
+      req.session.couponId = response._id
+      res.json(response)
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  lowHighSort:async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let products =await productHelpers.getLowToHigh()
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
+    res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  lowHighSortCategory:async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    let categoryId = req.session.categoryId
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let products =await productHelpers.getLowToHighCategory(categoryId)
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
+    res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  highLowSortCategory:async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    let categoryId = req.session.categoryId
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let products =await productHelpers.getHighToLowCategory(categoryId)
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
+    res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  // lowHighSort:async(req,res)=>{
+  //   try{
+  //   let cartCount = null;
+  //   let user = req.session.user;
+  //   cartCount = await userHelpers.getCartCount(req.session.user._id)
+  //   let products =await productHelpers.getLowToHigh()
+  //   productHelpers.getAllCategory().then((category)=>{
+  //     for(let i=0;i<products.length;i++){
+  //       products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+  //     }
+  //   res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+  //   })
+  //   }catch(err){
+  //     console.log(err);
+  //     res.render('user/err',{err})
+  //   }
+  // },
+  // lowHighSort:async(req,res)=>{
+  //   try{
+  //   let cartCount = null;
+  //   let user = req.session.user;
+  //   cartCount = await userHelpers.getCartCount(req.session.user._id)
+  //   let products =await productHelpers.getLowToHigh()
+  //   productHelpers.getAllCategory().then((category)=>{
+  //     for(let i=0;i<products.length;i++){
+  //       products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+  //     }
+  //   res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+  //   })
+  //   }catch(err){
+  //     console.log(err);
+  //     res.render('user/err',{err})
+  //   }
+  // },
+  // lowHighSort:async(req,res)=>{
+  //   let cartCount = null;
+  //   let user = req.session.user;
+  //   cartCount = await userHelpers.getCartCount(req.session.user._id)
+  //   let products =await productHelpers.getLowToHigh()
+  //   userHelpers.getAllCategory().then((category)=>{
+  //     for(let i=0;i<products.length;i++){
+  //       products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+  //     }
+  //   res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+  //   })
+  // },
+  HighLowSort :async(req,res)=>{
+    try{
+    let cartCount = null;
+    let user = req.session.user;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let products =await productHelpers.getHighLow()
+    userHelpers.getAllCategory().then((category)=>{
+      for(let i=0;i<products.length;i++){
+        products[i].price = products[i].price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+      }
+    res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+    })
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+    search:async(req,res)=>{
+      try{
+        let cartCount = null;
+        let user = req.session.user;
+        cartCount = await userHelpers.getCartCount(req.session.user._id)
+        console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        console.log(req.body);
+        let category = await userHelpers.getAllCategory()
+        let products = await productHelpers.searchProducts(req.body)
+        res.render('user/filter-category',{user,products,category,cartCount,userHeader:true});
+      }catch(err){
+        console.log(err);
+        res.render('user/err',{err})
+      }
+    }
+
 }

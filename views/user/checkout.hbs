@@ -1,85 +1,87 @@
+
+
 <div class="site-wrap">
 
-<div class="bg-light py-3">
+{{!-- <div class=" py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-cart">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
         </div>
       </div>
-    </div>
+    </div> --}}
 <div class="site-section">
       <div class="container">
-        {{!-- <div class="row mb-5">
-          <div class="col-md-12">
-            <div class="border p-4 rounded" role="alert">
-              Returning customer? <a href="#">Click here</a> to login
+        <div class="row mb-5">
+          <div class="col-md-6">
+            <div class="border p-4 mt-2 rounded" >
+             <button type="button" class="btn btn-sm btn-black btn-block" data-toggle="modal" data-target="#adrsModal">
+              <span class="mdi mdi-map-marker-plus px-2"></span>
+                Add new Address
+              </button>
             </div>
           </div>
-        </div> --}}
-        <form action="" id="checkout-form" method="post">
-        <div class="row">
-          <div class="col-md-6 mb-5 mb-md-0">
-            <h2 class="h3 mb-3 text-black">Billing Details</h2>
-            <div class="p-3 p-lg-5 border">
+           <div class="col-md-6">
+              <div class="p-3 p-lg-4 mt-2 border">
               
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <label for="c_fname" class="text-black"> Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Name" onkeyup="validateName()">
-                  <span id="name-error" class="validation-label text-danger"></span>
+                <div class="input-group ">
+                  <input type="text" class="form-control" id="myInput" name="couponCode" placeholder="Enter your coupon code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btn-sm px-3" type="submit" id="myButton">Apply</button>
+                  </div>
                 </div>
+               <h4 id="error" class="pt-2 text-danger"></h4>
               </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Address">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <label for="c_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
-                  <input type="tel" class="form-control" id="pin" name="pin" placeholder="Pincode" onkeyup="validatePin()">
-                    <span id="pin-error" class="validation-label text-danger"></span>
-                </div>
-              </div>
-
-              <div class="form-group row mb-5">
-                <div class="col-md-6">
-                  <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" onkeyup="validateEmail()">
-                  <span id="email-error" class="validation-label text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                  <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                  <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" onkeyup="validatePhone()">
-                  <span id="phone-error" class="validation-label text-danger"></span>
-                </div>
-              </div>
-            
             </div>
-            {{!-- <div class="row mb-5">
+        </div>
+
+
+        
+
+        <!-- Modal -->
+        
+        <form action="/" id="checkout-form" method="post">
+          <div class="row p-3 p-lg-5 border">
+            
+            <div class="col-md-6 col-sm-12 mb-5 ">
               <div class="col-md-12">
-                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+             <h2 class="h3 mb-3 text-black">Choose your address</h2>
+                 {{!-- <div class="col-md-12 d-flex"> --}}
                 <div class="p-3 p-lg-5 border">
                   
-                  <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
-                  <div class="input-group w-75">
-                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
-                    </div>
-                  </div>
+                 
+                       {{!-- <div class="row col-md-6 mb-5">
+                       <div class="col-md-12">
+                         <h2 class="h3 mb-3 text-black">Your Order</h2> --}}
+                  
+                    
+                      
+                        {{#each address}}
+                        <div class="col-md-12 ">
+                            <div class="col-md-12 mt-2">
+                              
+                                <div class="p-lg-3 border" style="background-color: #fbf6f3;">
+                                <input type="radio"  name="address" value="{{this._id}}">
+                                <p class=" h5 text-black pt-2" style="font-size: 14px;"> <b> {{this.name}}</b>,
+                                {{this.address}}, {{this.state}}, {{this.country}}, {{this.pin}}</p>
+                                <p class="text-black"> phone: <b>{{this.phone}}</b></p>
+                                {{!-- <a href="/edit-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-border-color"></span>EDIT</button></a> --}}
+                                {{!-- <a href="/remove-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-delete"></span>REMOVE</button></a> --}}
 
+                                </div>
+                                
+                            </div>
+                            </div>
+                          {{/each}}
+                    </div>    
                 </div>
-              </div>
-            </div> --}}
-
-
+                
+                         
+              {{!-- </div> --}}
           </div>
-          
-          <div class="col-md-6">
-            <div class="row mb-5">
+
+        {{!-- <div class="row">
+          <div class="col-md-6"> --}}
+            <div class=" col-md-6 col-sm-12 mb-5">
               <div class="col-md-12">
                 <h2 class="h3 mb-3 text-black">Your Order</h2>
                 <div class="p-3 p-lg-5 border">
@@ -92,20 +94,32 @@
                         {{#each products}}
                       <tr>
                         <td>{{this.product.name}} <strong class="mx-2 text-primary">x</strong> {{this.quantity}}</td>
-                        <td>Rs.{{this.product.price}}</td>
+                        <td>₹{{math this.product.price "*" this.quantity}}.00</td>
                       </tr>
                       {{/each}}
                       <tr>
                         <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                        <td class="text-black">Rs.{{total}}</td>
+                        <td class="text-black" id="subTotal">₹{{total}}.00</td>
+                        <input type="text" id="subtotal" value="{{total}}" hidden>
+                      </tr>
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Discount</strong></td>
+                        <td class="text-black" id="discount">0</td>
                       </tr>
                       <tr>
                         <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                        <td class="text-black font-weight-bold"><strong>Rs.{{total}}</strong></td>
+                        <td class="text-black font-weight-bold" id="total1"><strong>₹{{total}}.00</strong></td>
+                        <input type="text" id="total" name="total" value="{{total}}" hidden>
                       </tr>
                     </tbody>
                   </table>
                 <div class="radio-inline">
+                  {{#if (lessEqual total wallet)}}
+                  <div class="border p-3 mb-3">
+                    <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="wallet"> Wallet Payment</h3>
+                  </div>
+                  {{/if}}
+
                   <div class="border p-3 mb-3">
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
                   </div>
@@ -114,37 +128,180 @@
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="ONLINE"> Online Payment</h3>
                   </div>
                   <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                  <input type="text" style="display: none;" value="" name="isShipped" />
+                  <input type="text" style="display: none;" value="" name="isDelivered" />
+                  <input type="text" style="display: none;" value="true" name="isPlaced" />
+                  <input type="text" style="display: none;" value="" name="isCancelled" />
+                  <input type="text" style="display: none;" value="" name="isRequested" />
+                  <input type="text" style="display: none;" value="" name="isReturned" />
+                  
                   {{!-- <div class="border p-3 mb-5">
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
                   </div> --}}
-
+                  </div>
                   <div class="form-group">
                     <button class="btn btn-primary btn-lg btn-block" type="submit" >Place Order</button>
                   </div>
-                </div>
+                
                 </div>
               </div>
             </div>
 
-          </div>
+          {{!-- </div>
+        </div> --}}
         </div>
          </form>
         <!-- </form> -->
       </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="adrsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>    
+                  <form action="/add-address" method="post">
+                        
+                            <div class="modal-body container">
+                               
+                              
+                                  <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="email" name="email">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="">
+                                    </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
+                                        <select id="state" name="state" class="form-control">
+                                          <option value="1">Select a State</option>    
+                                          <option value="Kerala">Kerala</option>    
+                                          <option value="Tamil Nadu">Tamil Nadu</option>    
+                                          <option value="Karnataka">Karnataka</option>    
+                                              
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                        <select id="country" name="country" class="form-control">
+                                          <option value="1">Select a country</option>    
+                                          <option value="India">India</option>    
+                                          <option value="Algeria">Algeria</option>    
+                                          <option value="Afghanistan">Afghanistan</option>    
+                                          <option value="Ghana">Ghana</option>     
+                                        
+                                        </select>
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="pin" name="pin">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
+                                    </div>
+
+                                
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                      
+              </div>
+              {{!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div> --}}
+            </div>
+          </div>
+        </div>
+
+
 <script type="text/javascript" src="/javascripts/signup-validation.js"></script>
 <script>
+    $(document).ready(function() {
+      $('#myButton').click(function() {
+        const inputValue = $('#myInput').val();
+        console.log(inputValue)
+        $.ajax({
+          url: '/coupon-redeem',
+          method: 'POST',
+          data: { inputValue },
+          success: function(response) {
+            console.log(response);
+            if(response.isValid){
+              if(response.notExpired){
+                if(response.usedCoupon){
+                  document.getElementById('error').innerHTML=response.message;
+                }
+                else{
+                let subtotal = document.getElementById('subtotal').value
+                let disAmount = (response.discount*subtotal)/100;
+                document.getElementById('discount').innerHTML=disAmount
+                document.getElementById('total').value= subtotal-disAmount
+                document.getElementById('total1').innerHTML= subtotal-disAmount
+                }
+              }else{
+                document.getElementById('error').innerHTML=response.message;
+              }
+              
+            }else{
+               document.getElementById('error').innerHTML=response.message;
+            }
+            
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+          }
+        });
+      });
+    });
+</script>
+<script>
+
    $("#checkout-form").submit((e)=>{
+
+     var formData = $('#checkout-form').serialize();
+     console.log("this is form data "+ formData);
         e.preventDefault()
         $.ajax({
             url:'/checkout',
             method:'post',
-            data:$('#checkout-form').serialize(),
+            data: formData,
             success:(response)=>{
                 if(response.codSuccess){
                     location.href='/order-success'
-                }else{
+                }
+                else if(response.walletSuccess){
+                    location.href='/order-success'
+                }
+                else{
                   razorpayPayment(response)
                 }
             }
@@ -161,12 +318,9 @@
           "image": "https://example.com/your_logo",
           "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
           "handler": function (response){
-              alert(response.razorpay_payment_id);
-              alert(response.razorpay_order_id);
-              alert(response.razorpay_signature);
               verifyPayment(response,order)
               },
-          "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+          
           "prefill": {
               "name": "Gaurav Kumar", //your customer's name
               "email": "gaurav.kumar@example.com",
@@ -189,7 +343,16 @@
           payment,
           order
         },
-        method:'post'
+        method:'post',
+        success:(response)=>{
+                if(response.status){
+                    location.href='/order-success'
+                }else{
+                  alert("payment failed")
+                }
+            }
       })
     }
+
+   
 </script>

@@ -20,25 +20,46 @@
     <title>Gemma</title>
 </head>
 <body>
-    <div class="site-section ">
+    <div class="site-section " style="background-color:; height:100%;">
     <div class="container">
         <div class="row ">
         <div class="col-md-12 text-center">
-            <h2 class="h3 mb-3 text-black">Hello! let's get started</h2>
+            
         </div>
         <div class="col-md-7 mx-auto align-items-center justify-content-center">
             <form action="/signup" id="submit-form" method="post">
-                <div class="p-3 p-lg-5 border ">
-                    <div class="brand-logo">
-                        <!-- <img src="../../assets/images/logo.svg"> -->
-                        <h3 style="color:#000">GEMMA</h3>
+                <div class="p-3 p-lg-5 border bg-white" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);">
+                    <div class="d-flex">
+                        <div class="brand-logo col-6">
+                            <div class="logo">
+                                <div class="site-logo">
+                                <a href="/" class="js-logo-clone">GEMMA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6" style="text-align: right;">
+                           <a href="/">X</a> 
+                        </div>
                     </div>
-                    <h6 class="font-weight-light mt-2 mb-2">Create your account.</h6>   
+                    <h6 class="font-weight-light mt-3 mb-2">Create your account.</h6>
+
+                    {{#if signupErr}}
+                    <div class="mb-3">
+                    <span class="text-danger">{{signupErr}}</span>
+                    </div>
+                    {{/if}}   
+
+
                 <div class="form-group row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                     <label for="c_fname" class="text-black">Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="name" name="name" onkeyup="validateName()"/>
                     <span id="name-error" class="validation-label text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                    <label for="c_mobile" class="text-black">Phone no <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="" onkeyup="validatePhone()"/>
+                    <span id="phone-error" class="validation-label text-danger"></span> 
                     </div>
                 </div>
                 <div class="form-group row">
@@ -48,13 +69,7 @@
                     <span id="email-error" class="validation-label text-danger"></span> 
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-12">
-                    <label for="c_mobile" class="text-black">Phone no <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="" onkeyup="validatePhone()"/>
-                    <span id="phone-error" class="validation-label text-danger"></span> 
-                    </div>
-                </div>
+                
                 <div class="form-group row">
                     <div class="col-md-12">
                     <label for="c_password" class="text-black">Password <span class="text-danger">*</span></label>

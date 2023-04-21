@@ -2,55 +2,61 @@
   .image-upload>input {
   display: none;
 }
-</style>
+.camera-icon{
+    position: absolute;
+    top: 130px;
+    left: 220px;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    color: black;
+    font-size: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+  } 
+ </style>
  <div class="site-wrap">
-<div class="custom-border-bottom py-3">
+{{!-- <div class="custom-border-bottom py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span><a href="/user-profile">Profile</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-lg-4 mb-4 mb-lg-0 " data-aos="fade-up" data-aos-delay="">
-                <div class="p-3 p-lg-5 border">
+                <div class="p-3 p-lg-5 border" style="background-color: #f9f9f9;">
                     <div class="block-38 text-center">
                         <div class="block-38-img">
                         <div class="block-38-header">
-                          <form action="/admin/add-profileImg" method="post" enctype="multipart/form-data">
-                            <img src="/images/person_1.jpg" alt="Image placeholder" class="mb-4">
-                              <div class="image-upload">
-                                {{!-- <label for="file-input">
-                                  <img style="width:28px" class="mt-3" src="https://static.thenounproject.com/png/3752772-200.png"/>
-                                </label> --}}
-                                {{!-- <input id="file-input" type="file" cursor="pointer" /> --}}
-                                {{!-- <input type="submit" value="Upload Image" name="submit"> --}}
-                                {{!-- <button class="file-upload-browse btn btn-primary" style="width:70px;height:25px" type="button">Upload</button> --}}
-                              </div>
-                              {{!-- <input type="file" class="form-control" name="image" class="file-upload-default" id="product-images" > --}}
-                            </form>
+                          {{#if user.profile}}                       
+                            <img src="{{user.profile}}" alt="Image placeholder" style="width:130px; height:130px;" class="mb-4">
+                          {{else}}
+                            <img src="/images/user.jpg" alt="Image placeholder" style="width:130px; height:130px;" class="mb-4">
+                          {{/if}}
                             <h3 class="block-38-heading h4">{{user.name}}</h3>
+                              <i type="button" class="mdi mdi-camera md-36 camera-icon" data-toggle="modal" data-target="#profile"></i> 
                         </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="p-3 border mt-4 mb-3">
-                            <span class="d-block text-primary h6 text-uppercase">My Accont</span>
+                        <div class="p-3 border bg-white mt-4 mb-3" >
+                            <span class="d-block text-primary h6 text-uppercase">My Account</span>
                         </div>
-                        <div class="p-3 border mt-4 mb-3">
+                        <div class="p-3 border mt-4 mb-3 bg-white">
                             <a href="/user-order"><span class="d-block text-primary h6 text-uppercase">My orders</span></a>
                         </div>
-                        <div class="p-3 border mt-4 mb-3">
-                            <a href="/wishlist"><span class="d-block text-primary h6 text-uppercase">My wishlist</span></a> 
+                        <div class="p-3 border mt-4 mb-3 bg-white">
+                            <a href="/rewards"><span class="d-block text-primary h6 text-uppercase">My Rewards</span></a> 
                         </div>
-                        <div class="p-3 border mt-4 mb-3">
-                            <a href="/user-address"><span class="d-block text-primary h6 text-uppercase">mY address</span></a> 
+                        <div class="p-3 border mt-4 mb-3 bg-primary">
+                            <a href="/user-address"><span class="d-block text-white h6 text-uppercase">mY address</span></a> 
                         </div>
-                        <div class="p-3 border mt-4 mb-3">
-                            <span class="d-block text-primary h6 text-uppercase">Change password</span>
+                        <div class="p-3 border mt-4 mb-3 bg-white">
+                            <a href="/change-password"><span class="d-block text-primary h6 text-uppercase">Change password</span></a>
                         </div>
                     
                     </div>
@@ -62,83 +68,72 @@
                 
                 <div class="col-md-12">
       
-                  <form action="/user-profile/{{user._id}}" method="post">
+                  <form action="/add-address" method="post">
                     
                     <div class="p-3 p-lg-5 border">
                         <div class="row mb-5">
                             <div class="col-md-12">
                                 <h2 class="h3 mb-3 text-black">Address Book</h2>
-                                <div class="p-2 p-lg-4 border">
+                              <div class="p-2 p-lg-4 border">
                                 {{!-- <label for="c_code" class="text-black mb-3"><span class="mdi mdi-map-marker-plus"> </span> Add new adrress</label> --}}
                                 <div class="form-group">
                                 <label for="c_ship_different_address" class="text-black mt-2" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"><span class="mdi mdi-map-marker-plus px-2"> Add new adrress</span></label>
                                 <div class="collapse" id="ship_different_address">
                                 <div class="py-2">
-                                    <div class="form-group">
-                                    <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
-                                    <select id="c_diff_country" class="form-control">
-                                        <option value="1">Select a country</option>    
-                                        <option value="2">bangladesh</option>    
-                                        <option value="3">Algeria</option>    
-                                        <option value="4">Afghanistan</option>    
-                                        <option value="5">Ghana</option>    
-                                        <option value="6">Albania</option>    
-                                        <option value="7">Bahrain</option>    
-                                        <option value="8">Colombia</option>    
-                                        <option value="9">Dominican Republic</option>    
-                                    </select>
-                                    </div>
-
-
-                                    <div class="form-group row">
+                              
+                                  <div class="form-group row">
                                     <div class="col-md-6">
-                                        <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
+                                        <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="name" name="name">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_lname" name="c_diff_lname">
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_diff_companyname" class="text-black">Company Name </label>
-                                        <input type="text" class="form-control" id="c_diff_companyname" name="c_diff_companyname">
+                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="email" name="email">
                                     </div>
                                     </div>
 
                                     <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_address" name="c_diff_address" placeholder="Street address">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="">
                                     </div>
                                     </div>
-
-                                    <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
+                                        <select id="state" name="state" class="form-control">
+                                          <option value="1">Select a State</option>    
+                                          <option value="Kerala">Kerala</option>    
+                                          <option value="Tamil Nadu">Tamil Nadu</option>    
+                                          <option value="Karnataka">Karnataka</option>    
+                                              
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                        <select id="country" name="country" class="form-control">
+                                          <option value="1">Select a country</option>    
+                                          <option value="India">India</option>    
+                                          <option value="Algeria">Algeria</option>    
+                                          <option value="Afghanistan">Afghanistan</option>    
+                                          <option value="Ghana">Ghana</option>     
+                                        
+                                        </select>
+                                    </div>
                                     </div>
 
                                     <div class="form-group row">
                                     <div class="col-md-6">
-                                        <label for="c_diff_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_state_country" name="c_diff_state_country">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group row mb-5">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
+                                        <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="pin" name="pin">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Phone Number">
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="">
                                     </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
                                     </div>
 
                                 </div>
@@ -148,34 +143,37 @@
                                 </div>
                             </div>
                         </div>
+                      </form>
                         <div class="row mb-5">
-                            <div class="col-md-6">
+                          {{#each address}}
+                            <div class="col-md-6 mt-3">
+                              
                                 <div class="p-3 p-lg-5 border" style="background-color: #fbf6f3;">
                                 <label for="c_code" class="text-black mb-3 pt-4" style="position: absolute; top:0; left: 200px;"><span class="mdi mdi-home"> </span>Default</label>
-                                <p class="text-black mb-3 pt-4" style="position: absolute; top:0; left: 60px;"><b> Anu Ouseph </b></p>
-                                <p class="text-black pt-3" style="font-size: 14px;">Koikkalam parumala po thiruvalla
-                                Pathanamthitta, kerala
-                                india, 689626</p>
-                                <p class="text-black"> phone: <b>9526831802</b></p>
-                                <a href="/edit-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-border-color"></span>EDIT</button></a>
-                                <a href="/remove-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-delete"></span>REMOVE</button></a>
-                                
-                                {{!-- <div class="input-group w-75">
-                                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
-                                    <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
-                                    </div>
-                                </div> --}}
+                                <p class="text-black mb-3 pt-4" style="position: absolute; top:0; left: 60px;"><b> {{this.name}}</b></p>
+                                <p class="text-black pt-3" style="font-size: 14px;">{{this.address}}, {{this.state}}, {{this.country}}, {{this.pin}}</p>
+                                <p class="text-black"> phone: <b>{{this.phone}}</b></p>
+                                {{!-- <button type="button" class="btn btn-sm btn-black btn-block" data-toggle="modal" data-target="#adrsModal">
+                                <span class="mdi mdi-map-marker-plus px-2"></span>
+                                  Add new Address
+                                </button> --}}
+                                <button type="button" class="btn btn-sm height-auto px-3 py-1 btn-primary" data-toggle="modal" data-target="#edit{{this._id}}"><span class="mdi mdi-border-color"></span>EDIT</button>
+                                <a href="/delete-address/{{this._id}}" class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-delete"></span>REMOVE</a>
 
                                 </div>
+                                
                             </div>
+                            {{/each}}
+
+
+                            
                         </div>
                       
       
                       
                       
                     </div>
-                  </form>
+                  
                 </div>
               </div>
           </div>
@@ -258,4 +256,108 @@
       </div>
     </footer>
 </div>
+{{#each address}}
+<div class="modal fade" id="edit{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/edit-address/{{this._id}}" method="post">
+                    
+                    <div class="p-3 p-lg-5 border">
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                               
+                              
+                                  <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="name" name="name" value="{{this.name}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="email" name="email" value="{{this.email}}">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{this.address}}">
+                                    </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="state" name="state" value="{{this.state}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="country" name="country" value="{{this.country}}">
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="pin" name="pin" value="{{this.pin}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="{{this.phone}}">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
+                                    </div>
+
+                                
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+              </div>
+              {{!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div> --}}
+            </div>
+          </div>
+          </div>
+{{/each}}
+
+<div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel1">Upload profile picture?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-2">
+            <form action="/add-profile-image" method="post" enctype="multipart/form-data">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Profile Picture</label>
+                <div class="col-sm-9">
+                <input type="file" class="form-control" name="profile" class="file-upload-default" id="user-profile" placeholder="Upload Image">
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <button class="btn btn-primary btn-sm btn-block" type="submit" >Save</button>
+              </div>                            
+            </form>
+            </div> 
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 <script type="text/javascript" src="/javascripts/signup-validation.js"></script>

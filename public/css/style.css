@@ -1,9 +1,11 @@
 /* Base */
+
 body {
   line-height: 1.7;
   color: #8c92a0;
   font-weight: 300;
-  font-size: 16px; }
+  font-size: 16px;
+   }
 
 ::-moz-selection {
   background: #000;

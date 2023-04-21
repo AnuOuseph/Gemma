@@ -1,6 +1,6 @@
  
  </style>
-<div class="site-wrap" style="background-color: #fbf6f3; height: 100vh;">
+<div class="site-wrap" style="background-color: #f3f6fc; height: 100VH;">
     <div class="site-section">
       <div class="container">
         <div class="row">
@@ -29,29 +29,24 @@
               </div>
               {{/each}} --}}
 
-              <div class="col-md-12" >
-                <h2 class="h3 mb-3 text-black">My Orders</h2>
+             
+              <h2 class="h3 mb-3 text-black">My Orders</h2>
+              <div class="col-md-12 d-flex">
                 {{#each products}}
-                <div class="p-3 mb-4 p-lg-3 border d-flex justify-content-center" style="background-color: white;">
-                    <div class="col-md-3 ">
-                        <img src="{{this.product.image.[0]}}" alt="" class="img-fluid" style="width: 100px; border-radius:20px">
-                    </div>
-                    <div class="col-md-3 ">
-                        <h3><label for="c_code" class="block-38-heading h4 text-black mt-3">{{this.product.name}}</label></h3>
-                        <p>Category: <span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;"> {{this.product.metal}}</span></p>
-                        <p>Metal Type: <span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;"> {{this.product.metal}}</span></p>
-                    </div>
-                    <div class="col-md-3">
-                          <h3 class="block-38-heading h4 text-black mt-3">Total Price: </h3>
-                          <p><span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;">Rs.{{this.product.price}}</span></p>
-                    </div>
-                    <div class="col-md-3">
-                          <p><span class="text-primary px-2 block-38-heading h4" style="font-size: 1.1rem;">Rs.{{orders.status}}</span></p>
-                    </div>
-                    
+                <div class="col-md-6 border m-3 d-flex justify-content-center" style="background-color: white;">
+                  <div class="m-3">
+                      <img src="{{this.product.image.[0]}}" alt="" class="mt-2"  style="width: 150px; border-radius:20px">
+                  </div>
+                  <div class="m-3">
+                    <h3><label for="c_code" class="block-38-heading h4 text-primary">{{this.product.name}}</label></h3>
+                    <p>Category: <span class="text-black"><b>Earring</b> </span></p>
+                    <p>Metal Type: <span class="text-black"><b>{{this.product.metal}}</b></span></p>
+                    <p>Total Price : <span class="text-black"><b>Rs.{{this.product.price}}</b></span></p>
+                    <p>Quantity: <span class="text-black"><b>{{this.quantity}}</b></span></p>
+                  </div>
                 </div>
                 {{/each}}
-              </div> 
+              </div>
         </div>
       </div>
     </div>

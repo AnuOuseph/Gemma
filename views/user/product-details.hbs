@@ -1,4 +1,4 @@
-  <style>
+ <style>
     #img-zoomer-box:hover, #img-zoomer-box:active {
     cursor: zoom-in;
     display: block;
@@ -20,6 +20,8 @@
     display: block;
     transition: opacity .2s;
   }
+    </style>
+      {{!--
   #snackbar {
   visibility: hidden;
   min-width: 250px;
@@ -62,21 +64,23 @@
   to {bottom: 0; opacity: 0;}
 }
  
-  </style>
+ --}}
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   
   <div class="site-wrap">
-    <div class="bg-light py-3">
+    {{!-- <div class=" py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-shop">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{product.name}}</strong></div>
         </div>
       </div>
-    </div>  
+    </div>   --}}
 
     <div class="site-section">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="item-entry" >
               <div id="img-zoomer-box">
               
@@ -109,22 +113,41 @@
             </div>
 
           </div>
-          <div class="col-md-6">
+          <div class="col-md-7">
             <h2 class="text-black">{{product.name}}</h2>
             <p>{{product.description}}</p>
-            <p><strong class="text-primary h4">{{proPrice}}</strong></p>
+            <div class="star-rating mt-2 mb-3">
+              <span class="border px-2 text-black ">4.9</span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span>(401 Ratings)</span>
+            </div>
+            <p><strong class="text-primary h4">{{proPrice}}</strong><del class="m-3 h5">{{product.subPrice}}</del></p>
             <p>Metal : <strong class="text-black h5 ">{{product.metal}}</strong></p>
             <p>Category : <strong class="text-black h5 ">{{product.category_details.[0].category}}</strong></p>
+            <p><span>SELECT SIZE: </span>
+              <button type="button" class="btn border" data-toggle="modal" data-target="#sizeChartModal">
+                Size Chart
+              </button>
+            </p>
+            
             <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" value="S" name="size" checked></span> <span class="d-inline-block text-black">Small</span>
               </label>
               <label for="option-md" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" value="M" name="size"></span> <span class="d-inline-block text-black">Medium</span>
               </label>
               <label for="option-lg" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" value="L" name="size"></span> <span class="d-inline-block text-black">Large</span>
               </label>
+              <label for="option-lg" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" value="XL" name="size"></span> <span class="d-inline-block text-black">Extra Large</span>
+              </label>
+              <input type="text" id="selectedSize" value="S" hidden>
               
             </div>
             {{!-- <div class="mb-5">
@@ -140,8 +163,7 @@
 
             </div> --}}
             {{!-- <p><a href="/add-to-cart/{{product._id}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p> --}}
-            <button onclick="addToCart('{{product._id}}')" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</button>
-            <div id="snackbar">Added To Cart</div>
+            <button onclick="addToCart('{{product._id}}')" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary info">Add To Cart</button>
 
           </div>
         </div>
@@ -325,6 +347,72 @@
   </div>
 
 
+  <div class="modal fade" id="sizeChartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Size Chart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Size</th>
+                      <th scope="col">Small</th>
+                      <th scope="col">Medium</th>
+                      <th scope="col">Large</th>
+                      <th scope="col">Extra Large</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rings</th>
+                      <td>44mm</td>
+                      <td>45.3mm</td>
+                      <td>47.6mm</td>
+                      <td>49mm</td>
+                     
+                    </tr>
+                    <tr>
+                      <th scope="row">Earrings</th>
+                      <td>13mm</td>
+                      <td>14.5mm</td>
+                      <td>16.7mm</td>
+                      <td>18mm</td>
+                      
+                    </tr>
+                    <tr>
+                      <th scope="row">Bracelets</th>
+                      <td>14cm</td>
+                      <td>16cm</td>
+                      <td>18cm</td>
+                      <td>20cm</td>
+                      
+                    </tr>
+                    <tr>
+                      <th scope="row">Necklaces</th>
+                      <td>5 inch</td>
+                      <td>7 inch</td>
+                      <td>8 inch</td>
+                      <td>9 inch</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                </div> 
+                </div>
+                      
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
 
   <script>
     var productImg = document.getElementById("pro-img");
@@ -383,5 +471,17 @@
   }, false);
 }();
 
+
+  const radioButtons = document.getElementsByName('size');
+    radioButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedButton = document.querySelector('input[name="size"]:checked');
+        document.getElementById('selectedSize').value = selectedButton.value
+        console.log(selectedButton.value);
+      });
+    });
+
   </script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 

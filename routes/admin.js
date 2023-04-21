@@ -45,13 +45,51 @@ router.get('/add-category', authAdmin.varifyLogin, controller.addCategory)
 
 router.post('/add-category', authAdmin.varifyLogin, controller.addCategoryPost)
 
+router.get('/edit-category/:id',authAdmin.varifyLogin,controller.editCategory)
+
+router.post('/edit-category/:id',authAdmin.varifyLogin,controller.editCategoryPost)
+
 router.get('/unlist-category/:id', authAdmin.varifyLogin, controller.unlistCategory)
 
 router.get('/list-category/:id', authAdmin.varifyLogin, controller.listCategory)
 
 router.get('/banner-view', authAdmin.varifyLogin, controller.bannerView)
 
+router.get('/add-banner',authAdmin.varifyLogin,controller.addBanner)
+
+router.post('/add-banner',authAdmin.varifyLogin,upload.single('image'),controller.addBannerPost)
+
+router.get('/activate-banner/:id',authAdmin.varifyLogin,controller.activateBanner)
+
 router.get('/order-view',authAdmin.varifyLogin,controller.orderView)
+
+router.get('/order-details/:id', authAdmin.varifyLogin,controller.orderDetails)
+
+router.get('/cancel-order/:id',authAdmin.varifyLogin, controller.cancelOrder)
+
+router.get('/return-order/:id',authAdmin.varifyLogin,controller.returnOrder)
+
+router.get('/order-shipped/:id',authAdmin.varifyLogin,controller.orderShipped)
+
+router.get('/order-delivered/:id',authAdmin.varifyLogin,controller.orderDelivered)
+
+router.get('/coupon-view',authAdmin.varifyLogin,controller.couponView)
+
+router.get('/add-coupon',authAdmin.varifyLogin,controller.addCoupon)
+
+router.post('/add-coupon',authAdmin.varifyLogin,controller.addCouponPost)
+
+router.get('/edit-coupon/:id',authAdmin.varifyLogin,controller.editCoupon)
+
+router.post('/edit-coupon/:id',authAdmin.varifyLogin,controller.editCouponPost)
+
+router.get('/delete-coupon/:id',authAdmin.varifyLogin,controller.deleteCoupon)
+
+router.get('/chart-details',authAdmin.varifyLogin,controller.chartDetails)
+
+router.get('/sales-report',authAdmin.varifyLogin,controller.salesReport)
+
+router.post('/filter-sales',authAdmin.varifyLogin,controller.filterSales)
 
 
 module.exports = router;

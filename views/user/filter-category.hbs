@@ -1,60 +1,89 @@
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+ <style>
+  .heart-icon{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    background-color: white;
+    border-radius: 50%;
+  }
+  .soldOut{
+    width: 80%;
+    right: 10%;
+    position: absolute;
+    top: 40%;
+    right: ;
+    background-color: white;
+  
+  }
+  
+ </style>
  <div class="site-wrap">
     
-    <div class="site-blocks-cover inner-page" data-aos="fade">
+    <div class="site-blocks-cover inner-page" style="background-color: #030e0e;" data-aos="fade">
       <div class="container">
         <div class="row">
           <div class="col-md-6 ml-auto order-md-2 align-self-start">
             <div class="site-block-cover-content">
-            <h2 class="sub-title">#New Summer Collection 2019</h2>
-            <h1>Arrivals Sales</h1>
-            <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+            <h2 class="sub-title text-white">#New Summer Collection 2019</h2>
+            <h1 class="text-white">Arrivals Sales</h1>
+            <p><a href="/user-shop" class="btn btn-black border rounded-0 text-white mx-auto">Shop Now</a></p>
             </div>
           </div>
-          <div class="col-md-6 order-1 align-self-end">
-            <img src="/images/b1.png" alt="Image" class="img-fluid"> {{!model_4.png}}
+          <div class="col-md-6 order-1 align-self-end ">
+            <img src="/images/p2.jpg" alt="Image" class="img-fluid"> {{!model_4.png}}
           </div>
         </div>
       </div>
     </div>
 
-    <div class="custom-border-bottom py-3">
+    {{!-- <div class="custom-border-bottom py-3" style="background-color: #f9f9f9;">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 
     <div class="site-section">
       <div class="container">
 
         <div class="row mb-5">
+         
+          
+
           <div class="col-md-9 order-1">
+
+            
 
             <div class="row align">
               <div class="col-md-12 mb-5">
+
+                
+
+
                 <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
+                
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
-                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Latest
+                    {{!-- <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      METALS
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                      <a class="dropdown-item" href="#">Men</a>
-                      <a class="dropdown-item" href="#">Women</a>
-                      <a class="dropdown-item" href="#">Children</a>
-                    </div>
+                      <a class="dropdown-item" href="/gold">GOLD</a>
+                      <a class="dropdown-item" href="/silver">SILVER</a>
+                      <a class="dropdown-item" href="/platinum">PLATINUM</a>
+                    </div> --}}
                   </div>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">SORT</button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                      <a class="dropdown-item" href="#">Relevance</a>
-                      <a class="dropdown-item" href="#">Name, A to Z</a>
+                      {{!-- <a class="dropdown-item" href="#">Name, A to Z</a>
                       <a class="dropdown-item" href="#">Name, Z to A</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Price, low to high</a>
-                      <a class="dropdown-item" href="#">Price, high to low</a>
+                      <div class="dropdown-divider"></div> --}}
+                      <a class="dropdown-item" href="/low-high-sort-category">Price, low to high</a>
+                      <a class="dropdown-item" href="/high-low-sort-category">Price, high to low</a>
                     </div>
                   </div>
                 </div>
@@ -63,49 +92,69 @@
             <div class="row mb-5">
               {{#each products}}
               {{#if productStatus}}
-              <div class="col-lg-6 col-md-6 item-entry mb-4">
-                <a href="/product-details/{{this._id}}" class="sm-height bg-gray d-block">
+              {{#if  (isEqual this.productQuantity 0)}}
+              <div class="col-lg-4 col-md-4 item-entry mb-4" style="opacity: 0.6;">
+                <a  class="sm-height bg-gray d-block">
                   <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
                   <div class="d-flex">
                     <div>
-                      <h2 class="item-title mt-4"><a href="/product-details/{{this._id}}">{{this.name}}</a></h2>
-                      <strong class="item-price mt-4">{{this.price}}</strong>
+                      
+                      <a  class="icons-btn heart-icon d-inline-block text-primary info" type="button" ><span class="icon-heart-o"></span></a>
+                      <h4 class="mt-4" style="font-size: 15px; color:#030e0e"><a >{{this.name}}</a></h4>
+                      <p><strong class="item-price mt-4">{{this.price}}</strong><del>{{this.subPrice}}</del></p>
                     </div>
                     <div class="ml-auto">
-                      <button onclick="addToCart('{{this._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
+                      <button style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 " ><span class="icon-shopping-bag"></span></button>
+                    </div>
+                    
+                  </div>
+                  <div class="btn btn-lg btn-block btn-black soldOut disable">
+                      Out of Stock
+                    </div>
+              </div>
+             {{else}}
+              <div class="col-lg-4 col-md-4 item-entry mb-4">
+                <a href="/product-details/{{this.slug}}" class="sm-height bg-gray d-block">
+                  <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
+                </a>
+                  <div class="d-flex">
+                    <div>
+                      <a  class="icons-btn heart-icon d-inline-block text-primary info" type="button" onclick="addToWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-heart-o"></span></a>
+                      
+                      <h4 class="mt-4" style="font-size: 15px; color:#030e0e"><a href="/product-details/{{this.slug}}">{{this.name}}</a></h4>
+                      <strong class="item-price mt-4">{{this.price}}</strong><del class="p-2">(₹{{this.subPrice}}.00)</del>
+                    </div>
+                    <div class="ml-auto">
+                      <button  style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 " data-toggle="modal" data-target="#size{{this._id}}"><span class="icon-shopping-bag"></span></button>
                     </div>
                   </div>
               </div>
+              {{/if}}
               {{/if}}
               {{/each}}
              
             </div> 
             <div class="row">
               <div class="col-md-12 text-center">
-                <div class="site-block-27">
-                  <ul>
-                    <li><a href="#">&lt;</a></li>
-                    {{#each pages}}
-                    <li class="active"><span>{{this}}</span></li>
-                    {{!-- <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li> --}}
-                    {{/each}}
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
-                </div>
+                <div class="text-center" style="border-radius: 30px;">
+                  <div class="col d-flex justify-content-center pagination " > 
+	                </div>
+                   <input type="text" id="totalCount" value="{{totalCount}}" hidden>
+                    <input type="text" id="currentPage" value="{{currentPage}}" hidden>
+                </div> 
               </div>
             </div>
           </div>
 
           <div class="col-md-3 order-2 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
-              <ul class="list-unstyled mb-0">
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Category</h3>
+              <ul class="list-unstyled mb-0 text-center">
                 {{#each category}}
-                <li class="mb-1"><a href="/filter-category/{{this._id}}" class="d-flex"><span>{{this.category}}</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+                {{#if categoryStatus}}
+                <li class="mb-1 btn btn-white border rounded-0" style="width: 140px;"><a href="/filter-category/{{this._id}}" class="d-flex"><span class="px-4 mt-2">{{this.category}}</span></a></li>
+                {{/if}}
                 {{/each}}
               </ul>
             </div>
@@ -113,91 +162,29 @@
             <div class="border p-4 rounded mb-4">
               <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-                <div id="slider-range" class="border-primary"></div>
-                <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
               </div>
-              <form action="/filter-price" method="post">
-                <div class="mb-4">
-                <label for="s_sm" class="d-flex">
-                  <input type="radio" id="s_sm" value="15000" name="fprice"  class="mr-2 mt-1"> <span class="text-black"> Rs.15,000.00</span>
-                </label>
-                <label for="s_md" class="d-flex">
-                  <input type="radio" id="s_md" value="20000" name="fprice" class="mr-2 mt-1"> <span class="text-black">Rs.15,000.00 - Rs.20,000.00</span>
-                </label>
-                <label for="s_lg" class="d-flex">
-                  <input type="radio" id="s_lg" value="25000" name="fprice" class="mr-2 mt-1"> <span class="text-black">Rs.20,000.00 - Rs.25,000.00</span>
-                </label>
-                <div class="d-flex">
-                <button type="submit" class="btn btn-sm height-auto px-3 py-1 btn-primary ml-auto" >Fiter</button>
-                </div>
-                </div>
-              </form>
-              
-              <div class="mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Metals</h3>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #FFD700;"></span> <span class="text-black">Gold</span>
-                </a>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #808080;"></span> <span class="text-black">Silver</span>
-                </a>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #e5e4e2"></span> <span class="text-black">Platinum</span>
-                </a>
-              </div>
-              <div class="mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
-                <label for="s_sm" class="d-flex">
-                  <input type="checkbox" id="s_sm"  class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
-                </label>
-                <label for="s_md" class="d-flex">
-                  <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
-                </label>
-                <label for="s_lg" class="d-flex">
-                  <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
-                </label>
-              </div>
-              <div class="form-group">
-                <label for="c_create_account" class="text-primary" data-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> View size chart?</label>
-                <div class="collapse" id="create_an_account">
-                  <div class="py-2 table-responsive">
-                    {{!-- sizechart --}}
-                        <table class="table table-bordered">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Small</th>
-                              <th scope="col">Medium</th>
-                              <th scope="col">Large</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">Earings</th>
-                              <td>14-15 mm</td>
-                              <td>16-17 mm</td>
-                              <td>18-19 mm</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Bracelets</th>
-                              <td>1-2 cm</td>
-                              <td>2-3 cm</td>
-                              <td>3-4 cm</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Necklaces</th>
-                              <td>14-15 inch</td>
-                              <td>16-17 inch</td>
-                              <td>18-19 inch</td>
-                            </tr>
-                          </tbody>
-                        </table>              
-                    {{!-- sizechart --}}
-                  </div>
-                </div>
-              </div>
+              <form action="/category-filter-price" method="post">
 
+
+                <select class="form-control m-2" id="lower-price" name="lowerprice" >
+                      <option value="">Lower price</option>
+                      {{#for 4000 60000 1000}}
+                       <option value="{{this}}">{{this}}</option>  
+                      {{/for}} 
+                </select>
+
+                 <select class="form-control m-2" id="upper-price" name="upperprice" >
+                      <option value="">Upper price</option>
+                      {{#for 4000 60000 1000}}
+                       <option value="{{this}}">{{this}}</option>  
+                      {{/for}} 
+                </select>
+                <button type="submit" class="btn btn-sm height-auto mt-3 px-3 py-1 btn-primary form-control m-2" >Fiter</button>
+
+                
+              </form>
             </div>
+             
           </div>
         </div>
 
@@ -307,3 +294,119 @@
       </div>
     </footer>
   </div>
+    {{#each products}}
+      <div class="modal fade" id="size{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Size</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="align-items-center" style="text-align: center;">
+              <form action="">
+              <div class="mb-1 mt-3 d-flex justify-content-center">
+                <label for="option-sm" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" value="S" name="size" checked></span> <span class="d-inline-block text-black">Small</span>
+                </label>
+                <label for="option-md" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" value="M" name="size"></span> <span class="d-inline-block text-black">Medium</span>
+                </label>
+                <label for="option-lg" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" value="L" name="size"></span> <span class="d-inline-block text-black">Large</span>
+                </label>
+                <label for="option-lg" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" value="XL" name="size"></span> <span class="d-inline-block text-black">Extra Large</span>
+                </label>
+                <input type="text" id="selectedSize" value="S" hidden>
+              </div>
+              <div style="display: flex; justify-content: center;">
+              <button onclick="addToCart('{{this._id}}')" style="float: right;" data-dismiss="modal" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 mb-3" data-toggle="modal" data-target="#sizeChartModal"><span class="icon-shopping-bag"> ADD TO CART</span></button>
+              </div>
+            </div>
+            </form>
+                </div>
+                </div> 
+                </div>
+                      
+              </div>
+          </div>
+      </div>
+  </div>
+{{/each}}
+  
+
+  <script>
+    function addToWishlist(wishlistId,proId){
+      $.ajax({
+        url:'/add-to-wishlist',
+        data:{
+          wishlist:wishlistId,
+          product:proId
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.addProduct){
+            //alert("product added to wishlist")
+             //location.reload()
+             Toastify({
+              text: "Added to Wishlist",
+              className: "info",
+              duration: 3000,
+              gravity: "top", 
+              position: "center",
+              style: {
+                background: "linear-gradient(to right, #6B061C,#FC1964)",
+              }
+            }).showToast();
+          }
+          else{
+            Toastify({
+            text: "Removed from Wishlist",
+            className: "info",
+            duration: 3000,
+            gravity: "top", 
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #6B061C,#FC1964)",
+            }
+          }).showToast();
+          }
+         console.log(response)
+         
+        }
+      })
+    }
+
+    
+  
+   
+  const radioButtons = document.getElementsByName('size');
+    radioButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedButton = document.querySelector('input[name="size"]:checked');
+        document.getElementById('selectedSize').value = selectedButton.value
+        console.log(selectedButton.value);
+      });   
+    });
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+		const totalCountInput = document.getElementById('totalCount');
+		const totalCount = Number(totalCountInput.value);
+		const currentPageInput = document.getElementById('currentPage');
+		const currentPage = Number(currentPageInput.value);
+		const totalPages = Math.ceil(totalCount/6);
+		let page =  currentPage || 1;
+		const paginationElement = document.querySelector('.pagination');
+		let pageLinks = '';
+		for (let i = 1; i <= totalPages; i++) {
+		    pageLinks += `<ul style="list-style-type: none;"><li class="page-item${i === page ? ' active' : ''}"><a class="page-link" style="color: black;" href="?page=${i}">${i}</a></li></ul>`;
+		}
+		paginationElement.innerHTML = pageLinks;
+	});
+   
+ 
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  {{!-- <script src="/javascripts/pagination.js"></script> --}}
