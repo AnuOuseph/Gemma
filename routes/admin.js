@@ -11,6 +11,7 @@ router.get('/login',controller.get)
 
 router.post('/login', controller.post)
 
+
 router.get('/', authAdmin.varifyLogin, controller.dashboard)
 
 router.get('/logout', controller.logout)
