@@ -724,8 +724,8 @@ module.exports={
       //console.log(today);
       return new Promise(async(resolve,reject)=>{
         const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()-7);
-        const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
-        let orders = await db.get().collection(collection.ORDER_COLLECTION).find({date:{ $gte: startOfWeek, $lt: endOfWeek },isDelivered: true}).toArray()
+        const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
+        let orders = await db.get().collection(collection.ORDER_COLLECTION).find({delivery:{ $gte: startOfWeek, $lt: endOfWeek },isDelivered: true}).toArray()
           //console.log(orders)
           resolve(orders)
         // let orders= await db.get().collection(collection.ORDER_COLLECTION).find( { date: { $gte: fromDate, $lte: toDate } } )

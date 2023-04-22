@@ -1,56 +1,222 @@
- 
+ <style>
+  *
+{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a
+{
+    text-decoration: none;
+}
+.product-card {
+    width: 380px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #ffff;
+}
+
+.badge {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    padding: 50px;
+    background: #fbf6f3;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #222;
+    margin-bottom: 18px;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details h4 a:hover {
+    color: #fbb72c;
+}
+
+.product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #222;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #ee4266;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+
+.product-links a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.product-links a:hover {
+    color: #fbb72c;
+}
  </style>
-<div class="site-wrap" style="background-color: #f3f6fc; height: 100VH;">
+<div class="site-wrap" style="background-color: #ffff; height: 100VH;">
     <div class="site-section">
       <div class="container">
-        <div class="row">
-            {{!-- {{#each products}}
-              <div class="col-lg-3 col-md-4 item-entry mb-4">
-                <a href="/product-details/{{this.product._id}}" class="sm-height bg-gray d-block">
-                  <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
-                </a>
-                  <div class="d-flex">
-                    <div>
-                      <a href="" class="icons-btn heart-icon d-inline-block" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a> 
-                      <h2 class="item-title mt-4"><a href="/product-details/{{this.product._id}}">{{this.product.name}}</a></h2>
-                      <strong class="item-price mt-4">Rs.{{this.product.price}}</strong>
-                         <div class="star-rating">
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                        </div>    
-                    </div>
-                    <div class="ml-auto">
-                      <button onclick="addToCart('{{this.product._id}}')" style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 ">Add To Cart</button>
-                    </div>
-                  </div>
-              </div>
-              {{/each}} --}}
-
-             
               <h2 class="h3 mb-3 text-black">My Orders</h2>
-              <div class="col-md-12 d-flex">
-                {{#each products}}
-                <div class="col-md-6 border m-3 d-flex justify-content-center" style="background-color: white;">
-                  <div class="m-3">
-                      <img src="{{this.product.image.[0]}}" alt="" class="mt-2"  style="width: 150px; border-radius:20px">
-                  </div>
-                  <div class="m-3">
-                    <h3><label for="c_code" class="block-38-heading h4 text-primary">{{this.product.name}}</label></h3>
-                    <p>Category: <span class="text-black"><b>Earring</b> </span></p>
-                    <p>Metal Type: <span class="text-black"><b>{{this.product.metal}}</b></span></p>
-                    <p>Total Price : <span class="text-black"><b>Rs.{{this.product.price}}</b></span></p>
-                    <p>Quantity: <span class="text-black"><b>{{this.quantity}}</b></span></p>
-                  </div>
+              <div class="row">
+              {{#each products}}
+              <div class="product-card">
+                <div class="product-tumb">
+                  <img src="{{this.product.image.[0]}}" alt="">
                 </div>
-                {{/each}}
+                <div class="product-details text-center">
+                  <h4><a href="">{{this.product.name}}</a></h4>
+                  <h6 class="product-catagory">{{this.product.metal}}</h6>
+                    <div class="product-price"><small>₹{{this.product.price}}.00</small>₹{{this.product.subPrice}}.00</div>
+                    <div class="product-links">
+                      <a href=""><i class="fa fa-heart"></i></a>
+                      <a href=""><i class="fa fa-shopping-cart"></i></a>
+                    </div>
+                </div>
               </div>
+              {{/each}}
         </div>
       </div>
     </div>
+  <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h3 class="footer-heading mb-4">Promo</h3>
+            <a href="#" class="block-6">
+              <img src="/images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Season</h3>
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Quick Links</h3>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Sell online</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Shopping cart</a></li>
+                  <li><a href="#">Store builder</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="#">Dropshipping</a></li>
+                  <li><a href="#">Website development</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">Point of sale</a></li>
+                  <li><a href="#">Hardware</a></li>
+                  <li><a href="#">Software</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">203 Lake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a>+91 792 3929 210</a></li>
+                <li class="email">gemmajewel@gmail.com</li>
+              </ul>
+            </div>
 
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
     
 
     

@@ -1,5 +1,5 @@
 
-  <div class="site-wrap">
+  <div class="site-wrap" style="overflow-x: hidden;">
 
     <div class="site-blocks-cover" data-aos="fade">
       <div class="container">
@@ -8,7 +8,11 @@
             <div class="site-block-cover-content ">
             <h2 class="sub-title">#New Summer Collection 2023</h2>
             <h1>Arrivals Sales</h1>
+            {{#if user}}
             <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+            {{else}}
+            <p><a href="/login" class="btn btn-black rounded-0">Shop Now</a></p>
+            {{/if}}
             </div>
           </div>
           <div class="col-md-6 order-1 align-self-end">
@@ -35,13 +39,14 @@
           </div>
         </div>
         <div class="row">
+          {{#if user}}
           {{#each popularProducts}}
           <div class="col-lg-4 col-md-6 item-entry mb-4 text-center">
-            <a href="#" class=" md-height bg-gray d-block">
+            <a href="/product-details/{{this.slug}}" class=" md-height bg-gray d-block">
               <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
-            <strong class="item-price"><del>₹{{this.price}}.00</del> ₹{{this.subPrice}}.00</strong>
+            <h2 class="item-title mt-2"><a href="/product-details/{{this.slug}}">{{this.name}}</a></h2>
+            <strong class="item-price"><del>₹{{this.subPrice}}.00</del> ₹{{this.price}}.00</strong>
 
             <div class="star-rating">
               <span class="icon-star2 text-warning"></span>
@@ -50,9 +55,27 @@
               <span class="icon-star2 text-warning"></span>
               <span class="icon-star2 text-warning"></span>
             </div>
-
           </div>
           {{/each}}
+          {{else}}
+          {{#each popularProducts}}
+          <div class="col-lg-4 col-md-6 item-entry mb-4 text-center">
+            <a href="#" class=" md-height bg-gray d-block">
+              <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
+            </a>
+            <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
+            <strong class="item-price"><del>₹{{this.subPrice}}.00</del> ₹{{this.price}}.00</strong>
+
+            <div class="star-rating">
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+              <span class="icon-star2 text-warning"></span>
+            </div>
+          </div>
+          {{/each}}
+          {{/if}}
           
 
         </div>
@@ -66,13 +89,14 @@
         <div class="row">
           <div class="col-md-12 block-3">
             <div class="nonloop-block-3 owl-carousel">
+              {{#if user}}
               {{#each popularProducts}}
               <div class="item text-center">
                 <div class="item-entry">
-                  <a href="#" class=" md-height bg-gray d-block">
+                  <a href="/product-details/{{this.slug}}" class=" md-height bg-gray d-block">
                     <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                   </a>
-                  <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
+                  <h2 class="item-title mt-2"><a href="/product-details/{{this.slug}}">{{this.name}}</a></h2>
                   <strong class="item-price"><del>₹{{this.subPrice}}.00</del> ₹{{this.price}}.00</strong>
                   <div class="star-rating">
                     <span class="icon-star2 text-warning"></span>
@@ -84,19 +108,33 @@
                 </div>
               </div>
               {{/each}}
-              
+              {{else}}
+              {{#each popularProducts}}
+              <div class="item text-center">
+                <div class="item-entry">
+                  <a href="#" class=" md-height bg-gray d-block">
+                    <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
+                  </a>
+                  <h2 class="item-title mt-2"><a href="#">{{this.name}}</a></h2>
+                  <del>₹{{this.subPrice}}.00</del><strong class="item-price h4">₹{{this.price}}.00</strong>
+                  <div class="star-rating">
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                    <span class="icon-star2 text-warning"></span>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+              {{/if}}
 
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
-
-
-      </div>
+    </div>
     </div>
 
     
@@ -125,9 +163,8 @@
           <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
             <h3 class="footer-heading mb-4">Promo</h3>
             <a href="#" class="block-6">
-              <img src="images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+              <img src="/images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
               <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Season</h3>
-              <p>Promo from  July 15 &mdash; 25, 2023</p>
             </a>
           </div>
           <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
@@ -164,9 +201,9 @@
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
               <ul class="list-unstyled">
-                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                <li class="email">emailaddress@domain.com</li>
+                <li class="address">203 Lake St. Mountain View, San Francisco, California, USA</li>
+                <li class="phone"><a>+91 792 3929 210</a></li>
+                <li class="email">gemmajewel@gmail.com</li>
               </ul>
             </div>
 

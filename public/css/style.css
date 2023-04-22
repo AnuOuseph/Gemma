@@ -1,5 +1,9 @@
 /* Base */
-
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 body {
   line-height: 1.7;
   color: #8c92a0;

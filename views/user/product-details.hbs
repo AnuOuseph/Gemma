@@ -162,9 +162,8 @@
             </div>
 
             </div> --}}
-            {{!-- <p><a href="/add-to-cart/{{product._id}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p> --}}
             <button onclick="addToCart('{{product._id}}')" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary info">Add To Cart</button>
-
+            <button onclick="addToWishlist('{{product._id}}','{{product._id}}')" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary info">Add To Wishlist</button>
           </div>
         </div>
       </div>
@@ -480,6 +479,48 @@
         console.log(selectedButton.value);
       });
     });
+
+  function addToWishlist(wishlistId,proId){
+      $.ajax({
+        url:'/add-to-wishlist',
+        data:{
+          wishlist:wishlistId,
+          product:proId
+        },
+        method:'post',
+        success:(response)=>{
+          if(response.addProduct){
+            //alert("product added to wishlist")
+             //location.reload()
+             Toastify({
+              text: "Added to Wishlist",
+              className: "info",
+              duration: 3000,
+              gravity: "top", 
+              position: "center",
+              style: {
+                background: "linear-gradient(to right, #6B061C,#FC1964)",
+              }
+            }).showToast();
+          }
+          else{
+            Toastify({
+            text: "Removed from Wishlist",
+            className: "info",
+            duration: 3000,
+            gravity: "top", 
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #6B061C,#FC1964)",
+            }
+          }).showToast();
+          }
+         console.log(response)
+         
+        }
+      })
+    }
+
 
   </script>
 
