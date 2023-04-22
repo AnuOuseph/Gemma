@@ -92,13 +92,13 @@
                 <div class="form-group row">
                   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Product name</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="product-name" name="name" placeholder="Product name">
+                    <input type="text" class="form-control" id="product-name" name="name" placeholder="Product name" required>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Category</label>
                   <div class="col-sm-9">
-                    <select class="form-control" id="product-category" name="category" >
+                    <select class="form-control" id="product-category" name="category" required>
                       <option value="">Select Category</option>
                       {{#each category}}
                       <option value="{{this._id}}">{{this.category}}</option>
@@ -109,7 +109,7 @@
                 <div class="form-group row">
                   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Metal</label>
                   <div class="col-sm-9">
-                    <select class="form-control" id="product-metal" name="metal" >
+                    <select class="form-control" id="product-metal" name="metal" required>
                       <option value="">Select Metal</option>
                      
                       <option value="gold">Gold</option>
@@ -122,27 +122,27 @@
                 <div class="form-group row">
                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Product description</label>
                   <div class="col-sm-9">
-                    <input type="text-area" class="form-control" id="product-description" name="description" placeholder="Product description">
+                    <input type="text-area" class="form-control" id="product-description" name="description" placeholder="Product description" required>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Product price</label>
                   <div class="col-sm-9">
-                    <input type="tel" class="form-control" id="price" name="subPrice" placeholder="Product price" onkeyup="validatePrice()">
+                    <input type="tel" class="form-control" id="price" name="subPrice" placeholder="Product price" onkeyup="validatePrice()" required>
                     <span id="price-error" class="validation-label text-danger"></span>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Product offer</label>
                   <div class="col-sm-9">
-                    <input type="tel" class="form-control" id="prdtOffer" name="productOffer" placeholder="Product offer" onkeyup="validatePrice()">
+                    <input type="tel" class="form-control" id="prdtOffer" name="productOffer" placeholder="Product offer" onkeyup="validatePrice()" required>
                     <span id="price-error" class="validation-label text-danger"></span>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Product Quantity</label>
                   <div class="col-sm-9">
-                    <input type="tel" class="form-control" id="productQuantity" name="productQuantity" placeholder="Product Quantity" onkeyup="validatePrice()">
+                    <input type="tel" class="form-control" id="productQuantity" name="productQuantity" placeholder="Product Quantity" onkeyup="validatePrice()" required>
                     <span id="price-error" class="validation-label text-danger"></span>
                   </div>
                 </div>
@@ -151,10 +151,7 @@
                   <label class="col-sm-3 col-form-label">Product Image</label>
                   <div class="col-sm-9">
                   <!-- <input type="file" name="img[]" class="file-upload-default"> -->
-                  <input type="file" multiple="multiple" class="form-control" name="image" class="file-upload-default" id="product-images" placeholder="Upload Image">
-                  {{!-- <span class="input-group-append">
-                      <button class="file-upload-browse btn btn-gradient-primary mt-3" type="button">Upload</button>
-                  </span> --}}
+                  <input type="file" multiple="multiple" class="form-control" name="image" class="file-upload-default" id="product-images" placeholder="Upload Image" required>
                   </div>
                 </div>
                 <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
@@ -165,11 +162,6 @@
 
       </div> 
 
-
-
-
-      
-        <!-- partial -->
   </div>
       <!-- main-panel ends -->
 </div>
