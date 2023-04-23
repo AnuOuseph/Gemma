@@ -811,8 +811,8 @@ module.exports={
     },
     getLatestProducts:()=>{
       return new Promise(async(resolve,reject)=>{
-        let popular = await db.get().collection(collection.PRODUCT_COLLECTION).find().limit(6).sort({_id:-1}).toArray()
-        resolve(popular)
+        let latest = await db.get().collection(collection.PRODUCT_COLLECTION).find().limit(6).sort({_id:-1}).toArray()
+        resolve(latest)
       })
     },
     deliverGraph : () =>{
