@@ -84,6 +84,8 @@ router.post('/verify-payment',controller.verifyPayment)
 
 router.post('/add-address',authUser.varifyLogin,controller.addAddress)
 
+router.post('/add-check-address',authUser.varifyLogin,controller.addCheckAddress)
+
 router.post('/edit-address/:id',authUser.varifyLogin,controller.editAddress)
 
 router.get('/delete-address/:id',authUser.varifyLogin,controller.deleteAddress)

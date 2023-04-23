@@ -16,6 +16,17 @@
     background-color: white;
   
   }
+  .badge {
+    position: absolute;
+    left: 10;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+  }
   
   
  </style>
@@ -94,8 +105,9 @@
               {{#each products}}
               {{#if productStatus}}
               {{#if  (isEqual this.productQuantity 0)}}
-              <div class="col-lg-4 col-md-4 item-entry mb-4" style="opacity: 0.6;">
-                <a  class="sm-height bg-gray d-block">
+              <div class="col-lg-4 col-md-4 item-entry mb-4">
+                <div class="badge">sold out</div>
+                <a href="/product-details/{{this.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
                   <div class="d-flex">
@@ -110,12 +122,13 @@
                     </div>
                     
                   </div>
-                  <div class="btn btn-lg btn-block btn-black soldOut disable">
+                  {{!-- <div class="btn btn-lg btn-block btn-black soldOut disable">
                       Out of Stock
-                    </div>
+                    </div> --}}
               </div>
              {{else}}
               <div class="col-lg-4 col-md-4 item-entry mb-4">
+                <div class="badge">sale</div>
                 <a href="/product-details/{{this.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
@@ -202,25 +215,6 @@
                 </div> --}}
               </form>
             </div>
-             {{!-- <div class="border p-4 rounded mb-4">
-              <div class="mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Metals</h3>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #FFD700;"></span> <span class="text-black">Gold</span>
-                </a>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #808080;"></span> <span class="text-black">Silver</span>
-                </a>
-                <a href="#" class="d-flex color-item align-items-center" >
-                  <span class="color d-inline-block rounded-circle mr-2" style="background-color: #e5e4e2"></span> <span class="text-black">Platinum</span>
-                </a>
-              </div>
-              
-                  </div>
-                </div>
-              </div>
-
-            </div> --}}
           </div>
         </div>
 
@@ -233,7 +227,25 @@
           <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
         </div>
         <div class="row align-items-stretch">
-          <div class="col-lg-4">
+          <div class="col-md-12 block-3">
+            <div class="nonloop-block-3 owl-carousel">
+              
+              {{#each category}}
+              {{#if categoryStatus}}
+              <div class="item text-center">
+                <div class="item-entry">
+                  <div class="product-item sm-height  ">
+                    <a href="/filter-category/{{this._id}}" class="product-category">{{this.category}} </a>
+                    <img src="images/model5.jpg" alt="Image" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              {{/if}}
+              {{/each}}
+              
+            </div>
+          </div>
+          {{!-- <div class="col-lg-4">
             <div class="product-item sm-height  ">
               <a href="#" class="product-category">Rings </a>
               <img src="images/model3.jpg" alt="Image" class="img-fluid">
@@ -250,7 +262,7 @@
               <a href="#" class="product-category">Necklace </a>
               <img src="images/model5.jpg" alt="Image" class="img-fluid">
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>

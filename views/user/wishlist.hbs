@@ -6,6 +6,17 @@
     background-color: white;
     border-radius: 50%;
   }
+  .badge {
+    position: absolute;
+    left: 10;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+  }
  </style>
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="site-wrap">
@@ -38,7 +49,9 @@
               </div>
             </div>
         {{#each wishItem}}
+        {{#if  (isEqual this.productQuantity 0)}}
               <div class="col-lg-3 col-md-4 item-entry mb-4">
+                <div class="badge">sold out</div>
                 <a href="/product-details/{{this.product.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
@@ -47,19 +60,32 @@
                       <a class="icons-btn heart-icon d-inline-block info" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a>
                       <h2 class="item-title mt-2 text-center text-uppercase "><a href="/product-details/{{this.product.slug}}">{{this.product.name}}</a></h2>
                       <del>(₹{{this.product.subPrice}}.00)</del><strong class="item-price mt-2 "> ₹{{this.product.price}}.00</strong>
-                         {{!-- <div class="star-rating">
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                        </div>    --}}
                     </div>
                     <div class="mx-auto" style=" text-align: center;">
-                      <button onclick="addToCart('{{this.product._id}}')"  class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-primary mt-2 ">Add To Cart</button>
+                      <button  style="float: right;" class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-primary mt-2" data-toggle="modal" style="opacity: 0.5;"><span class="icon-shopping-bag"> Add To Cart</span></button>
+                      {{!-- <button onclick="addToCart('{{this.product._id}}')"  class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-primary mt-2 ">Add To Cart</button> --}}
                     </div>
                   {{!-- </div> --}}
               </div>
+              {{else}}
+              <div class="col-lg-3 col-md-4 item-entry mb-4">
+                <div class="badge">sale</div>
+                <a href="/product-details/{{this.product.slug}}" class="sm-height bg-gray d-block">
+                  <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
+                </a>
+                  {{!-- <div class="d-flex"> --}}
+                    <div class="text-center">
+                      <a class="icons-btn heart-icon d-inline-block info" type="button" onclick="removeWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-close2 text-dark"></span></a>
+                      <h2 class="item-title mt-2 text-center text-uppercase "><a href="/product-details/{{this.product.slug}}">{{this.product.name}}</a></h2>
+                      <del>(₹{{this.product.subPrice}}.00)</del><strong class="item-price mt-2 "> ₹{{this.product.price}}.00</strong>
+                    </div>
+                    <div class="mx-auto" style=" text-align: center;">
+                      <button  style="float: right;" class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-primary mt-2" data-toggle="modal" data-target="#size{{this.product._id}}"><span class="icon-shopping-bag"> Add To Cart</span></button>
+                      {{!-- <button onclick="addToCart('{{this.product._id}}')"  class="buy-now btn btn-lg btn-block height-auto px-3 py-2 btn-primary mt-2 ">Add To Cart</button> --}}
+                    </div>
+                  {{!-- </div> --}}
+              </div>
+              {{/if}}
               {{/each}}
               {{/if}}
 
@@ -140,11 +166,54 @@
         </div>
       </div>
     </footer>
-
-    
-
     
   </div>
+
+  {{#each wishItem}}
+      <div class="modal fade" id="size{{this.product._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Size</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="align-items-center" style="text-align: center;">
+              <form action="">
+              <div class="mb-1 mt-3 d-flex justify-content-center">
+                <label for="option-sm" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" value="S" name="size" checked></span> <span class="d-inline-block text-black">Small</span>
+                </label>
+                <label for="option-md" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" value="M" name="size"></span> <span class="d-inline-block text-black">Medium</span>
+                </label>
+                <label for="option-lg" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" value="L" name="size"></span> <span class="d-inline-block text-black">Large</span>
+                </label>
+                <label for="option-lg" class="d-flex mr-3 mb-3">
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" value="XL" name="size"></span> <span class="d-inline-block text-black">Extra Large</span>
+                </label>
+                <input type="text" id="selectedSize" value="S" hidden>
+              </div>
+              <div style="display: flex; justify-content: center;">
+              <button onclick="addToCart('{{this.product._id}}')" style="float: right;" data-dismiss="modal" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 mb-3" data-toggle="modal" data-target="#sizeChartModal"><span class="icon-shopping-bag"> ADD TO CART</span></button>
+              </div>
+            </div>
+            </form>
+                </div>
+                </div> 
+                </div>
+                      
+              </div>
+          </div>
+      </div>
+  </div>
+{{/each}}
+
+
+
+
   <script>
     function removeWishlist(wishlistId,proId){
       $.ajax({

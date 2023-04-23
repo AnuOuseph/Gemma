@@ -23,7 +23,8 @@ module.exports = {
         }
         let banners = await userHelpers.getAllBanner()
         let popularProducts = await productHelpers.getPopularproducts()
-        res.render("user/user-view",{user,banners,popularProducts, userName,cartCount, userHeader:true});
+        let latestProducts = await productHelpers. getLatestProducts()
+        res.render("user/user-view",{user,banners,popularProducts,latestProducts, userName,cartCount, userHeader:true});
       }catch(err){
         console.log(err);
         res.render('user/err',{err})
@@ -277,12 +278,13 @@ resetNewPassword:async(req,res)=>{
     let user = req.session.user;
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     let product = await productHelpers.getProductDetails(req.params.id)
+    let similarProducts = await productHelpers.getSimilarProducts(req.params.id)
     let rupee = new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
     });
     let proPrice = rupee.format(product.price)
-      res.render('user/product-details',{user,product,proPrice,cartCount,userHeader:true});
+      res.render('user/product-details',{user,product,proPrice,similarProducts,cartCount,userHeader:true});
   }catch(err){
     res.render('user/err',{err})
   }
@@ -604,6 +606,18 @@ resetNewPassword:async(req,res)=>{
     cartCount = await userHelpers.getCartCount(req.session.user._id)
     let address = await userHelpers.addAddress(req.body,req.session.user._id)
     res.redirect('/user-address');
+    }catch(err){
+      console.log(err);
+      res.render('user/err',{err})
+    }
+  },
+  addCheckAddress:async(req,res)=>{
+    try{
+    let user = req.session.user;
+    let cartCount = null;
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+    let address = await userHelpers.addAddress(req.body,req.session.user._id)
+    res.redirect('/checkout');
     }catch(err){
       console.log(err);
       res.render('user/err',{err})

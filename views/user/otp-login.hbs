@@ -74,7 +74,7 @@
                         <input type="text" class="form-control" id="verificationcode" name="phone" placeholder="OTP Code"/>
                         </div>
                     </div>
-                    <p> Resend OTP in <span id="countdowntimer">10 </span> Seconds</p>
+                    <p> Resend OTP in <span id="countdowntimer">60 </span> Seconds</p>
                     <div class="form-group row">
                         <div class="col-lg-12">
                         <input type="button" id="verify" class="btn btn-primary btn-lg btn-block" onClick="codeverify()" value="Verify OTP">
@@ -172,7 +172,7 @@
                 document.getElementsByClassName('resend')[0].style.display = 'none'
                 document.getElementById('num').value = num;
 
-                 var timeleft = 10;
+                 var timeleft = 60;
                    var downloadTimer = setInterval(function(){
                     timeleft--;
                     document.getElementById("countdowntimer").textContent = timeleft;
@@ -210,7 +210,7 @@
                 coderesult = confirmationResult;
                  console.log('OTP Sent');
 
-                 var timeleft = 10;
+                 var timeleft = 60;
                    var downloadTimer = setInterval(function(){
                     timeleft--;
                     document.getElementById("countdowntimer").textContent = timeleft;

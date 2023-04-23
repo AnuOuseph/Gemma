@@ -98,6 +98,30 @@ module.exports={
             resolve(product[0])
         })
     },
+    getSimilarProducts:(proId)=>{
+      return new Promise(async(resolve,reject)=>{
+        // console.log(proId);
+          console.log(proId);
+        let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({slug:proId})
+        let products= await db.get().collection(collection.PRODUCT_COLLECTION).aggregate(
+         [
+             {
+               '$match': {
+                 'category': new objectId(product.category)
+               }
+             }
+           ]
+         )
+         .toArray();
+         try{
+          console.log(products);
+          resolve(products)
+         }catch(err){
+          resolve(0)
+         }
+         
+     })
+    },
     getFilterCategory:(categoryId)=>{
         return new Promise(async(resolve,reject)=>{
             // console.log(proId);
@@ -780,6 +804,12 @@ module.exports={
       })
     },
     getPopularproducts:()=>{
+      return new Promise(async(resolve,reject)=>{
+        let popular = await db.get().collection(collection.PRODUCT_COLLECTION).find().limit(6).sort({price:-1}).toArray()
+        resolve(popular)
+      })
+    },
+    getLatestProducts:()=>{
       return new Promise(async(resolve,reject)=>{
         let popular = await db.get().collection(collection.PRODUCT_COLLECTION).find().limit(6).sort({_id:-1}).toArray()
         resolve(popular)

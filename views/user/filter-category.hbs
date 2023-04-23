@@ -16,6 +16,17 @@
     background-color: white;
   
   }
+  .badge {
+    position: absolute;
+    left: 10;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+  }
   
  </style>
  <div class="site-wrap">
@@ -67,10 +78,9 @@
                 
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
-                    {{!-- <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      METALS
+                    <button type="button" class="btn btn-white btn-sm px-4"><a href="/user-shop"> CLEAR FILTER</a>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                    {{!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                       <a class="dropdown-item" href="/gold">GOLD</a>
                       <a class="dropdown-item" href="/silver">SILVER</a>
                       <a class="dropdown-item" href="/platinum">PLATINUM</a>
@@ -89,12 +99,14 @@
                 </div>
               </div>
             </div>
-            <div class="row mb-5">
+            {{#if products}}
+            <div class="row mb-5">  
               {{#each products}}
               {{#if productStatus}}
               {{#if  (isEqual this.productQuantity 0)}}
-              <div class="col-lg-4 col-md-4 item-entry mb-4" style="opacity: 0.6;">
-                <a  class="sm-height bg-gray d-block">
+              <div class="col-lg-4 col-md-4 item-entry mb-4">
+                <div class="badge">sold out</div>
+                <a href="/product-details/{{this.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
                   <div class="d-flex">
@@ -102,24 +114,27 @@
                       
                       <a  class="icons-btn heart-icon d-inline-block text-primary info" type="button" ><span class="icon-heart-o"></span></a>
                       <h4 class="mt-4" style="font-size: 15px; color:#030e0e"><a >{{this.name}}</a></h4>
-                      <p><strong class="item-price mt-4">{{this.price}}</strong><del>{{this.subPrice}}</del></p>
+                      <p><strong class="item-price mt-4">₹{{this.price}}.00</strong><del>(₹{{this.subPrice}}.00)</del></p>
                     </div>
                     <div class="ml-auto">
                       <button style="float: right;" class="buy-now btn btn-sm height-auto px-3 py-2 btn-primary mt-4 " ><span class="icon-shopping-bag"></span></button>
                     </div>
                     
                   </div>
-                  <div class="btn btn-lg btn-block btn-black soldOut disable">
+                  {{!-- <div class="btn btn-lg btn-block btn-black soldOut disable">
                       Out of Stock
-                    </div>
+                    </div> --}}
               </div>
              {{else}}
               <div class="col-lg-4 col-md-4 item-entry mb-4">
+                <div class="badge">sale</div>
                 <a href="/product-details/{{this.slug}}" class="sm-height bg-gray d-block">
                   <img src="{{this.image.[0]}}" alt="Image" class="img-fluid">
                 </a>
                   <div class="d-flex">
                     <div>
+                      
+                          
                       <a  class="icons-btn heart-icon d-inline-block text-primary info" type="button" onclick="addToWishlist('{{this._id}}','{{this.product._id}}')"><span class="icon-heart-o"></span></a>
                       
                       <h4 class="mt-4" style="font-size: 15px; color:#030e0e"><a href="/product-details/{{this.slug}}">{{this.name}}</a></h4>
@@ -132,9 +147,21 @@
               </div>
               {{/if}}
               {{/if}}
-              {{/each}}
-             
+              {{/each}}           
             </div> 
+            {{else}}
+            <div class="row mb-5">
+              <div class="col-md-12 d-flex justify-content-center align-items-center">
+            <div class="p=lg-3 p-5 justify-content-center text-center bg-white border" style="border-radius: 50px;">
+              <img src="/images/no_product.jpg" style="width: 300px;" alt="Image" class="img-fluid">
+              <h3 class=" text-dark mt-3">No result found!</h3>
+              <h6 class="sub-title mb-3">Sorry, we couldn't find what you wanted for.</h6>
+              <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
+
+            </div>
+          </div> 
+              </div>
+             {{/if}}
             <div class="row">
               <div class="col-md-12 text-center">
                 <div class="text-center" style="border-radius: 30px;">
