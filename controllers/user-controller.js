@@ -24,7 +24,7 @@ module.exports = {
         let banners = await userHelpers.getAllBanner()
         let popularProducts = await productHelpers.getPopularproducts()
         let latestProducts = await productHelpers.getLatestProducts()
-        res.render("user/user-view",{user,banners,popularProducts,latestProducts, userName,cartCount, userHeader:true});
+        res.render("user/user-view",{user,banners,popularProducts,latestProducts,userName,cartCount,userHeader:true});
       }catch(err){
         console.log(err);
         res.render('user/err',{err})
