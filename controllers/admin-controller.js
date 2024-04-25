@@ -17,13 +17,11 @@ module.exports = {
           }
     },
     post : async(req, res) =>{
-        console.log(req.body.email)
         let user = await db.get().collection(collection.ADMIN_COLLECTION).findOne({adminEmail:req.body.email});
         if(req.body.email==user.adminEmail&&req.body.password==user.adminPassword){
             req.session.admin=req.body.email;
             req.session.adminLoggedIn=true;
             req.session.adminName=user.adminName;
-            console.log(req.session.adminName);
             res.redirect('/admin');
         }else{
             req.session.adminLoginErr="Invalid username or password";
@@ -32,31 +30,24 @@ module.exports = {
 
     },
     dashboard : async(req, res) =>{
-        console.log(req.session.adminName);
         let currentDate =new Date();
-        // const day = currentDate.getDate();
-        // console.log(day);
         let dailySaleAmount =0
         let weeklySaleAmount =0
         let monthlySaleAmount =0
         let dailySale =await productHelpers.dailysales(currentDate)
         let weeklySale =await productHelpers.weeklysales(currentDate)
         let monthlySale =await productHelpers.monthlysales(currentDate)
-        //console.log(dailySale[0].totalAmount);
         for(let i=0;i<dailySale.length;i++){
             dailySaleAmount += dailySale[i].totalAmount
           }
-          console.log(dailySaleAmount)
           dailySaleAmount = dailySaleAmount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
           for(let i=0;i<weeklySale.length;i++){
             weeklySaleAmount += weeklySale[i].totalAmount
           }
-          console.log(weeklySaleAmount)
           weeklySaleAmount = weeklySaleAmount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
           for(let i=0;i<monthlySale.length;i++){
             monthlySaleAmount += monthlySale[i].totalAmount
           }
-          console.log(monthlySaleAmount)
           monthlySaleAmount = monthlySaleAmount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
         res.render('admin/admin-view',{admin:true,dailySaleAmount,weeklySaleAmount,monthlySaleAmount, adminName:req.session.adminName});
     },
@@ -66,7 +57,6 @@ module.exports = {
     },
     productView : (req,res) =>{
         productHelpers.getAllProducts().then((products)=>{
-            console.log(products)
             res.render('admin/product-view',{admin:true,products,adminName:req.session.adminName});
         }) 
     },
@@ -76,25 +66,18 @@ module.exports = {
         })
     },
     addProductsPost : async (req,res) =>{
-        console.log("hy")
         try{
-            console.log("hello")
-            //productHelpers.addProduct(req.body,async (id)=>{
-            console.log("wel")
             var imgUrlList = []
             for(var i=0;i<req.files.length;i++){
                 var filePath = req.files[i].path;
                 const result = await cloudinary.uploader.upload(filePath);
                 imgUrlList.push(result.url)
-               // console.log(result); 
             } 
             const slug = slugify(req.body.name)
-            console.log(slug);
             req.body.slug = slug
             productHelpers.addProduct(req.body,async (id)=>{
                 if(imgUrlList !== 0){
                     productHelpers.addProductImage(id,imgUrlList).then((response)=>{
-                     console.log(response)
                     })
                 } 
             })     
@@ -113,21 +96,15 @@ module.exports = {
     },
     editProductPost : async(req,res) =>{
         try{
-            console.log(req.files);
-            console.log(req.body);
             var imgUrlList = []
             for(var i=0;i<req.files.length;i++){
                 var filePath = req.files[i].path;
-                console.log(`filepath ${filePath}`)
                 const result = await cloudinary.uploader.upload(filePath);
                 imgUrlList.push(result.url)
-                console.log(`imagurllist :   ${imgUrlList}`);
-               // console.log(result); 
             }
             productHelpers.updateProduct(req.body,req.params.id).then(()=>{
                 if(imgUrlList.length !== 0){
                     productHelpers.addProductImage(req.params.id,imgUrlList).then((response)=>{
-                        console.log(response)
                     })
                 } 
             })     
@@ -141,7 +118,6 @@ module.exports = {
     unlistProduct : (req,res) =>{
         try{
         let proId = req.params.id;
-        console.log((proId));
         productHelpers.unlistProduct(proId).then((response) =>{
             res.redirect('/admin/product-view');
         })
@@ -152,7 +128,6 @@ module.exports = {
     listProduct : (req,res) =>{
         try{
         let proId = req.params.id;
-        console.log((proId));
         productHelpers.listProduct(proId).then((response) =>{
             res.redirect('/admin/product-view');
         })
@@ -171,7 +146,6 @@ module.exports = {
     addUserPost : (req,res) =>{
         try{
         userHelpers.doSignUp(req.body).then((response)=>{
-            console.log(response)
             if(response){
                 res.redirect('/admin/user-details');
             }
@@ -183,7 +157,6 @@ module.exports = {
     blockUser : (req, res) =>{
         try{
         let userId = req.params.id;
-        console.log((userId));
         userHelpers.blockUser(userId).then((response) =>{
             res.redirect('/admin/user-details');
         })
@@ -194,7 +167,6 @@ module.exports = {
     unblockUser : (req,res)=>{
         try{
         let userId = req.params.id;
-        console.log((userId));
         userHelpers.unblockUser(userId).then((response) =>{
             res.redirect('/admin/user-details');
         })
@@ -214,10 +186,8 @@ module.exports = {
     addCategoryPost: (req,res)=>{
         try{
         const slugCategory = slugify(req.body.category)
-        console.log(slugCategory);
         req.body.slugCategory = slugCategory
         productHelpers.addCategory(req.body).then((response)=>{
-            console.log(response);
             if(response.categoryExist){
                 req.session.ErrMessage = response.message
                 res.redirect('/admin/add-category')
@@ -232,21 +202,18 @@ module.exports = {
     },
     editCategory:(req,res)=>{
         productHelpers.getCategory(req.params.id).then((category)=>{
-            console.log(category);
             res.render('admin/edit-category', {admin:true ,category, adminName:req.session.adminName, err:req.session.catErrMessage})
         })
        
     },
     editCategoryPost:(req,res)=>{
         try{
-        console.log(req.body)
         productHelpers.updateCategory(req.params.id,req.body).then((response)=>{
             if(response.categoryExist){
                 req.session.catErrMessage = response.message
                 res.redirect('back')
             }
             else{
-                console.log("nooooooooooooooooooooooooooooooooooooooooooooo");
                 res.redirect('/admin/category-view')
             }
         })
@@ -257,7 +224,6 @@ module.exports = {
     unlistCategory: (req,res)=>{
         try{
         let categoryId = req.params.id;
-        console.log((categoryId));
         productHelpers.unlistCategory(categoryId).then((response) =>{
             res.redirect('/admin/category-view');
         })
@@ -268,7 +234,6 @@ module.exports = {
     listCategory: (req,res)=>{
         try{
         let categoryId = req.params.id;
-        console.log((categoryId));
         productHelpers.listCategory(categoryId).then((response) =>{
             res.redirect('/admin/category-view');
         })
@@ -285,14 +250,11 @@ module.exports = {
         res.render('admin/add-banner', {admin:true, adminName:req.session.adminName});
     },
     addBannerPost:async(req,res)=>{
-        console.log("hy")
         try{
-            console.log("wel")
-                const result = await cloudinary.uploader.upload(req.file.path); 
+            const result = await cloudinary.uploader.upload(req.file.path); 
             productHelpers.addBanner(req.body,async (id)=>{
                 if(result.url !== 0){
                     productHelpers.addBannerImage(id,result.url).then((response)=>{
-                     console.log(response)
                     })
                 } 
             })     
@@ -306,7 +268,6 @@ module.exports = {
     activateBanner:(req,res)=>{
         try{
         let bannerId = req.params.id;
-        console.log((bannerId));
         productHelpers.activateBanner(bannerId).then((response) =>{
             res.redirect('/admin/banner-view');
         })
@@ -316,21 +277,17 @@ module.exports = {
     },
     orderView :(req,res)=>{
         productHelpers.getAllOrders().then((orders)=>{
-            console.log(orders)
             res.render('admin/order-view', {admin:true,orders, adminName:req.session.adminName});
         })
     },
     orderDetails: async(req,res)=>{
      let details = await productHelpers.getOrderDetails(req.params.id)
-        console.log("ttttttttttttttttttttttttttttttttt");
-        console.log(details);
         let products = await userHelpers.getOrderProduct(req.params.id)
         res.render('admin/order-details',{admin:true,products,details,adminName:req.session.adminName})  
     },
     cancelOrder: (req,res)=>{
         try{
         let orderId = req.params.id;
-        console.log(orderId);
         productHelpers.cancelOrder(orderId).then((response) =>{
             res.redirect('/admin/order-view');
         })
@@ -342,7 +299,6 @@ module.exports = {
         try{
         let orderId = req.params.id;
         let userId = req.session.user._id
-        console.log(orderId);
         productHelpers.returnOrder(orderId,userId).then((response) =>{
             res.redirect('/admin/order-view');
         })
@@ -353,7 +309,6 @@ module.exports = {
     orderShipped: (req,res)=>{
         try{
         let orderId = req.params.id;
-        console.log(orderId);
         productHelpers.orderShipped(orderId).then((response) =>{
             res.redirect('/admin/order-view');
         })
@@ -365,7 +320,6 @@ module.exports = {
         try{
         let orderId = req.params.id;
         let today = new Date()
-        console.log(orderId);
         productHelpers.orderDelivered(orderId,today).then((response) =>{
             res.redirect('/admin/order-view');
         })
@@ -375,7 +329,6 @@ module.exports = {
     },
     couponView: (req,res)=>{
         productHelpers.getAllCoupons().then((coupons)=>{
-        console.log(coupons)
         res.render('admin/coupon-view', {admin:true,coupons, adminName:req.session.adminName});
         })
     },
@@ -386,7 +339,6 @@ module.exports = {
     addCouponPost:(req,res)=>{
         try{
         productHelpers.addCoupon(req.body).then((response)=>{
-            console.log(response);
             if(response.status){
                 res.redirect('/admin/add-coupon')
             }else{
@@ -400,21 +352,18 @@ module.exports = {
     },
     editCoupon:(req,res)=>{
         productHelpers.getCoupon(req.params.id).then((coupon)=>{
-            console.log(coupon);
             res.render('admin/edit-coupon', {admin:true ,coupon, adminName:req.session.adminName, err:req.session.couponErrMessage})
         })
        
     },
     editCouponPost:(req,res)=>{
         try{
-        console.log(req.body)
-        productHelpers.updateCoupon(req.params.id,req.body).then((response)=>{
+            productHelpers.updateCoupon(req.params.id,req.body).then((response)=>{
             if(response.couponExist){
                 req.session.couponErrMessage = response.message
                 res.redirect('back')
             }
             else{
-                console.log("nooooooooooooooooooooooooooooooooooooooooooooo");
                 res.redirect('/admin/coupon-view')
             }
         })
@@ -425,7 +374,6 @@ module.exports = {
     deleteCoupon:(req,res)=>{
         try{
             let couponId = req.params.id;
-            console.log(couponId);
             productHelpers.deleteCoupon(couponId).then((response) =>{
                 res.redirect('/admin/coupon-view');
             })
@@ -435,17 +383,14 @@ module.exports = {
     },
     salesReport:(req,res)=>{
         productHelpers.getAllSales().then((orders)=>{
-        console.log(orders)
         const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
         for(let i=0;i<orders.length;i++){
          orders[i].date = orders[i].date.getDate() + "-" + months[orders[i].date.getMonth()] + "-" + orders[i].date.getFullYear()
         }
-        // console.log(orders[0].date)
         res.render('admin/sales', {admin:true,orders,adminName:req.session.adminName});
         })
     },
     filterSales:async(req,res)=>{
-        
         let fromDate =new Date(req.body.fromDate);
         let toDate=new Date(req.body.toDate);
         
@@ -453,7 +398,6 @@ module.exports = {
         const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
         for(let i=0;i<sales.length;i++){
             sales[i].date = sales[i].date.getDate() + "-" + months[sales[i].date.getMonth()] + "-" + sales[i].date.getFullYear()
-            console.log(sales[i].date)
           }
         res.render('admin/filter-sales',{admin:true,sales,adminName:req.session.adminName})
     },
