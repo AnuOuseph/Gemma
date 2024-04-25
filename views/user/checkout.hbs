@@ -1,86 +1,52 @@
 
 
 <div class="site-wrap">
-
-{{!-- <div class=" py-3" style="background-color: #f9f9f9;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-cart">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+  <div class="site-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <div class="border p-4 mt-2 rounded" >
+            <button type="button" class="btn btn-sm btn-black btn-block" data-toggle="modal" data-target="#adrsModal">
+            <span class="mdi mdi-map-marker-plus px-2"></span>
+              Add new Address
+            </button>
+          </div>
         </div>
-      </div>
-    </div> --}}
-<div class="site-section">
-      <div class="container">
-        <div class="row mb-5">
           <div class="col-md-6">
-            <div class="border p-4 mt-2 rounded" >
-             <button type="button" class="btn btn-sm btn-black btn-block" data-toggle="modal" data-target="#adrsModal">
-              <span class="mdi mdi-map-marker-plus px-2"></span>
-                Add new Address
-              </button>
+            <div class="p-3 p-lg-4 mt-2 border">
+            
+              <div class="input-group ">
+                <input type="text" class="form-control" id="myInput" name="couponCode" placeholder="Enter your coupon code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-primary btn-sm px-3" type="submit" id="myButton">Apply</button>
+                </div>
+              </div>
+              <h4 id="error" class="pt-2 text-danger"></h4>
             </div>
           </div>
-           <div class="col-md-6">
-              <div class="p-3 p-lg-4 mt-2 border">
-              
-                <div class="input-group ">
-                  <input type="text" class="form-control" id="myInput" name="couponCode" placeholder="Enter your coupon code" aria-label="Coupon Code" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary btn-sm px-3" type="submit" id="myButton">Apply</button>
+      </div>
+      <!-- Modal --> 
+      <form action="/" id="checkout-form" method="post">
+        <div class="row p-3 p-lg-5 border"> 
+          <div class="col-md-6 col-sm-12 mb-5 ">
+            <div class="col-md-12">
+             <h2 class="h3 mb-3 text-black">Choose your address</h2> 
+              <div class="p-3 p-lg-5 border">
+                {{#each address}}
+                <div class="col-md-12 ">
+                  <div class="col-md-12 mt-2">
+                    <div class="p-lg-3 border" style="background-color: #fbf6f3;">
+                      <input type="radio"  name="address" value="{{this._id}}">
+                      <p class=" h5 text-black pt-2" style="font-size: 14px;"> <b> {{this.name}}</b>,
+                      {{this.address}}, {{this.state}}, {{this.country}}, {{this.pin}}</p>
+                      <p class="text-black"> phone: <b>{{this.phone}}</b></p>
+                    </div>
                   </div>
                 </div>
-               <h4 id="error" class="pt-2 text-danger"></h4>
-              </div>
+                {{/each}}
+              </div>    
             </div>
-        </div>
-
-
-        
-
-        <!-- Modal -->
-        
-        <form action="/" id="checkout-form" method="post">
-          <div class="row p-3 p-lg-5 border">
-            
-            <div class="col-md-6 col-sm-12 mb-5 ">
-              <div class="col-md-12">
-             <h2 class="h3 mb-3 text-black">Choose your address</h2>
-                 {{!-- <div class="col-md-12 d-flex"> --}}
-                <div class="p-3 p-lg-5 border">
-                  
-                 
-                       {{!-- <div class="row col-md-6 mb-5">
-                       <div class="col-md-12">
-                         <h2 class="h3 mb-3 text-black">Your Order</h2> --}}
-                  
-                    
-                      
-                        {{#each address}}
-                        <div class="col-md-12 ">
-                            <div class="col-md-12 mt-2">
-                              
-                                <div class="p-lg-3 border" style="background-color: #fbf6f3;">
-                                <input type="radio"  name="address" value="{{this._id}}">
-                                <p class=" h5 text-black pt-2" style="font-size: 14px;"> <b> {{this.name}}</b>,
-                                {{this.address}}, {{this.state}}, {{this.country}}, {{this.pin}}</p>
-                                <p class="text-black"> phone: <b>{{this.phone}}</b></p>
-                                {{!-- <a href="/edit-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-border-color"></span>EDIT</button></a> --}}
-                                {{!-- <a href="/remove-address"><button class="btn btn-sm height-auto px-3 py-1 btn-primary"><span class="mdi mdi-delete"></span>REMOVE</button></a> --}}
-
-                                </div>
-                                
-                            </div>
-                            </div>
-                          {{/each}}
-                    </div>    
-                </div>
-                
-                         
-              {{!-- </div> --}}
           </div>
-
-        {{!-- <div class="row">
-          <div class="col-md-6"> --}}
             <div class=" col-md-6 col-sm-12 mb-5">
               <div class="col-md-12">
                 <h2 class="h3 mb-3 text-black">Your Order</h2>
@@ -119,11 +85,9 @@
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="wallet"> Wallet Payment</h3>
                   </div>
                   {{/if}}
-
                   <div class="border p-3 mb-3">
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
                   </div>
-
                   <div class="border p-3 mb-3">
                     <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="ONLINE"> Online Payment</h3>
                   </div>
@@ -134,301 +98,259 @@
                   <input type="text" style="display: none;" value="" name="isCancelled" />
                   <input type="text" style="display: none;" value="" name="isRequested" />
                   <input type="text" style="display: none;" value="" name="isReturned" />
-                  
-                  {{!-- <div class="border p-3 mb-5">
-                    <h3 class="h6 mb-0 text-primary"><input type="radio" name="payment-method" value="cod"> Cash On Delivery</h3>
-                  </div> --}}
                   </div>
                   <div class="form-group">
                     <button class="btn btn-primary btn-lg btn-block" type="submit" >Place Order</button>
                   </div>
-                
                 </div>
               </div>
             </div>
-
-          {{!-- </div>
-        </div> --}}
         </div>
-         </form>
-        <!-- </form> -->
-      </div>
+      </form>
     </div>
+  </div>
 
-    <footer class="site-footer custom-border-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <h3 class="footer-heading mb-4">Promo</h3>
-            <a href="#" class="block-6">
-              <img src="images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
-              <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Season</h3>
-            </a>
-          </div>
-          <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Quick Links</h3>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Sell online</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Shopping cart</a></li>
-                  <li><a href="#">Store builder</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Mobile commerce</a></li>
-                  <li><a href="#">Dropshipping</a></li>
-                  <li><a href="#">Website development</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Point of sale</a></li>
-                  <li><a href="#">Hardware</a></li>
-                  <li><a href="#">Software</a></li>
-                </ul>
-              </div>
+  <footer class="site-footer custom-border-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+          <h3 class="footer-heading mb-4">Promo</h3>
+          <a href="#" class="block-6">
+            <img src="images/model1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+            <h3 class="font-weight-light  mb-0">Finding Your Perfect Jewels This Season</h3>
+          </a>
+        </div>
+        <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="footer-heading mb-4">Quick Links</h3>
             </div>
-          </div>
-          
-          <div class="col-md-6 col-lg-3">
-            <div class="block-5 mb-5">
-              <h3 class="footer-heading mb-4">Contact Info</h3>
+            <div class="col-md-6 col-lg-4">
               <ul class="list-unstyled">
-                <li class="address">203 Lake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a>+91 792 3929 210</a></li>
-                <li class="email">gemmajewel@gmail.com</li>
+                <li><a href="#">Sell online</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Shopping cart</a></li>
+                <li><a href="#">Store builder</a></li>
               </ul>
             </div>
-
-            <div class="block-7">
-              <form action="#" method="post">
-                <label for="email_subscribe" class="footer-heading">Subscribe</label>
-                <div class="form-group">
-                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
-                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
-                </div>
-              </form>
+            <div class="col-md-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><a href="#">Mobile commerce</a></li>
+                <li><a href="#">Dropshipping</a></li>
+                <li><a href="#">Website development</a></li>
+              </ul>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><a href="#">Point of sale</a></li>
+                <li><a href="#">Hardware</a></li>
+                <li><a href="#">Software</a></li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
+        <div class="col-md-6 col-lg-3">
+          <div class="block-5 mb-5">
+            <h3 class="footer-heading mb-4">Contact Info</h3>
+            <ul class="list-unstyled">
+              <li class="address">203 Lake St. Mountain View, San Francisco, California, USA</li>
+              <li class="phone"><a>+91 792 3929 210</a></li>
+              <li class="email">gemmajewel@gmail.com</li>
+            </ul>
           </div>
-          
+          <div class="block-7">
+            <form action="#" method="post">
+              <label for="email_subscribe" class="footer-heading">Subscribe</label>
+              <div class="form-group">
+                <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                <input type="submit" class="btn btn-sm btn-primary" value="Send">
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </footer>
-
-
+      <div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+          <p>
+          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 
-
-
-<div class="modal fade" id="adrsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered " role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>    
-                  <form action="/add-check-address" method="post">
-                        
-                            <div class="modal-body container">
-                               
-                              
-                                  <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="name" name="name">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="email" name="email">
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="">
-                                    </div>
-                                    </div>
-                                    <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
-                                        <select id="state" name="state" class="form-control">
-                                          <option value="1">Select a State</option>    
-                                          <option value="Kerala">Kerala</option>    
-                                          <option value="Tamil Nadu">Tamil Nadu</option>    
-                                          <option value="Karnataka">Karnataka</option>    
-                                              
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
-                                        <select id="country" name="country" class="form-control">
-                                          <option value="1">Select a country</option>    
-                                          <option value="India">India</option>    
-                                          <option value="Algeria">Algeria</option>    
-                                          <option value="Afghanistan">Afghanistan</option>    
-                                          <option value="Ghana">Ghana</option>     
-                                        
-                                        </select>
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="pin" name="pin">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="">
-                                    </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
-                                    </div>
-
-                                
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                      
+  <div class="modal fade" id="adrsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add new Address</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>    
+        <form action="/add-check-address" method="post"> 
+          <div class="modal-body container">
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="name" name="name">
               </div>
-              {{!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div> --}}
+              <div class="col-md-6">
+                <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="email" name="email">
+              </div>
             </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
+                <select id="state" name="state" class="form-control">
+                  <option value="1">Select a State</option>    
+                  <option value="Kerala">Kerala</option>    
+                  <option value="Tamil Nadu">Tamil Nadu</option>    
+                  <option value="Karnataka">Karnataka</option>        
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                <select id="country" name="country" class="form-control">
+                  <option value="1">Select a country</option>    
+                  <option value="India">India</option>    
+                  <option value="Algeria">Algeria</option>    
+                  <option value="Afghanistan">Afghanistan</option>    
+                  <option value="Ghana">Ghana</option>     
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="pin" name="pin">
+              </div>
+              <div class="col-md-6">
+                <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
+            </div>                       
           </div>
-        </div>
-
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript" src="/javascripts/signup-validation.js"></script>
 <script>
-    $(document).ready(function() {
-      $('#myButton').click(function() {
-        const inputValue = $('#myInput').val();
-        console.log(inputValue)
-        $.ajax({
-          url: '/coupon-redeem',
-          method: 'POST',
-          data: { inputValue },
-          success: function(response) {
-            console.log(response);
-            if(response.isValid){
-              if(response.notExpired){
-                if(response.usedCoupon){
-                  document.getElementById('error').innerHTML=response.message;
-                }
-                else{
-                let subtotal = document.getElementById('subtotal').value
-                let disAmount = (response.discount*subtotal)/100;
-                document.getElementById('discount').innerHTML=disAmount
-                document.getElementById('total').value= subtotal-disAmount
-                document.getElementById('total1').innerHTML= subtotal-disAmount
-                }
-              }else{
+  $(document).ready(function() {
+    $('#myButton').click(function() {
+      const inputValue = $('#myInput').val();
+      console.log(inputValue)
+      $.ajax({
+        url: '/coupon-redeem',
+        method: 'POST',
+        data: { inputValue },
+        success: function(response) {
+          console.log(response);
+          if(response.isValid){
+            if(response.notExpired){
+              if(response.usedCoupon){
                 document.getElementById('error').innerHTML=response.message;
               }
-              
+              else{
+              let subtotal = document.getElementById('subtotal').value
+              let disAmount = (response.discount*subtotal)/100;
+              document.getElementById('discount').innerHTML=disAmount
+              document.getElementById('total').value= subtotal-disAmount
+              document.getElementById('total1').innerHTML= subtotal-disAmount
+              }
             }else{
-               document.getElementById('error').innerHTML=response.message;
-            }
-            
-          },
-          error: function(xhr, status, error) {
-            console.error(error);
+              document.getElementById('error').innerHTML=response.message;
+            } 
+          }else{
+            document.getElementById('error').innerHTML=response.message;
           }
-        });
+        },
+        error: function(xhr, status, error){
+          console.error(error);
+        }
       });
     });
+  });
 </script>
 <script>
-
-   $("#checkout-form").submit((e)=>{
-
-     var formData = $('#checkout-form').serialize();
-     console.log("this is form data "+ formData);
-        e.preventDefault()
-        $.ajax({
-            url:'/checkout',
-            method:'post',
-            data: formData,
-            success:(response)=>{
-                if(response.codSuccess){
-                    location.href='/order-success'
-                }
-                else if(response.walletSuccess){
-                    location.href='/order-success'
-                }
-                else{
-                  razorpayPayment(response)
-                }
-            }
-        })
+  $("#checkout-form").submit((e)=>{
+    var formData = $('#checkout-form').serialize();
+    console.log("this is form data "+ formData);
+    e.preventDefault()
+    $.ajax({
+      url:'/checkout',
+      method:'post',
+      data: formData,
+      success:(response)=>{
+        if(response.codSuccess){
+          location.href='/order-success'
+        }
+        else if(response.walletSuccess){
+          location.href='/order-success'
+        }
+        else{
+          razorpayPayment(response)
+        }
+      }
     })
+  })
 
-    function razorpayPayment(order){
-      var options = {
-          "key": "rzp_test_w5LFXl4hy4CQt2", // Enter the Key ID generated from the Dashboard
-          "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-          "currency": "INR",
-          "name": "Gemma Jewels", //your business name
-          "description": "Test Transaction",
-          "image": "https://example.com/your_logo",
-          "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          "handler": function (response){
-              verifyPayment(response,order)
-              },
-          
-          "prefill": {
-              "name": "Gaurav Kumar", //your customer's name
-              "email": "gaurav.kumar@example.com",
-              "contact": "9000090000"
-          },
-          "notes": {
-              "address": "Razorpay Corporate Office"
-          },
-          "theme": {
-              "color": "#3399cc"
-          }
-      };
-      var rzp1 = new Razorpay(options);
-      rzp1.open();
-    }
-    function verifyPayment(payment,order){
-      $.ajax({
-        url:'/verify-payment',
-        data:{
-          payment,
-          order
+  function razorpayPayment(order){
+    var options = {
+      "key": "rzp_test_w5LFXl4hy4CQt2", 
+      "amount": order.amount, 
+      "currency": "INR",
+      "name": "Gemma Jewels", 
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, 
+      "handler": function (response){
+        verifyPayment(response,order)
         },
-        method:'post',
-        success:(response)=>{
-                if(response.status){
-                    location.href='/order-success'
-                }else{
-                  alert("payment failed")
-                }
-            }
-      })
-    }
-
-   
+      "prefill": {
+        "name": "Gaurav Kumar", 
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+  function verifyPayment(payment,order){
+    $.ajax({
+      url:'/verify-payment',
+      data:{
+        payment,
+        order
+      },
+      method:'post',
+      success:(response)=>{
+        if(response.status){
+          location.href='/order-success'
+        }else{
+          alert("payment failed")
+        }
+      }
+    })
+  }
 </script>

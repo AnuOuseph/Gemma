@@ -1,9 +1,8 @@
- <style>
+<style>
     #img-zoomer-box:hover, #img-zoomer-box:active {
     cursor: zoom-in;
     display: block;
   }
-
   #img-zoomer-box:hover #img-2, #img-zoomer-box:active #img-2 {
     opacity: 1;
   }
@@ -31,99 +30,35 @@
     color: #fff;
     padding: 3px 10px;
   }
-    </style>
-      {{!--
-  #snackbar {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  background-color: #ee4266;
-  color: #fff;
-  text-align: center;
-  border-radius: 2px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-  font-size: 17px;
-}
-
-#snackbar.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
- 
- --}}
-
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  
+</style>
+      
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <div class="site-wrap">
-    {{!-- <div class=" py-3" style="background-color: #f9f9f9;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/user-shop">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{product.name}}</strong></div>
-        </div>
-      </div>
-    </div>   --}}
-
     <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="col-md-5">
             <div class="item-entry" >
               <div id="img-zoomer-box">
-              
                 <img src="{{product.image.[0]}}" id="pro-img" alt="Image" style="overflow: scroll;" class="bg-gray d-block mb-3 img-fluid">
                 <div id="img-2" style="background: url('{{product.image.[0]}}') no-repeat #FFF;"></div>
               </div>
               <div class="d-flex">
               <div class="col-md-3">
-                  
-                      <img src="{{product.image.[0]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
-                 
+                <img src="{{product.image.[0]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
+              </div>
+              <div class="col-md-3 ">    
+                <img src="{{product.image.[1]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">     
               </div>
               <div class="col-md-3 ">
-                    
-                        <img src="{{product.image.[1]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
-                    
+                <img src="{{product.image.[2]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">  
               </div>
               <div class="col-md-3 ">
-                
-                        <img src="{{product.image.[2]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
-                    
+                <img src="{{product.image.[3]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
               </div>
-              <div class="col-md-3 ">
-               
-                        <img src="{{product.image.[3]}}" alt="Image" class="sm-img sm-height bg-gray d-block img-fluid">
-        
-              </div>
-              </div>
-              
             </div>
-
           </div>
+        </div>
           <div class="col-md-7">
             <h2 class="text-black mt-3">{{product.name}}</h2>
             <p style="text-align: justify;">{{product.description}}</p>
@@ -144,7 +79,6 @@
                 Size Chart
               </button>
             </p>
-            
             <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" value="S" name="size" checked></span> <span class="d-inline-block text-black">Small</span>
@@ -159,20 +93,7 @@
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" value="XL" name="size"></span> <span class="d-inline-block text-black">XL</span>
               </label>
               <input type="text" id="selectedSize" value="S" hidden>
-              
             </div>
-            {{!-- <div class="mb-5">
-              <div class="input-group mb-3" style="max-width: 120px;">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-              </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-              </div>
-            </div>
-
-            </div> --}}
             {{#if  (isEqual product.productQuantity 0)}}
             <h4 class="text-danger mx-2">*SOLD OUT</h4>
             <button class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary info mx-2"><span class="icon-shopping-bag" style="opacity: 0.5;"> Add To Cart</span></button>
@@ -185,7 +106,6 @@
         </div>
       </div>
     </div>
- 
     <div class="site-section block-3 site-blocks-2">
       <div class="container">
         <div class="row justify-content-center">
@@ -235,80 +155,11 @@
               </div>
               {{/if}}
               {{/each}}
-              {{!-- <div class="item">
-                <div class="item-entry">
-                  <a href="#" class=" md-height bg-gray d-block">
-                    <img src="/images/model3.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Blue Stone Rings</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div> --}}
-              {{!-- <div class="item">
-                <div class="item-entry">
-                  <a href="#" class=" md-height bg-gray d-block">
-                    <img src="/images/model5.jpg" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Helms Stone </a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-
-                </div>
-              </div> --}}
-              {{!-- <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="/images/prod_1.png" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
-                  <strong class="item-price"><del>$46.00</del> $28.00</strong>
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div> --}}
-              {{!-- <div class="item">
-                <div class="item-entry">
-                  <a href="#" class="product-item md-height bg-gray d-block">
-                    <img src="/images/model_7.png" alt="Image" class="img-fluid">
-                  </a>
-                  <h2 class="item-title"><a href="#">Yellow Jacket</a></h2>
-                  <strong class="item-price">$58.00</strong>
-                  <div class="star-rating">
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                    <span class="icon-star2 text-warning"></span>
-                  </div>
-                </div>
-              </div> --}}
-
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <footer class="site-footer custom-border-top">
       <div class="container">
         <div class="row">
@@ -349,7 +200,6 @@
               </div>
             </div>
           </div>
-          
           <div class="col-md-6 col-lg-3">
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
@@ -359,7 +209,6 @@
                 <li class="email">emailaddress@domain.com</li>
               </ul>
             </div>
-
             <div class="block-7">
               <form action="#" method="post">
                 <label for="email_subscribe" class="footer-heading">Subscribe</label>
@@ -374,18 +223,13 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
-          
         </div>
       </div>
     </footer>
   </div>
-
-
   <div class="modal fade" id="sizeChartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -412,113 +256,97 @@
                       <td>44mm</td>
                       <td>45.3mm</td>
                       <td>47.6mm</td>
-                      <td>49mm</td>
-                     
+                      <td>49mm</td> 
                     </tr>
                     <tr>
                       <th scope="row">Earrings</th>
                       <td>13mm</td>
                       <td>14.5mm</td>
                       <td>16.7mm</td>
-                      <td>18mm</td>
-                      
+                      <td>18mm</td>  
                     </tr>
                     <tr>
                       <th scope="row">Bracelets</th>
                       <td>14cm</td>
                       <td>16cm</td>
                       <td>18cm</td>
-                      <td>20cm</td>
-                      
+                      <td>20cm</td> 
                     </tr>
                     <tr>
                       <th scope="row">Necklaces</th>
                       <td>5 inch</td>
                       <td>7 inch</td>
                       <td>8 inch</td>
-                      <td>9 inch</td>
-                      
+                      <td>9 inch</td> 
                     </tr>
                   </tbody>
                 </table>
-                </div>
-                </div>
-                </div> 
-                </div>
-                      
               </div>
-          </div>
+            </div>
+          </div> 
+        </div>     
       </div>
+    </div>
   </div>
+</div>
 
+<script>
+  var productImg = document.getElementById("pro-img");
+  var Img2 = document.getElementById("img-2");
+  var smallImg = document.getElementsByClassName("sm-img");
 
+  smallImg[0].onclick = function(){
+    productImg.src = smallImg[0].src;
+    Img2.style.background = `url(${productImg.src})`;
+  }
+  smallImg[1].onclick = function(){
+    productImg.src = smallImg[1].src;
+    Img2.style.background = `url(${productImg.src})`;
+  }
+  smallImg[2].onclick = function(){
+    productImg.src = smallImg[2].src;
+    Img2.style.background = `url(${productImg.src})`;
+  }
+  smallImg[3].onclick = function(){
+    productImg.src = smallImg[3].src;
+    Img2.style.background = `url(${productImg.src})`;
+  }
 
+  let zoomer = function (){
+  document.querySelector('#img-zoomer-box')
+  .addEventListener('mousemove', function(e) {
 
+  let original = document.querySelector('#pro-img'),
+    magnified = document.querySelector('#img-2'),
+    style = magnified.style,
+    x = e.pageX - this.offsetLeft,
+    y = e.pageY - this.offsetTop,
+    imgWidth = original.offsetWidth,
+    imgHeight = original.offsetHeight,
+    xperc = ((x/imgWidth) * 100),
+    yperc = ((y/imgHeight) * 100);
 
-  <script>
-    var productImg = document.getElementById("pro-img");
-    var Img2 = document.getElementById("img-2");
-    var smallImg = document.getElementsByClassName("sm-img");
+  if(x > (.01 * imgWidth)) {
+    xperc += (.15 * xperc);
+  };
 
-    smallImg[0].onclick = function(){
-      productImg.src = smallImg[0].src;
-      Img2.style.background = `url(${productImg.src})`;
-    }
-    smallImg[1].onclick = function(){
-      productImg.src = smallImg[1].src;
-      Img2.style.background = `url(${productImg.src})`;
-      //document.getElementById("img-2").style.background = url(productImg.src);
-    }
-    smallImg[2].onclick = function(){
-      productImg.src = smallImg[2].src;
-      Img2.style.background = `url(${productImg.src})`;
-    }
-    smallImg[3].onclick = function(){
-      productImg.src = smallImg[3].src;
-      Img2.style.background = `url(${productImg.src})`;
-    }
+  if(y >= (.01 * imgHeight)) {
+    yperc += (.15 * yperc);
+  };
 
+  style.backgroundPositionX = (xperc - 9) + '%';
+  style.backgroundPositionY = (yperc - 9) + '%';
 
-    let zoomer = function (){
-    document.querySelector('#img-zoomer-box')
-    .addEventListener('mousemove', function(e) {
-
-    let original = document.querySelector('#pro-img'),
-        magnified = document.querySelector('#img-2'),
-        style = magnified.style,
-        x = e.pageX - this.offsetLeft,
-        y = e.pageY - this.offsetTop,
-        imgWidth = original.offsetWidth,
-        imgHeight = original.offsetHeight,
-        xperc = ((x/imgWidth) * 100),
-        yperc = ((y/imgHeight) * 100);
-
-    //lets user scroll past right edge of image
-    if(x > (.01 * imgWidth)) {
-      xperc += (.15 * xperc);
-    };
-
-    //lets user scroll past bottom edge of image
-    if(y >= (.01 * imgHeight)) {
-      yperc += (.15 * yperc);
-    };
-
-    style.backgroundPositionX = (xperc - 9) + '%';
-    style.backgroundPositionY = (yperc - 9) + '%';
-
-    style.left = (x - 180) + 'px';
-    style.top = (y - 180) + 'px';
-
-  }, false);
-}();
-
+  style.left = (x - 180) + 'px';
+  style.top = (y - 180) + 'px';
+    }, false);
+  }();
 
   const radioButtons = document.getElementsByName('size');
     radioButtons.forEach(button => {
       button.addEventListener('click', () => {
         const selectedButton = document.querySelector('input[name="size"]:checked');
         document.getElementById('selectedSize').value = selectedButton.value
-        console.log(selectedButton.value);
       });
     });
 
@@ -532,8 +360,6 @@
         method:'post',
         success:(response)=>{
           if(response.addProduct){
-            //alert("product added to wishlist")
-             //location.reload()
              Toastify({
               text: "Added to Wishlist",
               className: "info",
@@ -556,15 +382,10 @@
               background: "linear-gradient(to right, #6B061C,#FC1964)",
             }
           }).showToast();
-          }
-         console.log(response)
-         
+          }         
         }
       })
     }
-
-
-  </script>
-
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 

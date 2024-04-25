@@ -5,98 +5,64 @@
     position: sticky;
   }
 </style>
-<div class="site-navbar bg-white py-2 fixed" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);">
 
-      <div class="search-wrap">
-        <div class="container">
-          <span class="icon-close2 search-close js-search-close"></span>
-          <form action="/search" method="post">
-            <input type="text" class="form-control" name="searchKey" placeholder="Search here....">
-            <button type="submit" hidden></button>
-          </form>  
+<div class="site-navbar bg-white py-2 fixed" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);">
+  <div class="search-wrap">
+    <div class="container">
+      <span class="icon-close2 search-close js-search-close"></span>
+      <form action="/search" method="post">
+        <input type="text" class="form-control" name="searchKey" placeholder="Search here....">
+        <button type="submit" hidden></button>
+      </form>  
+    </div>
+  </div>
+  <div class="container" >
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <div class="site-logo">
+          <a href="/" class="js-logo-clone">GEMMA</a>
         </div>
       </div>
-
-      <div class="container" >
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="logo">
-            <div class="site-logo">
-              <a href="/" class="js-logo-clone">GEMMA</a>
-            </div>
-          </div>
-          <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center" role="navigation">
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li> {{!class="has-children active"}}
-                  <a href="/">Home</a> 
-                  
-                </li>
-                
-                <li><a href="/user-shop">Shop</a></li>
-                {{!-- <li><a href="#">Catalogue</a></li>
-                <li><a href="#">New Arrivals</a></li> --}}
-                {{!-- <li><a href="/contact">Contact</a></li> --}}
-                
-                {{!-- <li><a href="/wishlist" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></li> --}}
-                {{#if user}}
-                {{!-- <li><a href="/user-cart" class=" d-inline-block bag">
-                  <span class="icon-shopping-bag "></span>
-                  <span class="number " id="cart-count">{{cartCount}}</span>
-                  <span class="d-block d-lg-none">BAG</span>
-                </a></li> --}}
-                
-                <li class="has-children active">
-                  <a href="">{{user.name}}</a> 
-                  <ul class="dropdown">
-                    <li><a href="/user-profile">My Account</a></li>
-                    <li><a href="/user-order">My Orders</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                  </ul>
-                </li>
-
-
-                {{!-- <li><a class="icons-btn d-inline-block" href="/logout"> <span><i class="mdi mdi-logout"></i></span></a></li> --}}
-                 {{else}}
-                 <li><a class="icons-btn d-inline-block"  href="/login"> LOGIN</a></li>
-                 {{/if}}
+      <div class="main-nav d-none d-lg-block">
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+          <ul class="site-menu js-clone-nav d-none d-lg-block">
+            <li> 
+              <a href="/">Home</a> 
+            </li>
+            <li><a href="/user-shop">Shop</a></li>
+            {{#if user}} 
+            <li class="has-children active">
+              <a href="">{{user.name}}</a> 
+              <ul class="dropdown">
+                <li><a href="/user-profile">My Account</a></li>
+                <li><a href="/user-order">My Orders</a></li>
+                <li><a href="/logout">Logout</a></li>
               </ul>
-            </nav>
-          </div>
-          <div class="icons has-children active">
-              
-             {{!-- <form action="/search" method="post">
-              <input type="text" name="searchTerm" hidden>
-              <a type="submit"class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            </form> --}}
-
-            {{!-- <input type="text" name="searchTerm" id="search" onkeyup="sendData(this)"> --}}
-            
-            {{!-- <a href="/search" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a> --}}
-            
-            <form action="/search" method="post" id="myForm" style="all: initial; color:grey">
-              <input type="text" id="search" name="searchKey" value="" hidden>
-              <span  class="icon-search icons-btn d-inline-block js-search-open"></span>
-              <button type="submit" hidden></button>
-            </form>
-            <a href="/wishlist" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
-            {{#if user}}
-            <a href="/user-cart" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number" id="cart-count">{{cartCount}}</span>
-            </a>
-            <a class="icons-btn d-inline-block" href="/logout"> <span><i class="mdi mdi-logout d-none d-lg-block"></i></span></a>
-            {{!-- <a href="/user-profile" class="text-primary">{{user.name}}</a>
-            
-            <a class="icons-btn d-inline-block" href="/logout"> <span><i class="mdi mdi-logout"></i></span></a>
-            {{else}}
-            <a href="/" class="icons-btn d-inline-block "><span class="icon-user"></span></a>
-            <a class="icons-btn d-inline-block"  href="/login"> LOGIN</a> --}}
-            {{/if}}
-           
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
-          </div>
-        </div>
+            </li>
+              {{else}}
+              <li><a class="icons-btn d-inline-block"  href="/login"> LOGIN</a></li>
+              {{/if}}
+          </ul>
+        </nav>
+      </div>
+      <div class="icons has-children active"> 
+        <form action="/search" method="post" id="myForm" style="all: initial; color:grey">
+          <input type="text" id="search" name="searchKey" value="" hidden>
+          <span  class="icon-search icons-btn d-inline-block js-search-open"></span>
+          <button type="submit" hidden></button>
+        </form>
+        <a href="/wishlist" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+        {{#if user}}
+        <a href="/user-cart" class="icons-btn d-inline-block bag">
+          <span class="icon-shopping-bag"></span>
+          <span class="number" id="cart-count">{{cartCount}}</span>
+        </a>
+        <a class="icons-btn d-inline-block" href="/logout"> <span><i class="mdi mdi-logout d-none d-lg-block"></i></span></a>
+        {{/if}}
+        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
       </div>
     </div>
+  </div>
+</div>
 
   

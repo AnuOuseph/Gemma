@@ -1,29 +1,6 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
   <div class="site-wrap">
-    {{!-- <div class="py-3" style="background-color: #f9f9f9;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cart</strong></div>
-        </div>
-      </div>
-      toastrTrigger('The File has been Deleted')
-            Toastify({
-            text: "Removed from Wishlist",
-            className: "info",
-            duration: 3000,
-            gravity: "top", 
-            position: "right",
-            style: {
-              background: "linear-gradient(to right, #6B061C,#FC1964)",
-            }
-          }).showToast();
-           // alert("product removed from wishlist")
-            setTimeout( function() {
-                location.reload();
-              }, 0001);
-            //location.reload()
-    </div> --}}
     <div class="site-section">
       <div class="container">
         <h4 class="text-black mb-3">My Cart.</h4>
@@ -35,12 +12,9 @@
               <h3 class="text-uppercase text-dark">Your Cart is Empty!</h3>
               <h5 class="sub-title text-dark">Looks like you haven't added anything to your cart yet.</h5>
               <p><a href="/user-shop" class="btn btn-black rounded-0">Shop Now</a></p>
-
             </div>
           </div> 
-
           {{else}}
-
           <form class="col-md-12" method="post">
             <div class="site-blocks-table">
               <table class="table table-bordered">
@@ -66,28 +40,22 @@
                       <h2 class="h5" style="color:grey">{{this.product.name}}</h2>
                     </td>
                     <td style="color:grey">₹{{this.product.price}}.00</td>
-                    <td style="color:grey">{{this.size}}</td>
-                    
+                    <td style="color:grey">{{this.size}}</td> 
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',-1)" disabled>&minus;</button>
                         </div>
                         <span class="form-control text-center" style="color:grey" id="{{this.product._id}}">{{this.quantity}}</span>
-                        {{!-- <input type="text" class="form-control text-center" id="{{this.product._id}}" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"> --}}
                         <div class="input-group-append">
                           <button class="btn btn-outline-primary js-btn-plus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',1)" disabled>&plus;</button>
                         </div>
                       </div>
-
                     </td>
                     <td id="sub{{this.product._id}}" style="color:grey">₹{{math this.product.price "*" this.quantity}}.00</td>
-                    {{!-- <td>Rs.{{math this.product.price "*" this.quantity}}</td> --}}
                     <td><button class="btn btn-primary height-auto btn-sm info" type="button" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
                   </tr>
                   {{else}}
-
-
                   <tr>
                     <td class="product-thumbnail">
                       <img src="{{this.product.image.[0]}}" alt="Image" class="img-fluid">
@@ -97,22 +65,18 @@
                     </td>
                     <td >₹{{this.product.price}}.00</td>
                     <td >{{this.size}}</td>
-                    
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary js-btn-minus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',-1)">&minus;</button>
                         </div>
                         <span class="form-control text-center" id="{{this.product._id}}">{{this.quantity}}</span>
-                        {{!-- <input type="text" class="form-control text-center" id="{{this.product._id}}" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"> --}}
                         <div class="input-group-append">
                           <button class="btn btn-outline-primary js-btn-plus" type="button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}','{{this.product.price}}',1)">&plus;</button>
                         </div>
                       </div>
-
                     </td>
                     <td id="sub{{this.product._id}}">₹{{math this.product.price "*" this.quantity}}.00</td>
-                    {{!-- <td>Rs.{{math this.product.price "*" this.quantity}}</td> --}}
                     <td><button class="btn btn-primary height-auto btn-sm info" type="button" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
                   </tr>
                   {{/if}}
@@ -121,15 +85,11 @@
               </table>
             </div>
           </form>
-          
         </div>
-
         <div class="row">
           <div class="col-md-6">
-
             <div class="row mb-5">
-              <div class="col-md-12 text-center">
-                
+              <div class="col-md-12 text-center">  
                 <div class="p-3 p-lg-4 m-2" style="background-color: #fbf6f3;">
                   <h2 class="h3 mb-2 mt-2 text-primary">My Wallet <span class="mdi mdi-wallet text-black"></span></h2>
                   <label for="c_code" class=" text-black mb-2">Total Available Wallet Amount </label>
@@ -138,7 +98,6 @@
                   {{else}}
                   <h2 class="text-black">₹0.00</h2>
                   {{/if}}
-
                 </div>
               </div>
             </div>
@@ -146,10 +105,7 @@
               <div class="col-md-6 mb-3 mb-md-0">
                 <a href="/user-shop"><button class="btn btn-black btn-sm btn-block">Continue Shopping</button></a> 
               </div>
-            </div>
-            
-            
-            
+            </div>  
           </div>
           <div class="col-md-6">
             <div class="row justify-content-end">
@@ -172,8 +128,6 @@
                   </div>
                   {{/if}}
                 </div>
-                
-
                 <div class="row">
                   <div class="col-md-12">
                     <a href="/checkout"> <button class="btn btn-primary btn-lg btn-block">Proceed To Checkout</button></a>
@@ -186,7 +140,6 @@
         {{/if}}
       </div>
     </div>
-
     <footer class="site-footer custom-border-top">
       <div class="container">
         <div class="row">
@@ -225,8 +178,7 @@
                 </ul>
               </div>
             </div>
-          </div>
-          
+          </div>  
           <div class="col-md-6 col-lg-3">
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
@@ -236,7 +188,6 @@
                 <li class="email">gemmajewel@gmail.com</li>
               </ul>
             </div>
-
             <div class="block-7">
               <form action="#" method="post">
                 <label for="email_subscribe" class="footer-heading">Subscribe</label>
@@ -251,25 +202,17 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
-          
         </div>
       </div>
     </footer>
   </div>
-
   <script>
-
     function changeQuantity(cartId,proId,userId,price,count){
       let quantity = parseInt(document.getElementById(proId).innerHTML)
       count=parseInt(count)
-      //const price = document.getElementById(proId).innerText
-      console.log(price)
-
       $.ajax({
         url:'/change-product-quantity',
         data:{
@@ -290,24 +233,18 @@
             document.getElementById('total').innerHTML= "₹" + response.total + ".00"
             quantity=quantity+count
             let subTotal = quantity*price
-            console.log(subTotal)
             document.getElementById('sub'+proId).innerHTML = "₹" + subTotal + ".00"
           }
           else{
-            //alert("product limit reached")
             swal('Out of Stock', 'Product limit reached', 'warning', {
             button: "Ok",
-       
           });
           }
-         
         }
       })
     }
 
      function removeProduct(cartId,proId){
-      //let quantity = parseInt(document.getElementById(proId).innerHTML)
-      //count=parseInt(count)
       $.ajax({
         url:'/remove-product',
         data:{
@@ -321,19 +258,15 @@
             button: "Ok",
           }).then(()=>{
             location.reload()
-          })
-            
+          })  
           }
           else{
             document.getElementById(proId).innerHTML=quantity+count
           }
-         
         }
       })
     }
-    // });
   </script>
-
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   

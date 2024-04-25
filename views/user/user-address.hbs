@@ -235,9 +235,7 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://gemma.com" target="_blank" class="text-primary">Gemma</a>
             </p>
           </div>
           
@@ -247,77 +245,68 @@
 </div>
 {{#each address}}
 <div class="modal fade" id="edit{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="/edit-address/{{this._id}}" method="post">
-                    
-                    <div class="p-3 p-lg-5 border">
-                        <div class="row mb-5">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/edit-address/{{this._id}}" method="post">  
+            <div class="p-3 p-lg-5 border">
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                          <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{this.name}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="email" name="email" value="{{this.email}}">
+                            </div>
+                            </div>
+
+                            <div class="form-group row">
                             <div class="col-md-12">
-                               
-                              
-                                  <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_fname" class="text-black">Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="name" name="name" value="{{this.name}}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="email" name="email" value="{{this.email}}">
-                                    </div>
-                                    </div>
+                                <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{this.address}}">
+                            </div>
+                            </div>
+                            <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="state" name="state" value="{{this.state}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="country" name="country" value="{{this.country}}">
+                            </div>
+                            </div>
 
-                                    <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{this.address}}">
-                                    </div>
-                                    </div>
-                                    <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="state" name="state" value="{{this.state}}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="country" name="country" value="{{this.country}}">
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="pin" name="pin" value="{{this.pin}}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="{{this.phone}}">
-                                    </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
-                                    </div>
-
-                                
-                                </div>
+                            <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="c_diff_postal_zip" class="text-black">Pin code<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="pin" name="pin" value="{{this.pin}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="{{this.phone}}">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                              <button class="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
                             </div>
                         </div>
-                      </form>
-              </div>
-              {{!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div> --}}
-            </div>
-          </div>
-          </div>
+                    </div>
+                </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
 {{/each}}
 
 <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -342,11 +331,9 @@
                 <button class="btn btn-primary btn-sm btn-block" type="submit" >Save</button>
               </div>                            
             </form>
-            </div> 
-        </div>
-        
+          </div> 
+        </div> 
       </div>
     </div>
-  </div>
-
+</div>
 <script type="text/javascript" src="/javascripts/signup-validation.js"></script>
