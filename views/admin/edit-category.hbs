@@ -1,75 +1,71 @@
 
-<!-- partial:../../partials/_navbar.html -->
-
-<!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <!-- partial:../../partials/_sidebar.html -->
+  <!-- sidebar -->
   <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/assets/images/faces/face1.jpg" alt="profile">
-          <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">
-            {{#if adminName}}
-            {{adminName}}
-            {{else}}
-            Account
-            {{/if}}
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/product-view">
-        <span class="menu-title">Products</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/user-details">
-        <span class="menu-title">Users</span>
-        <i class="mdi mdi-account menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Categories</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/order-view">
-        <span class="menu-title">Orders</span>
-        <i class="mdi mdi-weight menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/coupon-view">
-        <span class="menu-title">Coupons</span>
-        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/banner-view">
-        <span class="menu-title">Banners</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-  <!-- partial -->
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="/assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">
+              {{#if adminName}}
+              {{adminName}}
+              {{else}}
+              Account
+              {{/if}}
+            </span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/product-view">
+          <span class="menu-title">Products</span>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/user-details">
+          <span class="menu-title">Users</span>
+          <i class="mdi mdi-account menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/category-view">
+          <span class="menu-title">Categories</span>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/order-view">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-weight menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/coupon-view">
+          <span class="menu-title">Coupons</span>
+          <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/banner-view">
+          <span class="menu-title">Banners</span>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- edit category -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
@@ -81,40 +77,27 @@
           </ol>
         </nav>
       </div>
-
       {{#if err}}
       <div class="text-center">
         <p class="text-danger">*{{err}}!!..</p>
       </div>
       {{/if}}
-
       <div class="col-md-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <!-- <p class="card-description"> Horizontal form layout </p> -->
-              <form class="forms-sample" action="/admin/edit-category/{{category.slugCategory}}" method="post">
-                <div class="form-group row">
-                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Category</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="category" name="category" placeholder="" value="{{category.category}}">
-                  </div>
+        <div class="card">
+          <div class="card-body">
+            <form class="forms-sample" action="/admin/edit-category/{{category.slugCategory}}" method="post">
+              <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Category</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="category" name="category" placeholder="" value="{{category.category}}">
                 </div>
-                <input type="text" style="display: none;" value="true" name="categoryStatus" />
-                 
-                <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
-                {{!-- <button class="btn btn-light">Cancel</button> --}}
-              </form>
-            </div>
+              </div>
+              <input type="text" style="display: none;" value="true" name="categoryStatus" />
+              <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+            </form>
           </div>
-
+        </div>
       </div> 
-
-
-
-
-      
-        <!-- partial -->
   </div>
-      <!-- main-panel ends -->
 </div>
          

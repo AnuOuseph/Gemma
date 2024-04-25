@@ -1,83 +1,79 @@
 
-<!-- partial:../../partials/_navbar.html -->
-
-<!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <!-- partial:../../partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/assets/images/faces/face1.jpg" alt="profile">
-          <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">
-            {{#if adminName}}
-            {{adminName}}
-            {{else}}
-            Account
-            {{/if}}
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/product-view">
-        <span class="menu-title">Products</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/user-details">
-        <span class="menu-title">Users</span>
-        <i class="mdi mdi-account menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Categories</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/order-view">
-        <span class="menu-title">Orders</span>
-        <i class="mdi mdi-weight menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/coupon-view">
-        <span class="menu-title">Coupons</span>
-        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/banner-view">
-        <span class="menu-title">Banners</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-  <!-- partial -->
+  <!-- sidebar -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="/assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">
+              {{#if adminName}}
+              {{adminName}}
+              {{else}}
+              Account
+              {{/if}}
+            </span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/product-view">
+          <span class="menu-title">Products</span>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/user-details">
+          <span class="menu-title">Users</span>
+          <i class="mdi mdi-account menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/category-view">
+          <span class="menu-title">Categories</span>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/order-view">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-weight menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/coupon-view">
+          <span class="menu-title">Coupons</span>
+          <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/banner-view">
+          <span class="menu-title">Banners</span>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- add-coupon -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
         <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> Generate Coupon
-              </h3>
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-home"></i>
+          </span> Generate Coupon
+        </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Coupons</a></li>
@@ -85,64 +81,56 @@
           </ol>
         </nav>
       </div>
-     <form action="/admin/add-coupon" id="submit-form" method="post">
-            <div class="p-3 p-lg-5 border ">
-                {{#if Err}}
-                <div>
-                  <p class="text-danger">{{Err}}</p>
-                </div>
-                {{/if}}
-                <div class="form-group row">
-                    <div class="col-md-6">
-                    <label for="c_fname" class="text-black">Coupon Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required/>
-                    <span id="name-error" class="validation-label"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                    <label for="c_email" class="text-black">Coupon Code</label>
-                    <input type="text" class="form-control" id="code" name="code" placeholder="" onkeyup="validateEmail()" required/>
-                    <span id="email-error" class="validation-label"></span> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                    <label for="c_mobile" class="text-black">Discount Amount</label>
-                    <input type="tel" class="form-control" id="discount" name="discount" placeholder="" onkeyup="validatePhone()" required/>
-                    <span id="phone-error" class="validation-label"></span> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                    <label for="c_password" class="text-black">Expiry Date</label>
-                    <input type="date" class="form-control" id="expiry" name="expiry" onkeyup="validatePassword()" required/>
-                    <span id="password-error" class="validation-label"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                    <label for="c_password" class="text-black">Min Purchase Amount</label>
-                    <input type="tel" class="form-control" id="minAmount" name="minAmount" onkeyup="validatePassword()" required/>
-                    <span id="password-error" class="validation-label"></span>
-                    </div>
-                </div>
-                <input type="text" style="display: none;" value="true" name="couponStatus" />
-                <div class="form-group row">
-                    <div class="col-lg-6">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" onclick="return validateForm()" value="Submit">
-                    <span id="submit-error" class="validation-label"></span>
-                    </div>
-                </div>
+      <form action="/admin/add-coupon" id="submit-form" method="post">
+        <div class="p-3 p-lg-5 border ">
+          {{#if Err}}
+          <div>
+            <p class="text-danger">{{Err}}</p>
+          </div>
+          {{/if}}
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label for="c_fname" class="text-black">Coupon Name</label>
+            <input type="text" class="form-control" id="name" name="name" required/>
+            <span id="name-error" class="validation-label"></span>
             </div>
-            </form>
-      
-        <!-- partial -->
-  </div>
-      <!-- main-panel ends -->
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label for="c_email" class="text-black">Coupon Code</label>
+            <input type="text" class="form-control" id="code" name="code" placeholder="" onkeyup="validateEmail()" required/>
+            <span id="email-error" class="validation-label"></span> 
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label for="c_mobile" class="text-black">Discount Amount</label>
+            <input type="tel" class="form-control" id="discount" name="discount" placeholder="" onkeyup="validatePhone()" required/>
+            <span id="phone-error" class="validation-label"></span> 
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label for="c_password" class="text-black">Expiry Date</label>
+            <input type="date" class="form-control" id="expiry" name="expiry" onkeyup="validatePassword()" required/>
+            <span id="password-error" class="validation-label"></span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label for="c_password" class="text-black">Min Purchase Amount</label>
+            <input type="tel" class="form-control" id="minAmount" name="minAmount" onkeyup="validatePassword()" required/>
+            <span id="password-error" class="validation-label"></span>
+            </div>
+          </div>
+          <input type="text" style="display: none;" value="true" name="couponStatus" />
+          <div class="form-group row">
+            <div class="col-lg-6">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" onclick="return validateForm()" value="Submit">
+            <span id="submit-error" class="validation-label"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 </div>
-          <!-- page-body-wrapper ends -->
-        
-        <!-- container-scroller -->
-        <!-- plugins:js -->
-{{!-- <script type="text/javascript" src="/javascripts/signup-validation.js"></script> --}}

@@ -1,73 +1,71 @@
 
-<!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <!-- partial:../../partials/_sidebar.html -->
+  <!-- sidebar -->
  <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/assets/images/faces/face1.jpg" alt="profile">
-          <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">
-            {{#if adminName}}
-            {{adminName}}
-            {{else}}
-            Account
-            {{/if}}
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/product-view">
-        <span class="menu-title">Products</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/user-details">
-        <span class="menu-title">Users</span>
-        <i class="mdi mdi-account menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Categories</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/order-view">
-        <span class="menu-title">Orders</span>
-        <i class="mdi mdi-weight menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/coupon-view">
-        <span class="menu-title">Coupons</span>
-        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/banner-view">
-        <span class="menu-title">Banners</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-  <!-- partial -->
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="/assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">
+              {{#if adminName}}
+              {{adminName}}
+              {{else}}
+              Account
+              {{/if}}
+            </span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/product-view">
+          <span class="menu-title">Products</span>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/user-details">
+          <span class="menu-title">Users</span>
+          <i class="mdi mdi-account menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/category-view">
+          <span class="menu-title">Categories</span>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/order-view">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-weight menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/coupon-view">
+          <span class="menu-title">Coupons</span>
+          <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/banner-view">
+          <span class="menu-title">Banners</span>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- product-view -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
@@ -79,71 +77,51 @@
           </ol>
         </nav>
       </div>
-
-
-    {{!-- <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ADD PRODUCTS"> --}}
-    <a href="/admin/add-products" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn mb-3">ADD PRODUCTS</a>
-
+      <a href="/admin/add-products" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn mb-3">ADD PRODUCTS</a>
       <div class="row">
-            
-            
-            <section>
-                <div class="container">
-
-                   <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="productsTable">
-                        <thead>
-                            <tr>
-                            <th scope="col">No:</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">price</th>
-                            <th scope="col">stock</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each products}}
-                            <tr>
-                            <td>{{inc @index}}</td>
-                            <td>{{this.name}}</td>
-                            <td>{{this.categoryDetails.[0].category}}</td>
-                            <td>{{this.subPrice}}</td>
-                            <td>{{this.productQuantity}}</td>
-                            <td><img style="width: 50px;" src="{{this.image.[0]}}"></td>
-                            <td><a href="/admin/edit-products/{{this.slug}}" class="btn btn-primary">Edit</a></td>
-                            {{#if this.productStatus}}
-                            <td> <button data-toggle="modal" data-target="#unlist{{this._id}}" class="btn btn-danger">Unlist</button></td>
-                            {{else}}
-                            <td> <button data-toggle="modal" data-target="#list{{this._id}}" class="btn btn-success">list</button></td>
-                            {{/if}}
-                            </tr>
-                            {{/each}}
-                            
-                            
-                        </tbody>
-                    </table>
-                    </div>
-
-                </div>
-            </section>
-
+        <section>
+          <div class="container">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="productsTable">
+                <thead>
+                  <tr>
+                    <th scope="col">No:</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">price</th>
+                    <th scope="col">stock</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each products}}
+                  <tr>
+                    <td>{{inc @index}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.categoryDetails.[0].category}}</td>
+                    <td>{{this.subPrice}}</td>
+                    <td>{{this.productQuantity}}</td>
+                    <td><img style="width: 50px;" src="{{this.image.[0]}}"></td>
+                    <td><a href="/admin/edit-products/{{this.slug}}" class="btn btn-primary">Edit</a></td>
+                    {{#if this.productStatus}}
+                    <td> <button data-toggle="modal" data-target="#unlist{{this._id}}" class="btn btn-danger">Unlist</button></td>
+                    {{else}}
+                    <td> <button data-toggle="modal" data-target="#list{{this._id}}" class="btn btn-success">list</button></td>
+                    {{/if}}
+                  </tr>
+                  {{/each}}  
+                </tbody>
+              </table>
+            </div>
           </div>
-      
-
-
-
-
-      
-        <!-- partial -->
+        </section>
+      </div>
   </div>
-      <!-- main-panel ends -->
 </div>
 
 {{#each products}}
-
   <div class="modal fade" id="unlist{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -162,12 +140,10 @@
         </div>
       </div>
     </div>
-  </div>
-                            
+  </div>                    
 {{/each}} 
 
 {{#each products}}
-
   <div class="modal fade" id="list{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -186,16 +162,12 @@
         </div>
       </div>
     </div>
-  </div>
-                            
+  </div>                        
 {{/each}} 
 
     
 <script>
-
   $(document).ready(function () {
     $('#productsTable').DataTable();
   });
-
-
 </script>

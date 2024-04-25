@@ -1,75 +1,71 @@
 
-<!-- partial:../../partials/_navbar.html -->
-
-<!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <!-- partial:../../partials/_sidebar.html -->
- <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/assets/images/faces/face1.jpg" alt="profile">
-          <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">
-            {{#if adminName}}
-            {{adminName}}
-            {{else}}
-            Account
-            {{/if}}
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/product-view">
-        <span class="menu-title">Products</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/user-details">
-        <span class="menu-title">Users</span>
-        <i class="mdi mdi-account menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Categories</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/order-view">
-        <span class="menu-title">Orders</span>
-        <i class="mdi mdi-weight menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/coupon-view">
-        <span class="menu-title">Coupons</span>
-        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/banner-view">
-        <span class="menu-title">Banners</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-  <!-- partial -->
+  <!-- sidebar -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="/assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">
+              {{#if adminName}}
+              {{adminName}}
+              {{else}}
+              Account
+              {{/if}}
+            </span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/product-view">
+          <span class="menu-title">Products</span>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/user-details">
+          <span class="menu-title">Users</span>
+          <i class="mdi mdi-account menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/category-view">
+          <span class="menu-title">Categories</span>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/order-view">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-weight menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/coupon-view">
+          <span class="menu-title">Coupons</span>
+          <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/banner-view">
+          <span class="menu-title">Banners</span>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- order-view -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
@@ -81,189 +77,163 @@
           </ol>
         </nav>
       </div>
-
-
-    {{!-- <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ADD PRODUCTS"> --}}
       <div class="row">
-            
-            
-            <section>
-                <div class="container">
-
-                   <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="orderTable">
-                        <thead>
-                            <tr>
-                            <th scope="col">No:</th>
-                            <th scope="col">Order ID</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Total Amount</th>
-                            <th scope="col">Payment Mehtod</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Details</th>
-                            <th scope="col">Cancel</th>
-                            <th scope="col">Delivery Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each orders}}
-                            <tr>
-                            <td>{{inc @index}}</td>
-                            <td>{{this._id}}</td>
-                            <td>{{this.userDetails.[0].name}}</td>
-                            <td>{{this.totalAmount}}</td>
-                            <td>{{this.paymentMethod}}</td>
-                            <td>{{this.status}}</td>
-                            <td><a href="/admin/order-details/{{this._id}}" class="btn btn-gradient-primary ">Details</a></td>
-                            {{#if this.isDelivered}}
-                            <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancel</button></td>
-                            {{else if this.isReturned}}
-                            <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancel</button></td>
-                            {{else if this.isCancelled}}
-                            <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancelled</button></td>
-                            {{else}}
-                            {{!-- <td><a href="/admin/cancel-order/{{this._id}}" class="btn btn-gradient-danger">cancel Order</a></td> --}}
-                            <td><button type="button" class="btn btn-gradient-danger" data-toggle="modal" data-target="#cancel{{this._id}}">Cancel</button> </td>
-                            {{/if}}
-                            {{!-- <td><a href="/admin/order-shipped/{{this._id}}" class="btn btn-gradient-info">Ship</a></td>
-                            <td><a href="/admin/order-delivered/{{this._id}}" class="btn btn-gradient-success">Deliver</a></td> --}}
-                            {{#if this.isPlaced}}
-                              {{#if this.isCancelled}}
-                              <td> <button class="btn btn-gradient-info" type="button" disabled="disabled" data-toggle="modal" >Ship</button></td>
-                              {{else}}
-                              <td><button type="button" class="btn btn-gradient-info" data-toggle="modal" data-target="#ship{{this._id}}">Ship</button> </td>
-                              {{/if}}
-                              
-                            {{else if this.isShipped}}
-                              {{#if this.isCancelled}}
-                              <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Deliver</button></td>
-                              {{else}}
-                              <td> <button class="btn btn-gradient-success" data-toggle="modal" data-target="#deliver{{this._id}}" >Deliver</button></td>
-                              {{/if}}
-                            {{else if this.isDelivered}}
-                              <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Delivered</button></td>
-                            {{else if this.isRequested}}
-                            <td> <button class="btn btn-gradient-success" data-toggle="modal" data-target="#return{{this._id}}" >Return</button></td>
-                            {{else if this.isReturned}}
-                              <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Returned</button></td>
-                            {{/if}}
-                            </tr>
-                            {{/each}}
-                            
-                            
-                        </tbody>
-                    </table>
-                    </div>
-
-                </div>
-            </section>
-
+        <section>
+          <div class="container">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px" id="orderTable">
+                <thead>
+                  <tr>
+                    <th scope="col">No:</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Payment Mehtod</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Cancel</th>
+                    <th scope="col">Delivery Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each orders}}
+                  <tr>
+                  <td>{{inc @index}}</td>
+                  <td>{{this._id}}</td>
+                  <td>{{this.userDetails.[0].name}}</td>
+                  <td>{{this.totalAmount}}</td>
+                  <td>{{this.paymentMethod}}</td>
+                  <td>{{this.status}}</td>
+                  <td><a href="/admin/order-details/{{this._id}}" class="btn btn-gradient-primary ">Details</a></td>
+                  {{#if this.isDelivered}}
+                  <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancel</button></td>
+                  {{else if this.isReturned}}
+                  <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancel</button></td>
+                  {{else if this.isCancelled}}
+                  <td> <button class="btn btn-gradient-danger" type="button" disabled="disabled" data-toggle="modal" >Cancelled</button></td>
+                  {{else}}
+                  <td><button type="button" class="btn btn-gradient-danger" data-toggle="modal" data-target="#cancel{{this._id}}">Cancel</button> </td>
+                  {{/if}}
+                  {{#if this.isPlaced}}
+                    {{#if this.isCancelled}}
+                    <td> <button class="btn btn-gradient-info" type="button" disabled="disabled" data-toggle="modal" >Ship</button></td>
+                    {{else}}
+                    <td><button type="button" class="btn btn-gradient-info" data-toggle="modal" data-target="#ship{{this._id}}">Ship</button> </td>
+                    {{/if}}
+                  {{else if this.isShipped}}
+                    {{#if this.isCancelled}}
+                    <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Deliver</button></td>
+                    {{else}}
+                    <td> <button class="btn btn-gradient-success" data-toggle="modal" data-target="#deliver{{this._id}}" >Deliver</button></td>
+                    {{/if}}
+                  {{else if this.isDelivered}}
+                    <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Delivered</button></td>
+                  {{else if this.isRequested}}
+                  <td> <button class="btn btn-gradient-success" data-toggle="modal" data-target="#return{{this._id}}" >Return</button></td>
+                  {{else if this.isReturned}}
+                    <td> <button class="btn btn-gradient-success" type="button" disabled="disabled" data-toggle="modal" >Returned</button></td>
+                  {{/if}}
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
+        </section>
+      </div>
   </div>
 </div>
 
-        {{#each orders}}
+{{#each orders}}
+  <div class="modal fade" id="ship{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to ship this {{this._id}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/order-shipped/{{this._id}}" type="button" class="btn btn-gradient-info">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>                       
+{{/each}}
 
-          <div class="modal fade" id="ship{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>You want to ship this {{this._id}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <a href="/admin/order-shipped/{{this._id}}" type="button" class="btn btn-gradient-info">Yes</a> 
-                </div>
-              </div>
-            </div>
-          </div>
-                                    
-        {{/each}}
+{{#each orders}}
+  <div class="modal fade" id="deliver{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to deliver this {{this._id}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/order-delivered/{{this._id}}" type="button" class="btn btn-gradient-success">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>                       
+{{/each}}
 
-        {{#each orders}}
+{{#each orders}}
+  <div class="modal fade" id="cancel{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to cancel this {{this._id}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/cancel-order/{{this._id}}" type="button" class="btn btn-gradient-danger">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>                           
+{{/each}}
 
-          <div class="modal fade" id="deliver{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>You want to deliver this {{this._id}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <a href="/admin/order-delivered/{{this._id}}" type="button" class="btn btn-gradient-success">Yes</a> 
-                </div>
-              </div>
-            </div>
-          </div>
-                                    
-        {{/each}}
-
-        {{#each orders}}
-
-          <div class="modal fade" id="cancel{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>You want to cancel this {{this._id}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <a href="/admin/cancel-order/{{this._id}}" type="button" class="btn btn-gradient-danger">Yes</a> 
-                </div>
-              </div>
-            </div>
-          </div>
-                                    
-        {{/each}}
-
-        {{#each orders}}
-
-          <div class="modal fade" id="return{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>You want to return this {{this._id}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <a href="/admin/return-order/{{this._id}}" type="button" class="btn btn-gradient-danger">Yes</a> 
-                </div>
-              </div>
-            </div>
-          </div>
-                                    
-        {{/each}}    
-
+{{#each orders}}
+  <div class="modal fade" id="return{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You want to return this {{this._id}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="/admin/return-order/{{this._id}}" type="button" class="btn btn-gradient-danger">Yes</a> 
+        </div>
+      </div>
+    </div>
+  </div>                      
+{{/each}}    
 
 <script>
-
   $(document).ready(function () {
     $('#orderTable').DataTable();
   });
-
-
 </script>

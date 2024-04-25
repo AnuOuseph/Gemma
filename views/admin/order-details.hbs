@@ -1,83 +1,79 @@
 
-<!-- partial:../../partials/_navbar.html -->
-
-<!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <!-- partial:../../partials/_sidebar.html -->
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/assets/images/faces/face1.jpg" alt="profile">
-          <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">
-            {{#if adminName}}
-            {{adminName}}
-            {{else}}
-            Account
-            {{/if}}
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/product-view">
-        <span class="menu-title">Products</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/user-details">
-        <span class="menu-title">Users</span>
-        <i class="mdi mdi-account menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/category-view">
-        <span class="menu-title">Categories</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/order-view">
-        <span class="menu-title">Orders</span>
-        <i class="mdi mdi-weight menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/coupon-view">
-        <span class="menu-title">Coupons</span>
-        <i class="mdi mdi-vector-arrange-above menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/banner-view">
-        <span class="menu-title">Banners</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-  <!-- partial -->
+  <!-- sidebar -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="/assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">
+              {{#if adminName}}
+              {{adminName}}
+              {{else}}
+              Account
+              {{/if}}
+            </span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/product-view">
+          <span class="menu-title">Products</span>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/user-details">
+          <span class="menu-title">Users</span>
+          <i class="mdi mdi-account menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/category-view">
+          <span class="menu-title">Categories</span>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/order-view">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-weight menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/coupon-view">
+          <span class="menu-title">Coupons</span>
+          <i class="mdi mdi-vector-arrange-above menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/banner-view">
+          <span class="menu-title">Banners</span>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- order-details -->
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
         <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> Order Details
-              </h3>
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-home"></i>
+          </span> Order Details
+        </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Oders</a></li>
@@ -85,93 +81,74 @@
           </ol>
         </nav>
       </div>
-
-
-    {{!-- <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ADD PRODUCTS"> --}}
-      <div class="row">
-            
-            
-            <section>
-                <div class="container">
-                   <div class="row">
-                    <div class="col-md-7 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body bg-gradient-danger text-white">
-                          <div class="clearfix p-4">
-                            <h4 class="card-title">Order Summary</h4>
-                            <div class="d-flex">
-                            <h4>Order ID:</h4>
-                            <h4 class="card-title float-left px-3">{{details._id}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>User ID:</h4>
-                            <h4 class="card-title float-left px-3">{{details.userId}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>User Name:</h4>
-                            <h4 class="card-title float-left px-3">{{details.deliveryDetails.name}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>Delivery Address:</h4>
-                            <h4 class="card-title float-left px-3">{{details.deliveryDetails.address}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>Order placed:</h4>
-                            <h4 class="card-title float-left px-3">{{details.date}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>Total Amount:</h4>
-                            <h4 class="card-title float-left px-3">{{details.totalAmount}}</h4>
-                            </div> 
-                            <div class="d-flex">
-                            <h4>Payment Method:</h4>
-                            <h4 class="card-title float-left px-3">{{details.paymentMethod}}</h4>
-                            </div>
-                            <div class="d-flex">
-                            <h4>Payment Status:</h4>
-                            <h4 class="card-title float-left px-3">{{details.status}}</h4>
-                            </div>
-                          </div>
-                        </div>
+      <div class="row">  
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body bg-gradient-danger text-white">
+                    <div class="clearfix p-4">
+                      <h4 class="card-title">Order Summary</h4>
+                      <div class="d-flex">
+                        <h4>Order ID:</h4>
+                        <h4 class="card-title float-left px-3">{{details._id}}</h4>
                       </div>
-                    </div>
-                    <div class="col-md-5 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body bg-gradient-info text-white">
-                          <h4 class="card-title">Order Items</h4>
-                          {{#each products}}
-                          <div class="d-flex p-4 border m-2">
-                          <div class="col-md-3">
-                          <img src="{{this.product.image.[0]}}" alt="" class="img-fluid" style="width: 100px; border-radius:20px">
-                          </div>
-                          <div>
-                         
-                            <h5 class="text-dark float-left px-3">{{this.product.name}}</h5>
-                            
-                            <h5 class="text-dark float-left px-3">{{this.product.price}}</h5>
-                            
-                            <h5 class="text-dark float-left px-3">Metal: {{this.product.metal}}</h5>
-
-                            <h5 class="text-dark float-left px-3">Quantity: {{this.quantity}}</h5>
-                            
-                          </div>
-                          </div>
-                          {{/each}}
-                        </div>
+                      <div class="d-flex">
+                        <h4>User ID:</h4>
+                        <h4 class="card-title float-left px-3">{{details.userId}}</h4>
+                      </div>
+                      <div class="d-flex">
+                        <h4>User Name:</h4>
+                        <h4 class="card-title float-left px-3">{{details.deliveryDetails.name}}</h4>
+                      </div>
+                      <div class="d-flex">
+                        <h4>Delivery Address:</h4>
+                        <h4 class="card-title float-left px-3">{{details.deliveryDetails.address}}</h4>
+                      </div>
+                      <div class="d-flex">
+                        <h4>Order placed:</h4>
+                        <h4 class="card-title float-left px-3">{{details.date}}</h4>
+                      </div>
+                      <div class="d-flex">
+                        <h4>Total Amount:</h4>
+                        <h4 class="card-title float-left px-3">{{details.totalAmount}}</h4>
+                      </div> 
+                      <div class="d-flex">
+                        <h4>Payment Method:</h4>
+                        <h4 class="card-title float-left px-3">{{details.paymentMethod}}</h4>
+                      </div>
+                      <div class="d-flex">
+                        <h4>Payment Status:</h4>
+                        <h4 class="card-title float-left px-3">{{details.status}}</h4>
                       </div>
                     </div>
                   </div>
                 </div>
-            </section>
-
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body bg-gradient-info text-white">
+                    <h4 class="card-title">Order Items</h4>
+                    {{#each products}}
+                    <div class="d-flex p-4 border m-2">
+                      <div class="col-md-3">
+                        <img src="{{this.product.image.[0]}}" alt="" class="img-fluid" style="width: 100px; border-radius:20px">
+                      </div>
+                      <div>
+                        <h5 class="text-dark float-left px-3">{{this.product.name}}</h5>
+                        <h5 class="text-dark float-left px-3">{{this.product.price}}</h5>
+                        <h5 class="text-dark float-left px-3">Metal: {{this.product.metal}}</h5>
+                        <h5 class="text-dark float-left px-3">Quantity: {{this.quantity}}</h5>  
+                      </div>
+                    </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-      
-
-
-
-
-      
-        <!-- partial -->
+        </section>
+      </div>
   </div>
-      <!-- main-panel ends -->
 </div>
